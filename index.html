@@ -3,6 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- Language Init Script (Blocks Render to avoid flash) -->
+  <script>
+    if (localStorage.getItem('lang') === 'ar') {
+      document.documentElement.setAttribute('dir', 'rtl');
+    }
+  </script>
+
   <title>1st Cardio Portsaid Conference 2026 — A New Pulse for Cardiac Care</title>
   <meta name="description" content="Join the 1st Cardio Portsaid Conference on October 15–16, 2026 at Helnan Portfoud Hotel, Port Said, Egypt. A world-class cardiac summit led by Prof. Mohamed Imam." />
   <meta name="keywords" content="Cardio Portsaid, cardiac conference, cardiology 2026, Port Said, Egypt, interventional cardiology" />
@@ -17,7 +25,7 @@
   <script src="https://cdn.jsdelivr.net/npm/split-type@0.3.4/umd/index.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Outfit:wght@300;400;500;600&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet" />
 
   <style>
     /* ========================
@@ -258,12 +266,23 @@
     .nav-links a {
       color: var(--text-secondary);
       text-decoration: none;
-      font-size: 0.85rem;
-      letter-spacing: 0.06em;
+      font-size: 0.9rem;
+      font-weight: 500;
       transition: color 0.3s;
-      font-weight: 400;
     }
     .nav-links a:hover { color: var(--text-primary); }
+    .lang-btn {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border-active);
+      color: var(--text-primary);
+      padding: 6px 14px;
+      border-radius: 4px;
+      font-family: 'Tajawal', 'Outfit', sans-serif;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .lang-btn:hover { background: rgba(139,43,226,0.15); border-color: var(--primary-bright); }
     .nav-cta {
       padding: 8px 22px !important;
       border-radius: 4px;
@@ -1620,10 +1639,148 @@
       #navbar.scrolled { padding: 0.7rem 1.5rem; }
       .nav-links { display: none; }
       .nav-hamburger { display: block; }
-      .board-grid { grid-template-columns: repeat(2, 1fr); }
-      .packages-row { grid-template-columns: 1fr; gap: 3.5rem; }
-      .event-details-grid { grid-template-columns: 1fr; }
-      .alacarte-grid { grid-template-columns: 1fr; }
+      
+      /* Horizontal Scroll Cards for Mobile */
+      .board-grid {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 1rem;
+        padding-bottom: 1.5rem;
+        margin-right: -1.5rem;
+        padding-right: 1.5rem;
+        -webkit-overflow-scrolling: touch;
+      }
+      .board-grid::-webkit-scrollbar { height: 4px; }
+      .board-grid::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
+      .board-grid::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
+      
+      .board-last-row {
+        display: contents;
+      }
+      
+      .board-card {
+        flex: 0 0 170px;
+        aspect-ratio: 1 / 1;
+        scroll-snap-align: start;
+        padding: 1.25rem 0.75rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .board-card .board-icon { margin-bottom: 0.75rem; }
+      .board-card-name { font-size: 0.9rem; line-height: 1.2; text-align: center; }
+      .board-card-role { font-size: 0.75rem; margin-top: 0.25rem; text-align: center; }
+      
+      .packages-grid {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 1rem;
+        padding-bottom: 1.5rem;
+        margin-right: -1.5rem;
+        padding-right: 1.5rem;
+        -webkit-overflow-scrolling: touch;
+      }
+      .packages-grid::-webkit-scrollbar { height: 4px; }
+      .packages-grid::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
+      .packages-grid::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
+      
+      .packages-row {
+        display: contents;
+      }
+      
+      .package-card {
+        flex: 0 0 250px;
+        scroll-snap-align: start;
+        padding: 0 0 2rem 0;
+        font-size: 0.9rem;
+      }
+      .package-header {
+        padding: 1.5rem 1rem;
+      }
+      .package-price {
+        font-size: 1.5rem;
+      }
+      .feature-list {
+        padding: 1rem 1.25rem;
+        gap: 0.5rem;
+      }
+      .feature-list li {
+        font-size: 0.82rem;
+      }
+      
+      .alacarte-grid {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 1rem;
+        padding-bottom: 1.5rem;
+        margin-right: -1.5rem;
+        padding-right: 1.5rem;
+      }
+      .alacarte-grid::-webkit-scrollbar { height: 4px; }
+      .alacarte-item {
+        flex: 0 0 150px;
+        aspect-ratio: 1 / 1;
+        scroll-snap-align: start;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0.75rem;
+      }
+      .alacarte-item span { font-size: 0.82rem; text-align: center; }
+      
+      .event-details-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+      }
+      .event-detail-item {
+        padding: 0.8rem;
+      }
+      .event-detail-label {
+        font-size: 0.75rem;
+      }
+      .event-detail-value {
+        font-size: 0.82rem;
+      }
+      
+      .register-card {
+        padding: 1.5rem;
+        border-radius: 12px;
+      }
+      .price-display {
+        padding: 0.8rem 1rem;
+        margin-bottom: 0.75rem;
+      }
+      .price-label {
+        font-size: 0.82rem;
+      }
+      .price-value {
+        font-size: 1rem;
+      }
+      .register-includes {
+        margin-top: 1.25rem;
+        margin-bottom: 1.25rem;
+      }
+      .register-includes h4 {
+        font-size: 0.75rem;
+        margin-bottom: 0.75rem;
+      }
+      .include-item {
+        padding: 0.45rem 0;
+        font-size: 0.82rem;
+      }
+      .register-cta {
+        padding: 14px 12px;
+        font-size: 0.9rem;
+      }
+      
       .hero-ctas { flex-direction: column; align-items: center; }
       footer { padding: 4rem 1.5rem 2rem; }
       .footer-details { gap: 2rem; }
@@ -1632,12 +1789,52 @@
 
     @media (max-width: 480px) {
       section { padding: 4rem 1.25rem; }
-      .board-grid { grid-template-columns: 1fr; }
       .agenda-day-tabs { overflow-x: auto; -webkit-overflow-scrolling: touch; }
       .cursor-dot, .cursor-ring { display: none; }
       body { cursor: auto; }
       .talent-inner { grid-template-columns: 1fr; }
     }
+
+    /* RTL / ARABIC MODE */
+    html[dir="rtl"] body {
+      font-family: 'Tajawal', 'Outfit', sans-serif;
+      text-align: right;
+    }
+    html[dir="rtl"] .section-title {
+      font-family: 'Tajawal', 'Cinzel', serif;
+    }
+    html[dir="rtl"] .nav-logo {
+      font-family: 'Tajawal', sans-serif;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+    html[dir="rtl"] .nav-links {
+      margin-left: 0;
+      margin-right: auto;
+    }
+    html[dir="rtl"] .hero-meta .divider, html[dir="rtl"] .footer-links .sep {
+      display: inline-block;
+      transform: scaleX(-1);
+    }
+    html[dir="rtl"] .btn-primary::after {
+      content: '←';
+      right: auto;
+      left: -1.5rem;
+    }
+    html[dir="rtl"] .btn-primary:hover::after {
+      right: auto;
+      left: 1rem;
+    }
+    html[dir="rtl"] .btn-primary:hover {
+      padding-right: 44px;
+      padding-left: 60px;
+    }
+    html[dir="rtl"] .session-title { padding-left: 0; padding-right: 1.2rem; }
+    html[dir="rtl"] .session-title::before { left: auto; right: -1rem; }
+    html[dir="rtl"] .about-visual::after { left: auto; right: 2rem; }
+    html[dir="rtl"] .clip-reveal { clip-path: inset(0 0 0 100%); }
+    html[dir="rtl"] .package-price { flex-direction: row-reverse; justify-content: center; }
+
 
     /* Reduced motion */
     @media (prefers-reduced-motion: reduce) {
@@ -1768,26 +1965,28 @@
 <!-- Mobile Menu -->
 <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Navigation menu">
   <button class="mobile-close" id="mobileClose" aria-label="Close menu">✕</button>
-  <a href="#welcome" onclick="closeMobileMenu()">Welcome</a>
-  <a href="#about" onclick="closeMobileMenu()">About</a>
-  <a href="#board" onclick="closeMobileMenu()">Board</a>
-  <a href="#agenda" onclick="closeMobileMenu()">Agenda</a>
-  <a href="#sponsorship" onclick="closeMobileMenu()">Sponsors</a>
-  <a href="#got-talent" onclick="closeMobileMenu()">Special Event</a>
-  <a href="#register" onclick="closeMobileMenu()" style="color:var(--primary-bright)">Register</a>
+  <a href="#welcome" onclick="closeMobileMenu()" data-ar="الترحيب">Welcome</a>
+  <a href="#about" onclick="closeMobileMenu()" data-ar="عن المؤتمر">About</a>
+  <a href="#board" onclick="closeMobileMenu()" data-ar="اللجنة المنظمة">Board</a>
+  <a href="#agenda" onclick="closeMobileMenu()" data-ar="الأجندة">Agenda</a>
+  <a href="#sponsorship" onclick="closeMobileMenu()" data-ar="الرعاة">Sponsors</a>
+  <a href="#got-talent" onclick="closeMobileMenu()" data-ar="فعالية خاصة">Special Event</a>
+  <a href="#register" onclick="closeMobileMenu()" style="color:var(--primary-bright)" data-ar="التسجيل">Register</a>
+  <button onclick="toggleLang()" class="lang-btn" style="margin-top:1rem;">العربية</button>
 </div>
 
 <!-- NAVBAR -->
 <nav id="navbar" role="navigation" aria-label="Main navigation">
-  <a href="#hero" class="nav-logo">Cardio<span>Portsaid</span></a>
+  <a href="#hero" class="nav-logo" data-ar="كارديو <span>بورسعيد</span>">Cardio<span>Portsaid</span></a>
   <ul class="nav-links">
-    <li><a href="#welcome">Welcome</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#board">Board</a></li>
-    <li><a href="#agenda">Agenda</a></li>
-    <li><a href="#sponsorship">Sponsors</a></li>
-    <li><a href="#got-talent">Special Event</a></li>
-    <li><a href="#register" class="nav-cta">Register</a></li>
+    <li><a href="#welcome" data-ar="الترحيب">Welcome</a></li>
+    <li><a href="#about" data-ar="عن المؤتمر">About</a></li>
+    <li><a href="#board" data-ar="اللجنة المنظمة">Board</a></li>
+    <li><a href="#agenda" data-ar="الأجندة">Agenda</a></li>
+    <li><a href="#sponsorship" data-ar="الرعاة">Sponsors</a></li>
+    <li><a href="#got-talent" data-ar="فعالية خاصة">Special Event</a></li>
+    <li><button onclick="toggleLang()" class="lang-btn">العربية</button></li>
+    <li><a href="#register" class="nav-cta" data-ar="سجل الآن">Register</a></li>
   </ul>
   <button class="nav-hamburger" id="menuToggle" aria-label="Open navigation menu" aria-expanded="false">☰</button>
 </nav>
@@ -1799,24 +1998,24 @@
   <div class="hero-orb hero-orb-1" aria-hidden="true"></div>
   <div class="hero-orb hero-orb-2" aria-hidden="true"></div>
 
-  <div class="hero-badge" id="heroBadge">1<sup>st</sup> Edition · October 2026</div>
+  <div class="hero-badge" id="heroBadge" data-ar="النسخة الأولى · أكتوبر ٢٠٢٦">1<sup>st</sup> Edition · October 2026</div>
 
   <div class="hero-title-block" id="heroTitleBlock">
-    <span class="hero-edition">1<sup>st</sup></span>
-    <h1 class="hero-name" id="hero-heading">Cardio<br>Portsaid</h1>
+    <span class="hero-edition" data-ar="الأولى">1<sup>st</sup></span>
+    <h1 class="hero-name" id="hero-heading" data-ar="كارديو<br>بورسعيد">Cardio<br>Portsaid</h1>
   </div>
 
-  <p class="hero-tagline" id="heroTagline">A New Pulse for Cardiac Care</p>
+  <p class="hero-tagline" id="heroTagline" data-ar="نبض جديد لرعاية القلب">A New Pulse for Cardiac Care</p>
 
   <div class="hero-meta" id="heroMeta">
-    <span>📅 15–16 October 2026</span>
-    <span class="divider">·</span>
-    <span>📍 Helnan Portfoud Hotel, Port Said, Egypt</span>
+    <span class="meta-item"><span class="meta-icon">📅</span> <span data-ar="١٥-١٦ أكتوبر ٢٠٢٦">October 15–16, 2026</span></span>
+    <span class="divider">|</span>
+    <span class="meta-item"><span class="meta-icon">📍</span> <span data-ar="فندق هلنان بورفؤاد">Helnan Portfoud Hotel</span></span>
   </div>
 
   <div class="hero-ctas" id="heroCTAs">
-    <span class="btn-magnetic"><a href="#register" class="btn-primary" id="heroRegisterBtn">Register Now</a></span>
-    <span class="btn-magnetic"><a href="#agenda" class="btn-ghost" id="heroAgendaBtn">View Agenda</a></span>
+    <span class="btn-magnetic"><a href="#register" class="btn-primary" id="heroRegisterBtn" data-ar="احجز مقعدك">Register Now</a></span>
+    <span class="btn-magnetic"><a href="#agenda" class="btn-ghost" id="heroAgendaBtn" data-ar="عرض الأجندة">View Agenda</a></span>
   </div>
 
   <div class="scroll-hint" id="scrollHint" aria-hidden="true">
@@ -1836,18 +2035,19 @@
 <!-- ===== WELCOME MESSAGE ===== -->
 <section id="welcome" aria-labelledby="welcome-heading">
   <div class="welcome-card" id="welcomeCard">
-    <div class="section-label" style="text-align:left; margin-bottom:2rem;">— Welcome Message —</div>
+    <div class="welcome-badge" data-ar="رسالة رئيس المؤتمر">Message from the President</div>
     <div class="welcome-quote">
-      <p>Thank you for joining us at the first edition of Cardio Port Said Conference!</p>
-      <p>We are delighted to welcome you to this inaugural scientific gathering, bringing together cardiology professionals to share knowledge, discuss the latest advances, and strengthen collaboration in cardiovascular medicine.</p>
-      <p>This first edition marks an important milestone for Port Said, and we sincerely thank all speakers, attendees, organizers, partners, and supporters for making it possible.</p>
-      <p>Your presence and engagement are the true pulse of this conference.</p>
-      <p>We look forward to welcoming you to many successful editions ahead!</p>
+      <p data-ar="زملائي الأعزاء،">Dear Colleagues,</p>
+      <p data-ar="يسعدني أن أرحب بكم في النسخة الأولى من مؤتمر كارديو بورسعيد، التجمع الرائد في مجال طب القلب التداخلي.">
+        It is with great pleasure that I welcome you to the 1st Cardio Portsaid Conference, 
+        a premier gathering dedicated to advancing interventional cardiology.
+      </p>
+      <p data-ar="يوفر مؤتمرنا منصة حيوية لتبادل المعرفة، الابتكار السريري، والتواصل بين الخبراء. معاً، نشكل مستقبل رعاية القلب.">
+        Our conference provides a vital platform for knowledge exchange, clinical innovation, 
+        and expert networking. Together, we shape the future of cardiac care.
+      </p>
     </div>
-    <div class="welcome-signature">
-      Prof. Mohamed Imam
-      <span>Conference President</span>
-    </div>
+    <div class="welcome-signature" data-ar="أ.د. محمد إمام">Prof. Mohamed Imam</div>
   </div>
 </section>
 
@@ -1860,45 +2060,45 @@
         <div class="president-icon">🫀</div>
       </div>
       <div>
-        <p class="president-name">Prof. Mohamed Imam</p>
-        <p class="president-title">Conference President</p>
+        <p class="president-name" data-ar="أ.د. محمد إمام">Prof. Mohamed Imam</p>
+        <p class="president-title" data-ar="رئيس المؤتمر">Conference President</p>
       </div>
-      <span class="president-role">✦ Conference President</span>
+      <span class="president-role" data-ar="✦ رئيس المؤتمر">✦ Conference President</span>
     </div>
     <div class="about-text">
       <div class="section-header" style="text-align:left;margin-bottom:2rem;">
-        <span class="section-label">— About the Conference —</span>
+        <span class="section-label" data-ar="— عن المؤتمر —">— About the Conference —</span>
       <h2 class="section-title" id="about-heading">
-        <div class="split-target">A World-Class</div>
-        <div class="split-target primary-text">Cardiac Summit</div>
+        <div class="split-target" data-ar="قمة عالمية">A World-Class</div>
+        <div class="split-target primary-text" data-ar="لطب القلب">Cardiac Summit</div>
       </h2>
       </div>
-      <p>
+      <p data-ar="يجمع مؤتمر كارديو بورسعيد الأول نخبة من أبرز أطباء القلب التداخلي في مصر، ليقدم برنامجاً علمياً مكثفاً يغطي أحدث التطورات، الحالات المعقدة، والتقنيات المبتكرة في هذا المجال.">
         The 1st Cardio Portsaid Conference brings together Egypt's leading interventional cardiologists,
         electrophysiologists, cardiac surgeons, and allied health professionals for two days of
         cutting-edge science, live case presentations, and expert debates.
       </p>
-      <p>
+      <p data-ar="تحت رعاية <strong style='color:var(--accent-gold)'>أ.د. محمد إمام</strong>، يضع هذا المؤتمر الافتتاحي معياراً جديداً للتعليم الطبي في مجال طب القلب في بورسعيد والمجتمع الطبي المصري بأكمله.">
         Under the presidency of <strong style="color:var(--accent-gold)">Prof. Mohamed Imam</strong>,
         this inaugural conference sets a new benchmark for cardiac education in Port Said and the
         broader Egyptian medical community.
       </p>
       <div class="event-details-grid reveal-stagger">
         <div class="event-detail-item">
-          <div class="event-detail-label">Date</div>
-          <div class="event-detail-value">October 15–16, 2026</div>
+          <div class="event-detail-label" data-ar="التاريخ">Date</div>
+          <div class="event-detail-value" data-ar="١٥–١٦ أكتوبر ٢٠٢٦">October 15–16, 2026</div>
         </div>
         <div class="event-detail-item">
-          <div class="event-detail-label">Venue</div>
-          <div class="event-detail-value">Helnan Portfoud Hotel</div>
+          <div class="event-detail-label" data-ar="المكان">Venue</div>
+          <div class="event-detail-value" data-ar="فندق هلنان بورفؤاد">Helnan Portfoud Hotel</div>
         </div>
         <div class="event-detail-item">
-          <div class="event-detail-label">Location</div>
-          <div class="event-detail-value">Port Said, Egypt</div>
+          <div class="event-detail-label" data-ar="الموقع">Location</div>
+          <div class="event-detail-value" data-ar="بورسعيد، مصر">Port Said, Egypt</div>
         </div>
         <div class="event-detail-item">
-          <div class="event-detail-label">Organizer</div>
-          <div class="event-detail-value">MSquare</div>
+          <div class="event-detail-label" data-ar="المنظم">Organizer</div>
+          <div class="event-detail-value" data-ar="إم سكوير">MSquare</div>
         </div>
       </div>
     </div>
@@ -1915,39 +2115,39 @@
 <!-- ===================== -->
 <section id="board" aria-labelledby="board-heading">
   <div class="section-header">
-    <span class="section-label">— Scientific Committee —</span>
-    <h2 class="section-title" id="board-heading">Board of Excellence</h2>
-    <p class="section-subtitle">Egypt's foremost cardiac specialists convening to shape the future of cardiac care.</p>
+    <span class="section-label" data-ar="— اللجنة العلمية —">— Scientific Committee —</span>
+    <h2 class="section-title" id="board-heading" data-ar="نخبة الخبراء">Board of Excellence</h2>
+    <p class="section-subtitle" data-ar="أبرز أخصائيي القلب في مصر يجتمعون لتشكيل مستقبل رعاية القلب.">Egypt's foremost cardiac specialists convening to shape the future of cardiac care.</p>
   </div>
 
   <div class="board-grid">
     <!-- Row 1: three members -->
     <div class="board-card">
       <div class="avatar-ring" aria-hidden="true">👨‍⚕️</div>
-      <p class="board-card-name">Prof. Mohamed<br>Abdel Ghany</p>
-      <p class="board-card-role">Scientific Committee</p>
+      <p class="board-card-name" data-ar="أ.د. محمد<br>عبد الغني">Prof. Mohamed<br>Abdel Ghany</p>
+      <p class="board-card-role" data-ar="اللجنة العلمية">Scientific Committee</p>
     </div>
     <div class="board-card" style="border-color:rgba(201,168,76,0.4);background:linear-gradient(135deg,rgba(201,168,76,0.07),rgba(15,8,25,0.9))">
       <div class="avatar-ring" style="border-color:var(--accent-gold);box-shadow:0 0 25px rgba(201,168,76,0.3);" aria-hidden="true">🫀</div>
-      <p class="board-card-name">Prof. Mohamed<br>Imam</p>
-      <p class="board-card-role" style="color:var(--accent-gold)">Conference President</p>
+      <p class="board-card-name" data-ar="أ.د. محمد<br>إمام">Prof. Mohamed<br>Imam</p>
+      <p class="board-card-role" style="color:var(--accent-gold)" data-ar="رئيس المؤتمر">Conference President</p>
     </div>
     <div class="board-card">
       <div class="avatar-ring" aria-hidden="true">👨‍⚕️</div>
-      <p class="board-card-name">Prof. Ashraf<br>Ahmed</p>
-      <p class="board-card-role">Scientific Committee</p>
+      <p class="board-card-name" data-ar="أ.د. أشرف<br>أحمد">Prof. Ashraf<br>Ahmed</p>
+      <p class="board-card-role" data-ar="اللجنة العلمية">Scientific Committee</p>
     </div>
     <!-- Row 2: two members — centered via flex wrapper -->
     <div class="board-last-row">
       <div class="board-card">
         <div class="avatar-ring" aria-hidden="true">👨‍⚕️</div>
-        <p class="board-card-name">Prof. Mohamed<br>Alam Eddin</p>
-        <p class="board-card-role">Scientific Committee</p>
+        <p class="board-card-name" data-ar="أ.د. محمد<br>علم الدين">Prof. Mohamed<br>Alam Eddin</p>
+        <p class="board-card-role" data-ar="اللجنة العلمية">Scientific Committee</p>
       </div>
       <div class="board-card">
         <div class="avatar-ring" aria-hidden="true">👨‍⚕️</div>
-        <p class="board-card-name">Prof. Mohamed<br>Atta</p>
-        <p class="board-card-role">Scientific Committee</p>
+        <p class="board-card-name" data-ar="أ.د. محمد<br>عطا">Prof. Mohamed<br>Atta</p>
+        <p class="board-card-role" data-ar="اللجنة العلمية">Scientific Committee</p>
       </div>
     </div>
   </div>
@@ -1963,18 +2163,18 @@
 <!-- ===================== -->
 <section id="agenda" aria-labelledby="agenda-heading">
   <div class="section-header">
-    <span class="section-label">— Scientific Program —</span>
-    <h2 class="section-title" id="agenda-heading">Conference Agenda</h2>
-    <p class="section-subtitle">Two intensive days of cutting-edge sessions across two halls — Royal Hall & Regina Hall.</p>
+    <span class="section-label" data-ar="— البرنامج العلمي —">— Scientific Program —</span>
+    <h2 class="section-title" id="agenda-heading" data-ar="أجندة المؤتمر">Conference Agenda</h2>
+    <p class="section-subtitle" data-ar="يومان مكثفان من الجلسات العلمية المتطورة موزعة على قاعتين — قاعة رويال وقاعة ريجينا.">Two intensive days of cutting-edge sessions across two halls — Royal Hall & Regina Hall.</p>
   </div>
 
   <div class="agenda-container">
     <!-- Day Tabs -->
     <div class="agenda-day-tabs" role="tablist" aria-label="Conference days">
-      <button class="agenda-day-tab active" data-day="day1" role="tab" aria-selected="true" aria-controls="day1-panel" id="day1-tab">
+      <button class="agenda-day-tab active" data-day="day1" role="tab" aria-selected="true" aria-controls="day1-panel" id="day1-tab" data-ar="📅 اليوم الأول — ١٥ أكتوبر">
         📅 Day 1 — October 15
       </button>
-      <button class="agenda-day-tab" data-day="day2" role="tab" aria-selected="false" aria-controls="day2-panel" id="day2-tab">
+      <button class="agenda-day-tab" data-day="day2" role="tab" aria-selected="false" aria-controls="day2-panel" id="day2-tab" data-ar="📅 اليوم الثاني — ١٦ أكتوبر">
         📅 Day 2 — October 16
       </button>
     </div>
@@ -1983,53 +2183,53 @@
     <div class="agenda-day-panel active" id="day1-panel" role="tabpanel" aria-labelledby="day1-tab">
       <!-- Hall Tabs -->
       <div class="agenda-hall-tabs" role="tablist" aria-label="Conference halls">
-        <button class="agenda-hall-tab active" data-hall="day1-royal" role="tab" aria-selected="true">🏛 Royal Hall</button>
-        <button class="agenda-hall-tab" data-hall="day1-regina" role="tab" aria-selected="false">🏛 Regina Hall</button>
+        <button class="agenda-hall-tab active" data-hall="day1-royal" role="tab" aria-selected="true" data-ar="🏛 قاعة رويال">🏛 Royal Hall</button>
+        <button class="agenda-hall-tab" data-hall="day1-regina" role="tab" aria-selected="false" data-ar="🏛 قاعة ريجينا">🏛 Regina Hall</button>
       </div>
 
       <!-- Day 1 — Royal Hall -->
       <div class="agenda-hall-panel active" id="day1-royal">
         <div class="session-block break-block">
           <div class="time-badge">09:00 – 10:00</div>
-          <p class="talk-title" style="color:var(--accent-gold)">🚪 Arrival &amp; Registration</p>
+          <p class="talk-title" style="color:var(--accent-gold)" data-ar="🚪 الوصول والتسجيل">🚪 Arrival &amp; Registration</p>
         </div>
         <div class="session-block">
           <div class="time-badge">10:00 – 10:15</div>
-          <p class="talk-title">Welcome Speech — Prof. Mohamed Imam</p>
+          <p class="talk-title" data-ar="الكلمة الترحيبية — أ.د. محمد إمام">Welcome Speech — Prof. Mohamed Imam</p>
         </div>
 
         <div class="session-block">
-          <p class="session-title">Session 1 — Coronary Intervention</p>
+          <p class="session-title" data-ar="الجلسة الأولى — قسطرة الشرايين التاجية">Session 1 — Coronary Intervention</p>
           <ul class="talk-list">
-            <li class="talk-item"><span class="talk-time">10:15 – 10:30</span><span class="talk-dot"></span><span class="talk-title">No-reflow, new ways to overcome it</span></li>
-            <li class="talk-item"><span class="talk-time">10:30 – 10:45</span><span class="talk-dot"></span><span class="talk-title">Acute coronary syndrome with multi-vessel disease</span></li>
-            <li class="talk-item"><span class="talk-time">10:45 – 11:00</span><span class="talk-dot"></span><span class="talk-title">Challenging scenarios in NSTEMI (Case presentation)</span></li>
-            <li class="talk-item"><span class="talk-time">11:00 – 11:15</span><span class="talk-dot"></span><span class="talk-title">Complex STEMI case — Out of the box Primary PCI</span></li>
+            <li class="talk-item"><span class="talk-time">10:15 – 10:30</span><span class="talk-dot"></span><span class="talk-title" data-ar="طرق جديدة للتغلب على ظاهرة عدم التدفق (No-reflow)">No-reflow, new ways to overcome it</span></li>
+            <li class="talk-item"><span class="talk-time">10:30 – 10:45</span><span class="talk-dot"></span><span class="talk-title" data-ar="متلازمة الشريان التاجي الحادة مع اعتلال الشرايين المتعددة">Acute coronary syndrome with multi-vessel disease</span></li>
+            <li class="talk-item"><span class="talk-time">10:45 – 11:00</span><span class="talk-dot"></span><span class="talk-title" data-ar="سيناريوهات صعبة في جلطات القلب غير المكتملة (NSTEMI) مع عرض حالة">Challenging scenarios in NSTEMI (Case presentation)</span></li>
+            <li class="talk-item"><span class="talk-time">11:00 – 11:15</span><span class="talk-dot"></span><span class="talk-title" data-ar="حالة معقدة لجلطة القلب الكاملة (STEMI) — توسيع الشرايين الأولي غير التقليدي">Complex STEMI case — Out of the box Primary PCI</span></li>
           </ul>
         </div>
 
         <div class="session-block">
-          <p class="session-title">Session 2 — Complex Coronary Intervention</p>
+          <p class="session-title" data-ar="الجلسة الثانية — قسطرة الشرايين التاجية المعقدة">Session 2 — Complex Coronary Intervention</p>
           <ul class="talk-list">
-            <li class="talk-item"><span class="talk-time">11:00 – 11:15</span><span class="talk-dot"></span><span class="talk-title">Left main, PCI vs CABG</span></li>
-            <li class="talk-item"><span class="talk-time">11:15 – 11:30</span><span class="talk-dot"></span><span class="talk-title">Bifurcation PCI, Pros and Cons</span></li>
-            <li class="talk-item"><span class="talk-time">11:30 – 11:45</span><span class="talk-dot"></span><span class="talk-title">DK Crush, pitfalls (Case presentation)</span></li>
-            <li class="talk-item"><span class="talk-time">11:45 – 12:00</span><span class="talk-dot"></span><span class="talk-title">DCB in Native coronaries — is it really a good option?</span></li>
+            <li class="talk-item"><span class="talk-time">11:00 – 11:15</span><span class="talk-dot"></span><span class="talk-title" data-ar="تداخل الشريان التاجي الأيسر الرئيسي: القسطرة مقابل الجراحة">Left main, PCI vs CABG</span></li>
+            <li class="talk-item"><span class="talk-time">11:15 – 11:30</span><span class="talk-dot"></span><span class="talk-title" data-ar="قسطرة الشرايين التاجية المتفرعة: الإيجابيات والسلبيات">Bifurcation PCI, Pros and Cons</span></li>
+            <li class="talk-item"><span class="talk-time">11:30 – 11:45</span><span class="talk-dot"></span><span class="talk-title" data-ar="تقنية (DK Crush) وعثراتها مع عرض حالة">DK Crush, pitfalls (Case presentation)</span></li>
+            <li class="talk-item"><span class="talk-time">11:45 – 12:00</span><span class="talk-dot"></span><span class="talk-title" data-ar="استخدام البالونات الدوائية في الشرايين التاجية الأصلية — هل هي خيار جيد بالفعل؟">DCB in Native coronaries — is it really a good option?</span></li>
           </ul>
         </div>
 
         <div class="session-block symposium-block">
           <div class="time-badge" style="background:rgba(224,64,251,0.15);color:var(--accent);">12:00 – 12:15</div>
-          <p class="session-title" style="color:var(--accent);">Symposium 1</p>
+          <p class="session-title" style="color:var(--accent);" data-ar="ندوة علمية ١">Symposium 1</p>
         </div>
 
         <div class="session-block">
-          <p class="session-title">Session 3 — Role of Imaging in Coronary Intervention</p>
+          <p class="session-title" data-ar="الجلسة الثالثة — دور التصوير الطبي في القسطرة التاجية">Session 3 — Role of Imaging in Coronary Intervention</p>
           <ul class="talk-list">
-            <li class="talk-item"><span class="talk-time">12:15 – 12:30</span><span class="talk-dot"></span><span class="talk-title">IVUS — Simplified when and how to use it</span></li>
-            <li class="talk-item"><span class="talk-time">12:30 – 12:45</span><span class="talk-dot"></span><span class="talk-title">Complex calcified lesions — Combination of intravascular imaging and orbital atherectomy</span></li>
-            <li class="talk-item"><span class="talk-time">12:45 – 13:00</span><span class="talk-dot"></span><span class="talk-title">Role of Imaging in Acute coronary syndromes</span></li>
-            <li class="talk-item"><span class="talk-time">13:00 – 13:15</span><span class="talk-dot"></span><span class="talk-title">IVL — When to use it (Case presentation)</span></li>
+            <li class="talk-item"><span class="talk-time">12:15 – 12:30</span><span class="talk-dot"></span><span class="talk-title" data-ar="التصوير بالموجات فوق الصوتية داخل الأوعية (IVUS) — متى وكيف يُستخدم بتبسيط">IVUS — Simplified when and how to use it</span></li>
+            <li class="talk-item"><span class="talk-time">12:30 – 12:45</span><span class="talk-dot"></span><span class="talk-title" data-ar="الآفات التاجية المتكلسة المعقدة — الجمع بين التصوير داخل الأوعية وتقشير التكلس المداري">Complex calcified lesions — Combination of intravascular imaging and orbital atherectomy</span></li>
+            <li class="talk-item"><span class="talk-time">12:45 – 13:00</span><span class="talk-dot"></span><span class="talk-title" data-ar="دور التصوير الطبي في متلازمات الشريان التاجي الحادة">Role of Imaging in Acute coronary syndromes</span></li>
+            <li class="talk-item"><span class="talk-time">13:00 – 13:15</span><span class="talk-dot"></span><span class="talk-title" data-ar="تقنية تفتيت التكلسات بالموجات التصادمية (IVL) — متى تُستخدم مع عرض حالة">IVL — When to use it (Case presentation)</span></li>
           </ul>
         </div>
 
@@ -2041,10 +2241,10 @@
         <div class="session-block">
           <p class="session-title">Session 4 — CTO PCI</p>
           <ul class="talk-list">
-            <li class="talk-item"><span class="talk-time">13:30 – 13:45</span><span class="talk-dot"></span><span class="talk-title">Fundamentals of Retrograde CTO PCI</span></li>
-            <li class="talk-item"><span class="talk-time">13:45 – 14:00</span><span class="talk-dot"></span><span class="talk-title">Optimizing CTO outcomes by lesion selection</span></li>
-            <li class="talk-item"><span class="talk-time">14:00 – 14:15</span><span class="talk-dot"></span><span class="talk-title">How to deal with ostial right coronary artery CTOs</span></li>
-            <li class="talk-item"><span class="talk-time">14:15 – 14:30</span><span class="talk-dot"></span><span class="talk-title">CTO Complications — What to expect, How to prepare yourself</span></li>
+            <li class="talk-item"><span class="talk-time">13:30 – 13:45</span><span class="talk-dot"></span><span class="talk-title" data-ar="أساسيات فتح الانسدادات المزمنة الكلية للشرايين التاجية بالطريق الرجعي (Retrograde CTO PCI)">Fundamentals of Retrograde CTO PCI</span></li>
+            <li class="talk-item"><span class="talk-time">13:45 – 14:00</span><span class="talk-dot"></span><span class="talk-title" data-ar="تحسين نتائج فتح الانسدادات الكلية المزمنة باختيار الآفة المناسبة">Optimizing CTO outcomes by lesion selection</span></li>
+            <li class="talk-item"><span class="talk-time">14:00 – 14:15</span><span class="talk-dot"></span><span class="talk-title" data-ar="كيفية التعامل مع الانسدادات الكلية المزمنة في منشأ الشريان التاجي الأيمن">How to deal with ostial right coronary artery CTOs</span></li>
+            <li class="talk-item"><span class="talk-time">14:15 – 14:30</span><span class="talk-dot"></span><span class="talk-title" data-ar="مضاعفات الانسدادات الكلية المزمنة (CTO) — ماذا تتوقع وكيف تعد نفسك">CTO Complications — What to expect, How to prepare yourself</span></li>
           </ul>
         </div>
 
@@ -2055,64 +2255,64 @@
 
         <div class="session-block break-block">
           <div class="time-badge" style="background:rgba(201,168,76,0.15);color:var(--accent-gold);">14:45 – 15:45</div>
-          <p class="talk-title" style="color:var(--accent-gold);">☕ Coffee Break</p>
+          <p class="talk-title" style="color:var(--accent-gold);" data-ar="☕ استراحة قهوة">☕ Coffee Break</p>
         </div>
       </div>
 
       <!-- Day 1 — Regina Hall -->
       <div class="agenda-hall-panel" id="day1-regina">
         <div class="session-block">
-          <p class="session-title">Session 1 — Medical Cardiology</p>
+          <p class="session-title" data-ar="الجلسة الأولى — أمراض القلب الباطنية">Session 1 — Medical Cardiology</p>
           <ul class="talk-list">
-            <li class="talk-item"><span class="talk-time">10:15 – 10:30</span><span class="talk-dot"></span><span class="talk-title">Refractory Angina — If intervention failed, What do we have left?</span></li>
-            <li class="talk-item"><span class="talk-time">10:30 – 10:45</span><span class="talk-dot"></span><span class="talk-title">Cardiogenic shock — new evidence and insights</span></li>
-            <li class="talk-item"><span class="talk-time">10:45 – 11:00</span><span class="talk-dot"></span><span class="talk-title">Acute Heart Failure — must have, must do</span></li>
-            <li class="talk-item"><span class="talk-time">11:00 – 11:15</span><span class="talk-dot"></span><span class="talk-title">Heart Failure — New ways to reach optimum results</span></li>
+            <li class="talk-item"><span class="talk-time">10:15 – 10:30</span><span class="talk-dot"></span><span class="talk-title" data-ar="الذبحة الصدرية المستعصية — إذا فشل التدخل بالقسطرة، ما الذي يتبقى لدينا؟">Refractory Angina — If intervention failed, What do we have left?</span></li>
+            <li class="talk-item"><span class="talk-time">10:30 – 10:45</span><span class="talk-dot"></span><span class="talk-title" data-ar="الصدمة القلبية — أدلة ورؤى جديدة">Cardiogenic shock — new evidence and insights</span></li>
+            <li class="talk-item"><span class="talk-time">10:45 – 11:00</span><span class="talk-dot"></span><span class="talk-title" data-ar="فشل القلب الحاد — الإجراءات الطبية الضرورية واللازمة">Acute Heart Failure — must have, must do</span></li>
+            <li class="talk-item"><span class="talk-time">11:00 – 11:15</span><span class="talk-dot"></span><span class="talk-title" data-ar="فشل القلب — طرق جديدة للوصول إلى النتائج المثلى">Heart Failure — New ways to reach optimum results</span></li>
           </ul>
         </div>
 
         <div class="session-block">
-          <p class="session-title">Session 2 — Medical Cardiology</p>
+          <p class="session-title" data-ar="الجلسة الثانية — أمراض القلب الباطنية">Session 2 — Medical Cardiology</p>
           <ul class="talk-list">
-            <li class="talk-item"><span class="talk-time">11:00 – 11:15</span><span class="talk-dot"></span><span class="talk-title">Hypertension — How to manage Resistant cases</span></li>
-            <li class="talk-item"><span class="talk-time">11:15 – 11:30</span><span class="talk-dot"></span><span class="talk-title">New Era in Dyslipidemia management</span></li>
-            <li class="talk-item"><span class="talk-time">11:30 – 11:45</span><span class="talk-dot"></span><span class="talk-title">Antiplatelet strategies for clinical dilemmas</span></li>
-            <li class="talk-item"><span class="talk-time">11:45 – 12:00</span><span class="talk-dot"></span><span class="talk-title">Latest Cardiology Trials published 2026</span></li>
+            <li class="talk-item"><span class="talk-time">11:00 – 11:15</span><span class="talk-dot"></span><span class="talk-title" data-ar="ارتفاع ضغط الدم — كيفية التعامل مع الحالات المقاومة للعلاج">Hypertension — How to manage Resistant cases</span></li>
+            <li class="talk-item"><span class="talk-time">11:15 – 11:30</span><span class="talk-dot"></span><span class="talk-title" data-ar="حقبة جديدة في علاج واعتلال دهون الدم">New Era in Dyslipidemia management</span></li>
+            <li class="talk-item"><span class="talk-time">11:30 – 11:45</span><span class="talk-dot"></span><span class="talk-title" data-ar="استراتيجيات مضادات الصفائح الدموية في المعضلات السريرية">Antiplatelet strategies for clinical dilemmas</span></li>
+            <li class="talk-item"><span class="talk-time">11:45 – 12:00</span><span class="talk-dot"></span><span class="talk-title" data-ar="أحدث الأبحاث والدراسات الطبية المنشورة في طب القلب لعام ٢٠٢٦">Latest Cardiology Trials published 2026</span></li>
           </ul>
         </div>
 
         <div class="session-block symposium-block">
           <div class="time-badge" style="background:rgba(224,64,251,0.15);color:var(--accent);">12:00 – 12:15</div>
-          <p class="session-title" style="color:var(--accent);">Symposium 1-1</p>
+          <p class="session-title" style="color:var(--accent);" data-ar="ندوة علمية ١-١">Symposium 1-1</p>
         </div>
 
         <div class="session-block">
-          <p class="session-title">Session 4 — Electrophysiology</p>
+          <p class="session-title" data-ar="الجلسة الرابعة — كهرباء القلب">Session 4 — Electrophysiology</p>
           <ul class="talk-list">
-            <li class="talk-item"><span class="talk-time">13:30 – 13:45</span><span class="talk-dot"></span><span class="talk-title">ECG patterns of complex Arrhythmias: Tips for the general cardiologist</span></li>
-            <li class="talk-item"><span class="talk-time">13:45 – 14:00</span><span class="talk-dot"></span><span class="talk-title">Current Guidelines for permanent pacemaker implantation: When and Why?</span></li>
-            <li class="talk-item"><span class="talk-time">14:00 – 14:15</span><span class="talk-dot"></span><span class="talk-title">The rise of conduction system pacing: His-bundle and left bundle branch pacing</span></li>
-            <li class="talk-item"><span class="talk-time">14:15 – 14:30</span><span class="talk-dot"></span><span class="talk-title">Supraventricular Tachycardia: management and timing for catheter ablation</span></li>
+            <li class="talk-item"><span class="talk-time">13:30 – 13:45</span><span class="talk-dot"></span><span class="talk-title" data-ar="أنماط رسم القلب للاضطرابات الكهربائية المعقدة: نصائح لطبيب القلب العام">ECG patterns of complex Arrhythmias: Tips for the general cardiologist</span></li>
+            <li class="talk-item"><span class="talk-time">13:45 – 14:00</span><span class="talk-dot"></span><span class="talk-title" data-ar="الإرشادات التوجيهية الحالية لزراعة منظم ضربات القلب الدائم: متى ولماذا؟">Current Guidelines for permanent pacemaker implantation: When and Why?</span></li>
+            <li class="talk-item"><span class="talk-time">14:00 – 14:15</span><span class="talk-dot"></span><span class="talk-title" data-ar="صعود تقنيات تنظيم ضربات القلب عبر جهاز التوصيل: تنظيم حزمة (His) وحزمة الغصن الأيسر">The rise of conduction system pacing: His-bundle and left bundle branch pacing</span></li>
+            <li class="talk-item"><span class="talk-time">14:15 – 14:30</span><span class="talk-dot"></span><span class="talk-title" data-ar="تسارع القلب فوق البطيني: العلاج وتوقيت الكي بالقسطرة">Supraventricular Tachycardia: management and timing for catheter ablation</span></li>
           </ul>
         </div>
 
         <div class="session-block symposium-block">
           <div class="time-badge" style="background:rgba(224,64,251,0.15);color:var(--accent);">14:30 – 14:45</div>
-          <p class="session-title" style="color:var(--accent);">Symposium 2-1</p>
+          <p class="session-title" style="color:var(--accent);" data-ar="ندوة علمية ٢-١">Symposium 2-1</p>
         </div>
 
         <div class="session-block break-block">
           <div class="time-badge" style="background:rgba(201,168,76,0.15);color:var(--accent-gold);">14:45 – 15:45</div>
-          <p class="talk-title" style="color:var(--accent-gold);">☕ Coffee Break</p>
+          <p class="talk-title" style="color:var(--accent-gold);" data-ar="☕ استراحة قهوة">☕ Coffee Break</p>
         </div>
 
         <div class="session-block">
-          <p class="session-title">Session 7 — Electrophysiology</p>
+          <p class="session-title" data-ar="الجلسة السابعة — كهرباء القلب">Session 7 — Electrophysiology</p>
           <ul class="talk-list">
-            <li class="talk-item"><span class="talk-time">15:45 – 16:00</span><span class="talk-dot"></span><span class="talk-title">Modern management of atrial fibrillation: Cryo vs Radiofrequency ablation</span></li>
-            <li class="talk-item"><span class="talk-time">16:00 – 16:15</span><span class="talk-dot"></span><span class="talk-title">Principles of 3D Electro-anatomical mapping in complex Arrhythmias</span></li>
-            <li class="talk-item"><span class="talk-time">16:15 – 16:30</span><span class="talk-dot"></span><span class="talk-title">Catheter Ablation of ventricular tachycardia: from drugs to mapping</span></li>
-            <li class="talk-item"><span class="talk-time">16:30 – 16:45</span><span class="talk-dot"></span><span class="talk-title">The future of EP: Pulsed field ablation and non-thermal technologies</span></li>
+            <li class="talk-item"><span class="talk-time">15:45 – 16:00</span><span class="talk-dot"></span><span class="talk-title" data-ar="الإدارة الحديثة للرجفان الأذيني: الكي بالتبريد مقابل الكي بالترددات الراديوية">Modern management of atrial fibrillation: Cryo vs Radiofrequency ablation</span></li>
+            <li class="talk-item"><span class="talk-time">16:00 – 16:15</span><span class="talk-dot"></span><span class="talk-title" data-ar="مبادئ رسم الخرائط الكهرومغناطيسية ثلاثية الأبعاد لاضطرابات ضربات القلب المعقدة">Principles of 3D Electro-anatomical mapping in complex Arrhythmias</span></li>
+            <li class="talk-item"><span class="talk-time">16:15 – 16:30</span><span class="talk-dot"></span><span class="talk-title" data-ar="الكي بالقسطرة للتسارع البطيني: من الأدوية إلى رسم الخرائط">Catheter Ablation of ventricular tachycardia: from drugs to mapping</span></li>
+            <li class="talk-item"><span class="talk-time">16:30 – 16:45</span><span class="talk-dot"></span><span class="talk-title" data-ar="مستقبل كهرباء القلب: الكي بالمجال الكهربائي النبضي والتقنيات غير الحرارية">The future of EP: Pulsed field ablation and non-thermal technologies</span></li>
           </ul>
         </div>
 
@@ -2127,83 +2327,83 @@
     <div class="agenda-day-panel" id="day2-panel" role="tabpanel" aria-labelledby="day2-tab">
       <!-- Hall Tabs -->
       <div class="agenda-hall-tabs" role="tablist" aria-label="Conference halls day 2">
-        <button class="agenda-hall-tab active" data-hall="day2-royal" role="tab" aria-selected="true">🏛 Royal Hall</button>
-        <button class="agenda-hall-tab" data-hall="day2-regina" role="tab" aria-selected="false">🏛 Regina Hall</button>
+        <button class="agenda-hall-tab active" data-hall="day2-royal" role="tab" aria-selected="true" data-ar="🏛 قاعة رويال">🏛 Royal Hall</button>
+        <button class="agenda-hall-tab" data-hall="day2-regina" role="tab" aria-selected="false" data-ar="🏛 قاعة ريجينا">🏛 Regina Hall</button>
       </div>
 
       <!-- Day 2 — Royal Hall -->
       <div class="agenda-hall-panel active" id="day2-royal">
         <div class="session-block">
-          <p class="session-title">Session 1 — Mitral Stenosis Intervention</p>
+          <p class="session-title" data-ar="الجلسة الأولى — تداخلات تضيق الصمام الميترالي">Session 1 — Mitral Stenosis Intervention</p>
           <ul class="talk-list">
-            <li class="talk-item"><span class="talk-time">10:00 – 10:15</span><span class="talk-dot"></span><span class="talk-title">Key points to assess mitral stenosis, approach to guidelines</span></li>
-            <li class="talk-item"><span class="talk-time">10:15 – 10:30</span><span class="talk-dot"></span><span class="talk-title">When to do Balloon mitral Valvuloplasty, What to look for</span></li>
-            <li class="talk-item"><span class="talk-time">10:30 – 10:45</span><span class="talk-dot"></span><span class="talk-title">Simplification of transseptal puncture using multimodality imaging</span></li>
-            <li class="talk-item"><span class="talk-time">10:45 – 11:00</span><span class="talk-dot"></span><span class="talk-title">Balloon mitral valvuloplasty — Step by step, Expert Case presentation</span></li>
+            <li class="talk-item"><span class="talk-time">10:00 – 10:15</span><span class="talk-dot"></span><span class="talk-title" data-ar="النقاط الرئيسية لتقييم تضيق الصمام الميترالي والنهج التوجيهي">Key points to assess mitral stenosis, approach to guidelines</span></li>
+            <li class="talk-item"><span class="talk-time">10:15 – 10:30</span><span class="talk-dot"></span><span class="talk-title" data-ar="متى يتم توسيع الصمام الميترالي بالبالون وما الذي يجب البحث عنه">When to do Balloon mitral Valvuloplasty, What to look for</span></li>
+            <li class="talk-item"><span class="talk-time">10:30 – 10:45</span><span class="talk-dot"></span><span class="talk-title" data-ar="تبسيط ثقب الحاجز بين الأذينين باستخدام التصوير متعدد الوسائط">Simplification of transseptal puncture using multimodality imaging</span></li>
+            <li class="talk-item"><span class="talk-time">10:45 – 11:00</span><span class="talk-dot"></span><span class="talk-title" data-ar="توسيع الصمام الميترالي بالبالون — خطوة بخطوة مع عرض حالة من خبير">Balloon mitral valvuloplasty — Step by step, Expert Case presentation</span></li>
           </ul>
         </div>
 
         <div class="session-block symposium-block">
           <div class="time-badge" style="background:rgba(224,64,251,0.15);color:var(--accent);">11:00 – 11:15</div>
-          <p class="session-title" style="color:var(--accent);">Symposium 1-2</p>
+          <p class="session-title" style="color:var(--accent);" data-ar="ندوة علمية ١-٢">Symposium 1-2</p>
         </div>
 
         <div class="session-block">
-          <p class="session-title">Session 2 — Mitral Regurge Intervention</p>
+          <p class="session-title" data-ar="الجلسة الثانية — تداخلات ارتجاع الصمام الميترالي">Session 2 — Mitral Regurge Intervention</p>
           <ul class="talk-list">
-            <li class="talk-item"><span class="talk-time">11:15 – 11:30</span><span class="talk-dot"></span><span class="talk-title">Key points to assess mitral Regurge, approach to guidelines</span></li>
-            <li class="talk-item"><span class="talk-time">11:30 – 11:45</span><span class="talk-dot"></span><span class="talk-title">Role of TEE to assess mitral valve diseases</span></li>
-            <li class="talk-item"><span class="talk-time">11:45 – 12:00</span><span class="talk-dot"></span><span class="talk-title">Mitral Clip — when to do it, How to do it</span></li>
-            <li class="talk-item"><span class="talk-time">12:00 – 12:15</span><span class="talk-dot"></span><span class="talk-title">Step by step — Expert Case presentation</span></li>
+            <li class="talk-item"><span class="talk-time">11:15 – 11:30</span><span class="talk-dot"></span><span class="talk-title" data-ar="النقاط الرئيسية لتقييم ارتجاع الصمام الميترالي والنهج التوجيهي">Key points to assess mitral Regurge, approach to guidelines</span></li>
+            <li class="talk-item"><span class="talk-time">11:30 – 11:45</span><span class="talk-dot"></span><span class="talk-title" data-ar="دور أشعة السونار عبر المريء (TEE) في تقييم أمراض الصمام الميترالي">Role of TEE to assess mitral valve diseases</span></li>
+            <li class="talk-item"><span class="talk-time">11:45 – 12:00</span><span class="talk-dot"></span><span class="talk-title" data-ar="تقنية مشبك الصمام الميترالي (Mitral Clip) — متى وكيف نقوم بها">Mitral Clip — when to do it, How to do it</span></li>
+            <li class="talk-item"><span class="talk-time">12:00 – 12:15</span><span class="talk-dot"></span><span class="talk-title" data-ar="خطوة بخطوة — عرض حالة من خبير">Step by step — Expert Case presentation</span></li>
           </ul>
         </div>
 
         <div class="session-block break-block">
           <div class="time-badge" style="background:rgba(201,168,76,0.15);color:var(--accent-gold);">12:15 – 13:15</div>
-          <p class="talk-title" style="color:var(--accent-gold);">🕌 Friday Prayer</p>
+          <p class="talk-title" style="color:var(--accent-gold);" data-ar="🕌 صلاة الجمعة">🕌 Friday Prayer</p>
         </div>
 
         <div class="session-block">
-          <p class="session-title">Session 3 — Aortic Intervention</p>
+          <p class="session-title" data-ar="الجلسة الثالثة — تداخلات الصمام الأبهري">Session 3 — Aortic Intervention</p>
           <ul class="talk-list">
-            <li class="talk-item"><span class="talk-time">13:15 – 13:30</span><span class="talk-dot"></span><span class="talk-title">Key points to assess Aortic stenosis, approach to guidelines</span></li>
-            <li class="talk-item"><span class="talk-time">13:30 – 13:45</span><span class="talk-dot"></span><span class="talk-title">Key points to assess Aortic Regurge, approach to guidelines</span></li>
-            <li class="talk-item"><span class="talk-time">13:45 – 14:00</span><span class="talk-dot"></span><span class="talk-title">Aortic Regurge — TAVR vs SAVR</span></li>
-            <li class="talk-item"><span class="talk-time">14:00 – 14:15</span><span class="talk-dot"></span><span class="talk-title">Coronary artery disease in TAVI Candidates — How to manage</span></li>
+            <li class="talk-item"><span class="talk-time">13:15 – 13:30</span><span class="talk-dot"></span><span class="talk-title" data-ar="النقاط الرئيسية لتقييم تضيق الصمام الأبهري والنهج التوجيهي">Key points to assess Aortic stenosis, approach to guidelines</span></li>
+            <li class="talk-item"><span class="talk-time">13:30 – 13:45</span><span class="talk-dot"></span><span class="talk-title" data-ar="النقاط الرئيسية لتقييم ارتجاع الصمام الأبهري والنهج التوجيهي">Key points to assess Aortic Regurge, approach to guidelines</span></li>
+            <li class="talk-item"><span class="talk-time">13:45 – 14:00</span><span class="talk-dot"></span><span class="talk-title" data-ar="ارتجاع الصمام الأبهري — استبدال الصمام بالقسطرة (TAVR) مقابل الجراحة (SAVR)">Aortic Regurge — TAVR vs SAVR</span></li>
+            <li class="talk-item"><span class="talk-time">14:00 – 14:15</span><span class="talk-dot"></span><span class="talk-title" data-ar="مرض الشريان التاجي لدى المرشحين لعملية TAVI — كيفية التعامل معه">Coronary artery disease in TAVI Candidates — How to manage</span></li>
           </ul>
         </div>
 
         <div class="session-block symposium-block">
           <div class="time-badge" style="background:rgba(224,64,251,0.15);color:var(--accent);">14:15 – 14:30</div>
-          <p class="session-title" style="color:var(--accent);">Symposium 2-2</p>
+          <p class="session-title" style="color:var(--accent);" data-ar="ندوة علمية ٢-٢">Symposium 2-2</p>
         </div>
 
         <div class="session-block">
-          <p class="session-title">Session 4 — Aortic Intervention</p>
+          <p class="session-title" data-ar="الجلسة الرابعة — تداخلات الصمام الأبهري">Session 4 — Aortic Intervention</p>
           <ul class="talk-list">
-            <li class="talk-item"><span class="talk-time">14:30 – 14:45</span><span class="talk-dot"></span><span class="talk-title">Complex Femoral access in TAVI — Complications, how to manage</span></li>
-            <li class="talk-item"><span class="talk-time">14:45 – 15:00</span><span class="talk-dot"></span><span class="talk-title">Optimizing your TAVI — proper CT Analysis</span></li>
-            <li class="talk-item"><span class="talk-time">15:00 – 15:15</span><span class="talk-dot"></span><span class="talk-title">Is 3D TEE a new game changer for proper TAVI planning?</span></li>
-            <li class="talk-item"><span class="talk-time">15:15 – 15:30</span><span class="talk-dot"></span><span class="talk-title">When TAVI goes so wrong</span></li>
+            <li class="talk-item"><span class="talk-time">14:30 – 14:45</span><span class="talk-dot"></span><span class="talk-title" data-ar="المدخل الفخذي المعقد في عمليات TAVI — المضاعفات وكيفية التعامل معها">Complex Femoral access in TAVI — Complications, how to manage</span></li>
+            <li class="talk-item"><span class="talk-time">14:45 – 15:00</span><span class="talk-dot"></span><span class="talk-title" data-ar="تحسين نتائج عملية TAVI — التحليل السليم للأشعة المقطعية">Optimizing your TAVI — proper CT Analysis</span></li>
+            <li class="talk-item"><span class="talk-time">15:00 – 15:15</span><span class="talk-dot"></span><span class="talk-title" data-ar="هل فحص السونار ثلاثي الأبعاد عبر المريء هو عامل تغيير حاسم في التخطيط لعملية TAVI؟">Is 3D TEE a new game changer for proper TAVI planning?</span></li>
+            <li class="talk-item"><span class="talk-time">15:15 – 15:30</span><span class="talk-dot"></span><span class="talk-title" data-ar="عندما تسير عملية TAVI بشكل خاطئ تماماً">When TAVI goes so wrong</span></li>
           </ul>
         </div>
 
         <div class="session-block symposium-block">
           <div class="time-badge" style="background:rgba(224,64,251,0.15);color:var(--accent);">15:30 – 15:45</div>
-          <p class="session-title" style="color:var(--accent);">Symposium 3-2</p>
+          <p class="session-title" style="color:var(--accent);" data-ar="ندوة علمية ٣-٢">Symposium 3-2</p>
         </div>
 
         <div class="session-block break-block">
           <div class="time-badge" style="background:rgba(201,168,76,0.15);color:var(--accent-gold);">15:45 – 16:45</div>
-          <p class="talk-title" style="color:var(--accent-gold);">☕ Coffee Break</p>
+          <p class="talk-title" style="color:var(--accent-gold);" data-ar="☕ استراحة قهوة">☕ Coffee Break</p>
         </div>
 
         <div class="session-block">
           <p class="session-title">Session 5 — Aortic Intervention</p>
           <ul class="talk-list">
-            <li class="talk-item"><span class="talk-time">16:45 – 17:00</span><span class="talk-dot"></span><span class="talk-title">Tips and Tricks for challenging TAVI scenarios</span></li>
-            <li class="talk-item"><span class="talk-time">17:00 – 17:15</span><span class="talk-dot"></span><span class="talk-title">Self-expandable vs Balloon-expandable valves — How to choose</span></li>
-            <li class="talk-item"><span class="talk-time">17:15 – 17:30</span><span class="talk-dot"></span><span class="talk-title">Hotline TAVI — Challenging anatomical and clinical scenarios</span></li>
+            <li class="talk-item"><span class="talk-time">16:45 – 17:00</span><span class="talk-dot"></span><span class="talk-title" data-ar="نصائح وحيل لحالات TAVI الصعبة والمعقدة">Tips and Tricks for challenging TAVI scenarios</span></li>
+            <li class="talk-item"><span class="talk-time">17:00 – 17:15</span><span class="talk-dot"></span><span class="talk-title" data-ar="الصمامات ذاتية التمدد مقابل الصمامات القابلة للتمدد بالبالون — كيفية الاختيار">Self-expandable vs Balloon-expandable valves — How to choose</span></li>
+            <li class="talk-item"><span class="talk-time">17:15 – 17:30</span><span class="talk-dot"></span><span class="talk-title" data-ar="الحالات الطارئة لعمليات TAVI — السيناريوهات التشريحية والسريرية الصعبة">Hotline TAVI — Challenging anatomical and clinical scenarios</span></li>
           </ul>
         </div>
 
@@ -2215,7 +2415,7 @@
         <div class="session-block">
           <p class="session-title">Closing — TAVI Spotlight</p>
           <ul class="talk-list">
-            <li class="talk-item"><span class="talk-time">17:45 – 18:00</span><span class="talk-dot"></span><span class="talk-title">TAVI in TAVI</span></li>
+            <li class="talk-item"><span class="talk-time">17:45 – 18:00</span><span class="talk-dot"></span><span class="talk-title" data-ar="زراعة صمام داخل صمام أبهري مزروع سابقاً بالقسطرة (TAVI in TAVI)">TAVI in TAVI</span></li>
           </ul>
         </div>
       </div>
@@ -2223,68 +2423,68 @@
       <!-- Day 2 — Regina Hall -->
       <div class="agenda-hall-panel" id="day2-regina">
         <div class="session-block">
-          <p class="session-title">Session 1 — Aortic Intervention</p>
+          <p class="session-title" data-ar="الجلسة الأولى — تداخلات الصمام الأبهري">Session 1 — Aortic Intervention</p>
           <ul class="talk-list">
-            <li class="talk-item"><span class="talk-time">10:00 – 10:15</span><span class="talk-dot"></span><span class="talk-title">Tips and Tricks for challenging TAVI scenarios</span></li>
-            <li class="talk-item"><span class="talk-time">10:15 – 10:30</span><span class="talk-dot"></span><span class="talk-title">Self-expandable vs Balloon-expandable valves — How to choose</span></li>
-            <li class="talk-item"><span class="talk-time">10:30 – 10:45</span><span class="talk-dot"></span><span class="talk-title">Hotline TAVI — Challenging anatomical and clinical scenarios</span></li>
-            <li class="talk-item"><span class="talk-time">10:45 – 11:00</span><span class="talk-dot"></span><span class="talk-title">TAVI in TAVI</span></li>
+            <li class="talk-item"><span class="talk-time">10:00 – 10:15</span><span class="talk-dot"></span><span class="talk-title" data-ar="نصائح وحيل لحالات TAVI الصعبة والمعقدة">Tips and Tricks for challenging TAVI scenarios</span></li>
+            <li class="talk-item"><span class="talk-time">10:15 – 10:30</span><span class="talk-dot"></span><span class="talk-title" data-ar="الصمامات ذاتية التمدد مقابل الصمامات القابلة للتمدد بالبالون — كيفية الاختيار">Self-expandable vs Balloon-expandable valves — How to choose</span></li>
+            <li class="talk-item"><span class="talk-time">10:30 – 10:45</span><span class="talk-dot"></span><span class="talk-title" data-ar="الحالات الطارئة لعمليات TAVI — السيناريوهات التشريحية والسريرية الصعبة">Hotline TAVI — Challenging anatomical and clinical scenarios</span></li>
+            <li class="talk-item"><span class="talk-time">10:45 – 11:00</span><span class="talk-dot"></span><span class="talk-title" data-ar="زراعة صمام داخل صمام أبهري مزروع سابقاً بالقسطرة (TAVI in TAVI)">TAVI in TAVI</span></li>
           </ul>
         </div>
 
         <div class="session-block symposium-block">
           <div class="time-badge" style="background:rgba(224,64,251,0.15);color:var(--accent);">11:00 – 11:15</div>
-          <p class="session-title" style="color:var(--accent);">Symposium 1-2-2</p>
+          <p class="session-title" style="color:var(--accent);" data-ar="ندوة علمية ١-٢-٢">Symposium 1-2-2</p>
         </div>
 
         <div class="session-block">
-          <p class="session-title">Session 2 — Cardiothoracic Section</p>
+          <p class="session-title" data-ar="الجلسة الثانية — جراحة القلب والصدر">Session 2 — Cardiothoracic Section</p>
           <ul class="talk-list">
-            <li class="talk-item"><span class="talk-time">11:15 – 11:30</span><span class="talk-dot"></span><span class="talk-title">Minimally invasive Cardiac surgery — the future is here</span></li>
-            <li class="talk-item"><span class="talk-time">11:30 – 11:45</span><span class="talk-dot"></span><span class="talk-title">Aortic Dissection Case presentation</span></li>
-            <li class="talk-item"><span class="talk-time">11:45 – 12:00</span><span class="talk-dot"></span><span class="talk-title">Total arterial Revascularization vs Conventional CABG</span></li>
-            <li class="talk-item"><span class="talk-time">12:00 – 12:15</span><span class="talk-dot"></span><span class="talk-title">Is Mitral valve Repair really an innovation??</span></li>
+            <li class="talk-item"><span class="talk-time">11:15 – 11:30</span><span class="talk-dot"></span><span class="talk-title" data-ar="جراحة القلب ذات التدخل المحدود — المستقبل أصبح حقيقة">Minimally invasive Cardiac surgery — the future is here</span></li>
+            <li class="talk-item"><span class="talk-time">11:30 – 11:45</span><span class="talk-dot"></span><span class="talk-title" data-ar="عرض حالة سريرية لسلخ الشريان الأورطي (Aortic Dissection)">Aortic Dissection Case presentation</span></li>
+            <li class="talk-item"><span class="talk-time">11:45 – 12:00</span><span class="talk-dot"></span><span class="talk-title" data-ar="تروية القلب الكاملة باستخدام الشرايين التاجية مقابل جراحة مجازة الشريان التاجي التقليدية">Total arterial Revascularization vs Conventional CABG</span></li>
+            <li class="talk-item"><span class="talk-time">12:00 – 12:15</span><span class="talk-dot"></span><span class="talk-title" data-ar="هل إصلاح الصمام الميترالي يعد ابتكاراً حقاً؟">Is Mitral valve Repair really an innovation??</span></li>
           </ul>
         </div>
 
         <div class="session-block break-block">
           <div class="time-badge" style="background:rgba(201,168,76,0.15);color:var(--accent-gold);">12:15 – 13:15</div>
-          <p class="talk-title" style="color:var(--accent-gold);">🕌 Friday Prayer</p>
+          <p class="talk-title" style="color:var(--accent-gold);" data-ar="🕌 صلاة الجمعة">🕌 Friday Prayer</p>
         </div>
 
         <div class="session-block">
-          <p class="session-title">Session 3 — Pulmonary Hypertension</p>
+          <p class="session-title" data-ar="الجلسة الثالثة — ارتفاع ضغط الدم الرئوي">Session 3 — Pulmonary Hypertension</p>
           <ul class="talk-list">
-            <li class="talk-item"><span class="talk-time">13:15 – 13:30</span><span class="talk-dot"></span><span class="talk-title">Pulmonary Hypertension — Simplified approach to guidelines</span></li>
-            <li class="talk-item"><span class="talk-time">13:30 – 13:45</span><span class="talk-dot"></span><span class="talk-title">Recent ways to manage Pulmonary hypertension</span></li>
-            <li class="talk-item"><span class="talk-time">13:45 – 14:00</span><span class="talk-dot"></span><span class="talk-title">Catheter-based treatment of pulmonary embolism</span></li>
-            <li class="talk-item"><span class="talk-time">14:00 – 14:15</span><span class="talk-dot"></span><span class="talk-title">Right Heart Cath — What to look for</span></li>
+            <li class="talk-item"><span class="talk-time">13:15 – 13:30</span><span class="talk-dot"></span><span class="talk-title" data-ar="ارتفاع ضغط الدم الرئوي — نهج مبسط للإرشادات التوجيهية">Pulmonary Hypertension — Simplified approach to guidelines</span></li>
+            <li class="talk-item"><span class="talk-time">13:30 – 13:45</span><span class="talk-dot"></span><span class="talk-title" data-ar="الطرق الحديثة للتعامل مع ارتفاع ضغط الدم الرئوي">Recent ways to manage Pulmonary hypertension</span></li>
+            <li class="talk-item"><span class="talk-time">13:45 – 14:00</span><span class="talk-dot"></span><span class="talk-title" data-ar="العلاج بالقسطرة للانسداد الرئوي (الجلطة الرئوية)">Catheter-based treatment of pulmonary embolism</span></li>
+            <li class="talk-item"><span class="talk-time">14:00 – 14:15</span><span class="talk-dot"></span><span class="talk-title" data-ar="قسطرة القلب الأيمن — ما الذي يجب البحث عنه">Right Heart Cath — What to look for</span></li>
           </ul>
         </div>
 
         <div class="session-block symposium-block">
           <div class="time-badge" style="background:rgba(224,64,251,0.15);color:var(--accent);">14:15 – 14:30</div>
-          <p class="session-title" style="color:var(--accent);">Symposium 2-2-2</p>
+          <p class="session-title" style="color:var(--accent);" data-ar="ندوة علمية ٢-٢-٢">Symposium 2-2-2</p>
         </div>
 
         <div class="session-block">
-          <p class="session-title">Session 4 — Para Medics Section</p>
+          <p class="session-title" data-ar="الجلسة الرابعة — الكوادر الطبية المساعدة والتمريض">Session 4 — Para Medics Section</p>
           <ul class="talk-list">
-            <li class="talk-item"><span class="talk-time">14:30 – 14:45</span><span class="talk-dot"></span><span class="talk-title">Career and recognition for interventional assisting nurses — is it really that good?</span></li>
-            <li class="talk-item"><span class="talk-time">14:45 – 15:00</span><span class="talk-dot"></span><span class="talk-title">Fundamentals of Radiology Technician — Views, Radiation exposure</span></li>
-            <li class="talk-item"><span class="talk-time">15:00 – 15:15</span><span class="talk-dot"></span><span class="talk-title">Cath Lab Harmony — Doctor, Nursing and Technician</span></li>
-            <li class="talk-item"><span class="talk-time">15:15 – 15:30</span><span class="talk-dot"></span><span class="talk-title">Preparation of a case of TAVI — How to be ready??</span></li>
+            <li class="talk-item"><span class="talk-time">14:30 – 14:45</span><span class="talk-dot"></span><span class="talk-title" data-ar="المسار المهني والتقدير للتمريض المساعد في القسطرة التداخلية — هل هو جيد بالفعل؟">Career and recognition for interventional assisting nurses — is it really that good?</span></li>
+            <li class="talk-item"><span class="talk-time">14:45 – 15:00</span><span class="talk-dot"></span><span class="talk-title" data-ar="أساسيات فني الأشعة — زوايا التصوير والتعرض للإشعاع">Fundamentals of Radiology Technician — Views, Radiation exposure</span></li>
+            <li class="talk-item"><span class="talk-time">15:00 – 15:15</span><span class="talk-dot"></span><span class="talk-title" data-ar="الانسجام العملي في معمل القسطرة — الطبيب، التمريض والفني">Cath Lab Harmony — Doctor, Nursing and Technician</span></li>
+            <li class="talk-item"><span class="talk-time">15:15 – 15:30</span><span class="talk-dot"></span><span class="talk-title" data-ar="تجهيز وتحضير حالة لعملية TAVI — كيف تكون مستعداً تماماً؟">Preparation of a case of TAVI — How to be ready??</span></li>
           </ul>
         </div>
 
         <div class="session-block symposium-block">
           <div class="time-badge" style="background:rgba(224,64,251,0.15);color:var(--accent);">15:30 – 15:45</div>
-          <p class="session-title" style="color:var(--accent);">Symposium 3-2-2</p>
+          <p class="session-title" style="color:var(--accent);" data-ar="ندوة علمية ٣-٢-٢">Symposium 3-2-2</p>
         </div>
 
         <div class="session-block break-block">
           <div class="time-badge" style="background:rgba(201,168,76,0.15);color:var(--accent-gold);">15:45 – 16:45</div>
-          <p class="talk-title" style="color:var(--accent-gold);">☕ Coffee Break</p>
+          <p class="talk-title" style="color:var(--accent-gold);" data-ar="☕ استراحة قهوة">☕ Coffee Break</p>
         </div>
       </div>
     </div><!-- /day2-panel -->
@@ -2301,9 +2501,9 @@
 <!-- ========================= -->
 <section id="sponsorship" aria-labelledby="sponsorship-heading">
   <div class="section-header">
-    <span class="section-label">— Partnership Opportunities —</span>
-    <h2 class="section-title" id="sponsorship-heading">Sponsorship Packages</h2>
-    <p class="section-subtitle">Elevate your brand at Egypt's premier cardiac conference. Connect with top cardiologists and medical professionals.</p>
+    <span class="section-label" data-ar="— فرص الشراكة —">— Partnership Opportunities —</span>
+    <h2 class="section-title" id="sponsorship-heading" data-ar="باقات الرعاية">Sponsorship Packages</h2>
+    <p class="section-subtitle" data-ar="عزز حضور علامتك التجارية في المؤتمر الطبي الأبرز في مصر لطب القلب. تواصل مع نخبة من أطباء القلب والمتخصصين.">Elevate your brand at Egypt's premier cardiac conference. Connect with top cardiologists and medical professionals.</p>
   </div>
 
   <div class="packages-grid">
@@ -2312,38 +2512,38 @@
       <div class="package-card diamond">
         <div class="package-header diamond-bg">
           <span class="package-tier-icon">💎</span>
-          <div class="package-tier">Diamond</div>
-          <div class="package-price">150K EGP</div>
-          <span class="package-price-sub">Premium Sponsor</span>
+          <div class="package-tier" data-ar="الماسية">Diamond</div>
+          <div class="package-price" data-ar="١٥٠,٠٠٠ ج.م">150K EGP</div>
+          <span class="package-price-sub" data-ar="راعي مميز">Premium Sponsor</span>
         </div>
         <ul class="feature-list">
-          <li>20 Mins Presentation Session</li>
-          <li>8X Logo Size Placement</li>
-          <li>Social Media Promotion</li>
-          <li>5 Free Registrations</li>
-          <li>6×2 Exhibition Area</li>
-          <li>3 Roll Ups</li>
+          <li data-ar="جلسة عرض تقديمية لمدة ٢٠ دقيقة">20 Mins Presentation Session</li>
+          <li data-ar="إضافة الشعار بحجم 8X">8X Logo Size Placement</li>
+          <li data-ar="ترويج عبر منصات التواصل">Social Media Promotion</li>
+          <li data-ar="٥ تسجيلات مجانية">5 Free Registrations</li>
+          <li data-ar="مساحة عرض ٦×٢">6×2 Exhibition Area</li>
+          <li data-ar="٣ لافتات إعلانية (رول أب)">3 Roll Ups</li>
         </ul>
-        <div class="slots-badge">3 Sponsors</div>
+        <div class="slots-badge" data-ar="٣ رعاة">3 Sponsors</div>
       </div>
 
       <!-- Platinum -->
       <div class="package-card platinum">
         <div class="package-header platinum-bg">
           <span class="package-tier-icon">🏅</span>
-          <div class="package-tier">Platinum</div>
-          <div class="package-price">100K EGP</div>
-          <span class="package-price-sub">Elite Sponsor</span>
+          <div class="package-tier" data-ar="البلاتينية">Platinum</div>
+          <div class="package-price" data-ar="١٠٠,٠٠٠ ج.م">100K EGP</div>
+          <span class="package-price-sub" data-ar="راعي النخبة">Elite Sponsor</span>
         </div>
         <ul class="feature-list">
-          <li>10 Mins Presentation Session</li>
-          <li>4X Logo Size Placement</li>
-          <li>Social Media Promotion</li>
-          <li>4 Free Registrations</li>
-          <li>4×2 Exhibition Area</li>
-          <li>2 Roll Ups</li>
+          <li data-ar="جلسة عرض تقديمية لمدة ١٠ دقائق">10 Mins Presentation Session</li>
+          <li data-ar="إضافة الشعار بحجم 4X">4X Logo Size Placement</li>
+          <li data-ar="ترويج عبر منصات التواصل">Social Media Promotion</li>
+          <li data-ar="٤ تسجيلات مجانية">4 Free Registrations</li>
+          <li data-ar="مساحة عرض ٤×٢">4×2 Exhibition Area</li>
+          <li data-ar="٢ لافتة إعلانية (رول أب)">2 Roll Ups</li>
         </ul>
-        <div class="slots-badge">5 Sponsors</div>
+        <div class="slots-badge" data-ar="٥ رعاة">5 Sponsors</div>
       </div>
     </div>
 
@@ -2352,38 +2552,38 @@
       <div class="package-card golden">
         <div class="package-header golden-bg">
           <span class="package-tier-icon">⭐</span>
-          <div class="package-tier">Golden</div>
-          <div class="package-price">80K EGP</div>
-          <span class="package-price-sub">Gold Sponsor</span>
+          <div class="package-tier" data-ar="الذهبية">Golden</div>
+          <div class="package-price" data-ar="٨٠,٠٠٠ ج.م">80K EGP</div>
+          <span class="package-price-sub" data-ar="الراعي الذهبي">Gold Sponsor</span>
         </div>
         <ul class="feature-list">
           <li class="empty-line">—</li>
-          <li>3X Logo Size Placement</li>
-          <li>Social Media Promotion</li>
-          <li>2 Free Registrations</li>
-          <li>3×2 Exhibition Area</li>
-          <li>1 Roll Up</li>
+          <li data-ar="إضافة الشعار بحجم 3X">3X Logo Size Placement</li>
+          <li data-ar="ترويج عبر منصات التواصل">Social Media Promotion</li>
+          <li data-ar="تسجيلين مجانيين">2 Free Registrations</li>
+          <li data-ar="مساحة عرض ٣×٢">3×2 Exhibition Area</li>
+          <li data-ar="لافتة إعلانية واحدة (رول أب)">1 Roll Up</li>
         </ul>
-        <div class="slots-badge">6 Sponsors</div>
+        <div class="slots-badge" data-ar="٦ رعاة">6 Sponsors</div>
       </div>
 
       <!-- Silver -->
       <div class="package-card silver">
         <div class="package-header silver-bg">
           <span class="package-tier-icon">🔮</span>
-          <div class="package-tier">Silver</div>
-          <div class="package-price">50K EGP</div>
-          <span class="package-price-sub">Silver Sponsor</span>
+          <div class="package-tier" data-ar="الفضية">Silver</div>
+          <div class="package-price" data-ar="٥٠,٠٠٠ ج.م">50K EGP</div>
+          <span class="package-price-sub" data-ar="الراعي الفضي">Silver Sponsor</span>
         </div>
         <ul class="feature-list">
           <li class="empty-line">—</li>
-          <li>1X Logo Size Placement</li>
-          <li>Social Media Promotion</li>
-          <li>1 Free Registration</li>
-          <li>2×2 Exhibition Area</li>
+          <li data-ar="إضافة الشعار بحجم 1X">1X Logo Size Placement</li>
+          <li data-ar="ترويج عبر منصات التواصل">Social Media Promotion</li>
+          <li data-ar="تسجيل واحد مجاني">1 Free Registration</li>
+          <li data-ar="مساحة عرض ٢×٢">2×2 Exhibition Area</li>
           <li class="empty-line">—</li>
         </ul>
-        <div class="slots-badge">10 Sponsors</div>
+        <div class="slots-badge" data-ar="١٠ رعاة">10 Sponsors</div>
       </div>
     </div>
   </div>
@@ -2399,38 +2599,39 @@
 <!-- ========================= -->
 <section id="register" aria-labelledby="register-heading">
   <div class="section-header">
-    <span class="section-label">— Secure Your Place —</span>
-    <h2 class="section-title" id="register-heading">Registration</h2>
-    <p class="section-subtitle">Join Egypt's most elite cardiac conference. Limited seats available.</p>
+    <span class="section-label" data-ar="— احجز مقعدك —">— Secure Your Place —</span>
+    <h2 class="section-title" id="register-heading" data-ar="التسجيل">Registration</h2>
+    <p class="section-subtitle" data-ar="انضم إلى المؤتمر الطبي الأبرز في مجال طب القلب بمصر. المقاعد محدودة.">Join Egypt's most elite cardiac conference. Limited seats available.</p>
   </div>
 
   <div class="register-card">
     <div class="price-display">
-      <span class="price-label">🇪🇬 Egyptian Doctors</span>
-      <span class="price-value">5,000 EGP</span>
+      <span class="price-label" data-ar="🇪🇬 الأطباء المصريين">🇪🇬 Egyptian Doctors</span>
+      <span class="price-value" data-ar="٥,٠٠٠ جنيه مصري">5,000 EGP</span>
     </div>
     <div class="price-display">
-      <span class="price-label">🌍 Non-Egyptian Doctors</span>
-      <span class="price-value">200 USD</span>
+      <span class="price-label" data-ar="🌍 الأطباء غير المصريين">🌍 Non-Egyptian Doctors</span>
+      <span class="price-value" data-ar="٢٠٠ دولار أمريكي">200 USD</span>
     </div>
 
     <div class="register-includes">
-      <h4>What's Included</h4>
-      <div class="include-item">Access to all sessions — both halls</div>
-      <div class="include-item">Access to exhibition area</div>
-      <div class="include-item">Coffee break</div>
-      <div class="include-item">Lunch break</div>
-      <div class="include-item">Certificate of attendance</div>
+      <h4 data-ar="المميزات المشمولة">What's Included</h4>
+      <div class="include-item" data-ar="حضور جميع الجلسات العلمية في القاعتين">Access to all sessions — both halls</div>
+      <div class="include-item" data-ar="دخول المعرض الطبي المصاحب">Access to exhibition area</div>
+      <div class="include-item" data-ar="استراحة القهوة">Coffee break</div>
+      <div class="include-item" data-ar="استراحة الغداء">Lunch break</div>
+      <div class="include-item" data-ar="شهادة حضور معتمدة">Certificate of attendance</div>
     </div>
 
     <a href="mailto:info@msquare.eg?subject=Registration%20Inquiry%20%E2%80%94%201st%20Cardio%20Portsaid%202026&body=Hello%2C%0A%0AI%20am%20interested%20in%20registering%20for%20the%201st%20Cardio%20Portsaid%20Conference%20(October%2015%E2%80%9316%2C%202026).%0A%0AName%3A%20%0ASpecialty%3A%20%0ANationality%3A%20%0A%0AThank%20you."
        class="register-cta" id="registerBtn"
        style="display:block;text-align:center;text-decoration:none;"
-       aria-label="Register for Cardio Portsaid Conference via email">
+       aria-label="Register for Cardio Portsaid Conference via email"
+       data-ar="احجز مقعدك الآن — أكتوبر ٢٠٢٦">
       Reserve Your Seat — October 2026
     </a>
 
-    <p style="text-align:center;margin-top:1.2rem;font-size:0.78rem;color:var(--text-muted);">
+    <p style="text-align:center;margin-top:1.2rem;font-size:0.78rem;color:var(--text-muted);" data-ar="تنظيم <span style='color:var(--primary-bright);'>إم سكوير</span> · بورسعيد، مصر">
       Organized by <span style="color:var(--primary-bright);">MSquare</span> · Port Said, Egypt
     </p>
   </div>
@@ -2447,36 +2648,36 @@
 <section id="got-talent" aria-labelledby="talent-heading">
   <div class="talent-inner">
     <div class="talent-text">
-      <div class="talent-badge">🎭 Special Event</div>
-      <span class="section-label">— Cardio Portsaid Got Talent —</span>
+      <div class="talent-badge" data-ar="🎭 حدث خاص">🎭 Special Event</div>
+      <span class="section-label" data-ar="— كارديو بورسعيد جوت تالنت —">— Cardio Portsaid Got Talent —</span>
       <h2 class="section-title" id="talent-heading">
-        <div class="split-target">A Special</div>
-        <div class="split-target primary-text">Highlight</div>
+        <div class="split-target" data-ar="إضاءة">A Special</div>
+        <div class="split-target primary-text" data-ar="خاصة">Highlight</div>
       </h2>
-      <p>
+      <p data-ar="بعيداً عن العلوم، يقدم المؤتمر عرضاً إبداعياً فريداً — <strong style='color:#DC2626'>كارديو بورسعيد جوت تالنت</strong> — حيث تسطع القصص والمواهب الإنسانية للأطباء.">
         Beyond the science, the conference features a unique creative showcase —
         <strong style="color:#DC2626">Cardio Portsaid Got Talent</strong> — where the human stories
         behind cardiac care take center stage.
       </p>
-      <p>
+      <p data-ar="يقدم العرض السينمائي المميز هذا العام رواية مشوقة مبنية على حالات حقيقية، ستلامس وجدان كل طبيب واجه أموراً غير متوقعة في معمل قسطرة القلب.">
         This year's featured film presentation is a gripping case-based narrative that will
         resonate with every physician who has ever faced the unexpected in the catheterization laboratory.
       </p>
-      <p style="font-size:0.82rem;color:var(--text-muted);">
+      <p style="font-size:0.82rem;color:var(--text-muted);" data-ar="إخراج <strong style='color:rgba(240,232,255,0.7)'>أ.د. محمد عبد الغني</strong><br>إنتاج: كارديونوفا بورسعيد ٢٠٢٦">
         Directed by <strong style="color:rgba(240,232,255,0.7)">Prof. Dr. Mohamed Abdelghany</strong><br>
         Production: Cardionova Portsaid 2026
       </p>
     </div>
 
     <div class="film-poster" id="filmPoster">
-      <p class="film-top-label">Cardio Portsaid Got Talent</p>
+      <p class="film-top-label" data-ar="كارديو بورسعيد جوت تالنت">Cardio Portsaid Got Talent</p>
       <div style="font-size:3rem;margin-bottom:1rem;" aria-hidden="true">🎬</div>
-      <p class="film-event">Presents</p>
-      <h3 class="film-title">A Nightmare<br>in Cath Lab</h3>
-      <p class="film-subtitle">A Film Based on a True Story</p>
-      <div class="film-award">🏆 Best Story of the Year</div>
+      <p class="film-event" data-ar="يقدم">Presents</p>
+      <h3 class="film-title" data-ar="كابوس في<br>معمل القسطرة">A Nightmare<br>in Cath Lab</h3>
+      <p class="film-subtitle" data-ar="فيلم مبني على قصة حقيقية">A Film Based on a True Story</p>
+      <div class="film-award" data-ar="🏆 أفضل قصة لعام ٢٠٢٦">🏆 Best Story of the Year</div>
       <div class="film-divider"></div>
-      <div class="film-credits">
+      <div class="film-credits" data-ar="إخراج<br><span>أ.د. محمد عبد الغني</span><br><br>الإنتاج<br><span>كارديونوفا بورسعيد ٢٠٢٦</span>">
         Directed by<br>
         <span>Prof. Dr. Mohamed Abdelghany</span><br><br>
         Production<br>
@@ -2495,29 +2696,29 @@
 <!-- FOOTER                -->
 <!-- ===================== -->
 <footer>
-  <span class="footer-logo">Cardio Portsaid</span>
-  <p class="footer-tagline">A New Pulse for Cardiac Care</p>
+  <span class="footer-logo" data-ar="كارديو بورسعيد">Cardio Portsaid</span>
+  <p class="footer-tagline" data-ar="نبض جديد لرعاية القلب">A New Pulse for Cardiac Care</p>
 
   <div class="footer-details">
     <div class="footer-detail-item">
-      <p class="footer-detail-label">Conference</p>
-      <p class="footer-detail-value">1st Cardio Portsaid 2026</p>
+      <p class="footer-detail-label" data-ar="المؤتمر">Conference</p>
+      <p class="footer-detail-value" data-ar="مؤتمر كارديو بورسعيد الأول ٢٠٢٦">1st Cardio Portsaid 2026</p>
     </div>
     <div class="footer-detail-item">
-      <p class="footer-detail-label">Dates</p>
-      <p class="footer-detail-value">October 15–16, 2026</p>
+      <p class="footer-detail-label" data-ar="التاريخ">Dates</p>
+      <p class="footer-detail-value" data-ar="١٥–١٦ أكتوبر ٢٠٢٦">October 15–16, 2026</p>
     </div>
     <div class="footer-detail-item">
-      <p class="footer-detail-label">Venue</p>
-      <p class="footer-detail-value">Helnan Portfoud Hotel, Port Said</p>
+      <p class="footer-detail-label" data-ar="المكان">Venue</p>
+      <p class="footer-detail-value" data-ar="فندق هلنان بورفؤاد، بورسعيد">Helnan Portfoud Hotel, Port Said</p>
     </div>
     <div class="footer-detail-item">
-      <p class="footer-detail-label">President</p>
-      <p class="footer-detail-value">Prof. Mohamed Imam</p>
+      <p class="footer-detail-label" data-ar="رئيس المؤتمر">President</p>
+      <p class="footer-detail-value" data-ar="أ.د. محمد إمام">Prof. Mohamed Imam</p>
     </div>
     <div class="footer-detail-item">
-      <p class="footer-detail-label">Organized By</p>
-      <p class="footer-detail-value">MSquare</p>
+      <p class="footer-detail-label" data-ar="المنظم">Organized By</p>
+      <p class="footer-detail-value" data-ar="إم سكوير">MSquare</p>
     </div>
   </div>
 
@@ -2528,10 +2729,10 @@
     <span class="sep">·</span>
     <a href="https://cardio-alex.com" target="_blank" rel="noopener noreferrer">cardio-alex.com</a>
     <span class="sep">·</span>
-    <a href="#hero">Back to Top ↑</a>
+    <a href="#hero" data-ar="العودة لأعلى الصفحة ↑">Back to Top ↑</a>
   </div>
 
-  <p class="footer-bottom">
+  <p class="footer-bottom" data-ar="© ٢٠٢٦ مؤتمر كارديو بورسعيد الأول · تنظيم <span>إم سكوير</span> · بورسعيد، مصر">
     © 2026 1st Cardio Portsaid Conference · Organized by <span>MSquare</span> · Port Said, Egypt
   </p>
 </footer>
@@ -2786,12 +2987,14 @@
           // If the section title has nested split-targets, skip the parent to avoid double splitting
           if (el.classList.contains('section-title') && el.querySelector('.split-target')) return;
           
-          const split = new SplitType(el, { types: 'lines,words,chars' });
-          gsap.fromTo(split.chars,
+          const isRtl = document.documentElement.getAttribute('dir') === 'rtl';
+          const split = new SplitType(el, { types: isRtl ? 'lines,words' : 'lines,words,chars' });
+          const animTargets = isRtl ? split.words : split.chars;
+          gsap.fromTo(animTargets,
             { y: 50, opacity: 0, rotateX: -45 },
             { y: 0, opacity: 1, rotateX: 0,
               duration: 0.7, ease: 'back.out(1.8)',
-              stagger: 0.035,
+              stagger: isRtl ? 0.15 : 0.035,
               scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' }
             }
           );
@@ -2851,8 +3054,10 @@
       // President name char split
       const presName = document.querySelector('.president-name');
       if (presName && typeof SplitType !== 'undefined') {
-        const splitPres = new SplitType(presName, { types: 'chars' });
-        gsap.fromTo(splitPres.chars,
+        const isRtl = document.documentElement.getAttribute('dir') === 'rtl';
+        const splitPres = new SplitType(presName, { types: isRtl ? 'words' : 'chars' });
+        const animTargets = isRtl ? splitPres.words : splitPres.chars;
+        gsap.fromTo(animTargets,
           { y: 30, opacity: 0, scale: 0.7 },
           { y: 0, opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(2)', stagger: 0.06,
             scrollTrigger: { trigger: '#about', start: 'top 72%', toggleActions: 'play none none none' }
@@ -3054,8 +3259,34 @@
   });
 
   /* ========================
+     LANGUAGE TOGGLE
+  ======================== */
+  window.toggleLang = function() {
+    const isRtl = document.documentElement.getAttribute('dir') === 'rtl';
+    localStorage.setItem('lang', isRtl ? 'en' : 'ar');
+    window.location.reload();
+  };
+
+  /* Apply Translations Before GSAP */
+  function applyTranslations() {
+    if (document.documentElement.getAttribute('dir') === 'rtl') {
+      document.querySelectorAll('[data-ar]').forEach(el => {
+        if (!el.hasAttribute('data-en')) {
+          el.setAttribute('data-en', el.innerHTML);
+        }
+        el.innerHTML = el.getAttribute('data-ar');
+      });
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.textContent = 'English';
+      });
+    }
+  }
+
+  /* ========================
      INIT ON FONTS READY
   ======================== */
+  applyTranslations(); // Run translations instantly before fonts load
+
   if (document.fonts && document.fonts.ready) {
     document.fonts.ready.then(() => {
             initGSAP();
