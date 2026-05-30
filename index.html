@@ -3491,6 +3491,317 @@
         cursor: default !important;
       }
     }
+
+    /* ==========================================================================
+       MOBILE RESPONSIVE OVERRIDES (320px - 768px)
+       ========================================================================== */
+    @media (max-width: 480px) {
+      /* Global */
+      *, *::before, *::after { box-sizing: border-box; }
+      html, body { overflow-x: hidden; max-width: 100%; }
+      
+      /* Typography */
+      h1, .hero-title { font-size: clamp(2rem, 9vw, 3.5rem) !important; }
+      h2, .section-title { font-size: clamp(1.3rem, 6vw, 2rem) !important; }
+      h3, .board-luxury-card .board-card-name, .speaker-name { font-size: clamp(1rem, 5vw, 1.5rem) !important; }
+      p, li, .section-subtitle { font-size: 0.95rem !important; line-height: 1.7 !important; }
+
+      /* Sections */
+      section, #welcome, #about, #stats, #board, #organizing, #tracks, #agenda, #got-talent, #register, #footer { 
+        padding: 3rem 1.25rem !important; 
+        padding-bottom: 5rem !important;
+      }
+      
+      /* Navbar */
+      nav .nav-links, nav #navbar .nav-links { display: none !important; }
+      nav .nav-hamburger, nav #menuToggle { 
+        display: flex !important; 
+        align-items: center; 
+        justify-content: center;
+      }
+      #navbar {
+        padding: 0 1.25rem !important;
+      }
+      .mobile-menu {
+        gap: 0 !important;
+        padding: 5rem 1.5rem 2rem !important;
+        justify-content: flex-start !important;
+        overflow-y: auto !important;
+      }
+      .mobile-menu a {
+        width: 100% !important;
+        min-height: 56px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        font-size: 1.1rem !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+        margin: 0 !important;
+        font-family: inherit !important;
+        letter-spacing: 0.05em !important;
+      }
+      .mobile-menu a:last-of-type {
+        border-bottom: none !important;
+      }
+      .mobile-close {
+        top: 1rem !important;
+        right: 1.25rem !important;
+        font-size: 1.8rem !important;
+      }
+      .mobile-bottom-nav {
+        display: flex !important;
+        z-index: 99999 !important;
+        padding-bottom: env(safe-area-inset-bottom) !important;
+      }
+      
+      /* Hero */
+      .hero-title { font-size: clamp(2.5rem, 10vw, 4rem) !important; }
+      .hero-countdown {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 0.5rem !important;
+        max-width: 320px !important;
+        margin: 0 auto 1.5rem !important;
+      }
+      .countdown-unit {
+        width: calc(50% - 0.25rem) !important;
+        min-width: 0 !important;
+        flex: none !important;
+        padding: 0.8rem 0.5rem !important;
+      }
+      .countdown-unit:nth-child(3),
+      .countdown-unit:nth-child(4) {
+        display: flex !important; /* Make sure Minutes and Seconds display on mobile as 2x2 grid */
+      }
+      .countdown-num { font-size: clamp(2rem, 8vw, 3rem) !important; }
+      
+      .hero-ctas { 
+        flex-direction: column !important; 
+        width: 100% !important; 
+        gap: 0.75rem !important;
+        padding: 0 !important;
+      }
+      .hero-ctas .btn-magnetic {
+        width: 100% !important;
+        flex: none !important;
+      }
+      .hero-ctas a, .hero-ctas .btn-primary, .hero-ctas .btn-ghost { 
+        width: 100% !important; 
+        text-align: center !important;
+        min-height: 52px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        font-size: 1rem !important;
+      }
+      .hero-scroll-indicator, .hero-scroll, .scroll-hint {
+        display: none !important;
+      }
+
+      /* Welcome / About */
+      .welcome-card, .about-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto 2rem !important;
+      }
+      .about-text, .welcome-text {
+        max-width: 100% !important;
+        font-size: 1rem !important;
+        line-height: 1.7 !important;
+      }
+      .about-grid {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+      }
+      .about-visual {
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+      }
+      .event-details-grid { 
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important; 
+        gap: 1rem !important;
+        width: 100% !important;
+      }
+      .event-detail-item { 
+        padding: 1rem !important; 
+        text-align: center !important;
+        border-radius: 8px !important;
+        background: rgba(15, 8, 25, 0.6) !important;
+        border: 1px solid rgba(255, 255, 255, 0.06) !important;
+      }
+
+      /* Board */
+      #board .board-nav-arrow {
+        display: flex !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+      }
+      #board .board-nav-arrow.prev { left: 10px !important; }
+      #board .board-nav-arrow.next { right: 10px !important; }
+      
+      /* Agenda */
+      .agenda-day-tabs {
+        display: flex !important;
+        width: 100% !important;
+        gap: 0.5rem !important;
+        overflow-x: visible !important;
+      }
+      .agenda-day-tab {
+        flex: 1 !important;
+        text-align: center !important;
+        padding: 0.8rem 0.5rem !important;
+        font-size: 0.85rem !important;
+      }
+      .agenda-hall-tabs {
+        display: flex !important;
+        width: 100% !important;
+        gap: 0.5rem !important;
+      }
+      .agenda-hall-tab {
+        flex: 1 !important;
+        text-align: center !important;
+        padding: 0.6rem 0.5rem !important;
+        font-size: 0.8rem !important;
+      }
+      .session-block {
+        width: 100% !important;
+        padding: 0.75rem 1rem !important;
+      }
+      .session-item { font-size: 0.85rem !important; }
+      
+      /* Sponsorship */
+      .packages-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        flex-wrap: wrap !important;
+        overflow-x: visible !important;
+        gap: 1.5rem !important;
+        margin-right: 0 !important;
+        padding-right: 0 !important;
+      }
+      .packages-row {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1.5rem !important;
+      }
+      .package-card {
+        flex: none !important;
+        width: 100% !important;
+        scroll-snap-align: none !important;
+        padding: 1.5rem !important;
+      }
+      .package-price {
+        font-size: 1.8rem !important;
+      }
+      .feature-list li {
+        font-size: 0.9rem !important;
+        margin-bottom: 0.5rem !important;
+      }
+
+      /* Got Talent */
+      .talent-inner {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        gap: 2.5rem !important;
+      }
+      .talent-text {
+        width: 100% !important;
+        text-align: center !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+      }
+      .film-poster {
+        width: 100% !important;
+        max-width: 340px !important;
+        margin: 0 auto !important;
+        padding: 2rem 1.5rem !important;
+      }
+      .film-award {
+        font-size: clamp(0.7rem, 3.5vw, 0.9rem) !important;
+        padding: 4px 10px !important;
+      }
+
+      /* Registration */
+      .price-display { 
+        flex-direction: column !important; 
+        text-align: center !important;
+        gap: 0.5rem !important; 
+        padding: 1.5rem !important;
+      }
+      .price-label { font-size: 1rem !important; }
+      .price-value { font-size: 1.8rem !important; }
+      .register-includes h4 {
+        text-align: center !important;
+        font-size: 1.25rem !important;
+        margin-bottom: 1rem !important;
+      }
+      .include-item {
+        font-size: 0.95rem !important;
+        line-height: 1.6 !important;
+        text-align: center !important;
+        padding: 0.5rem 0 !important;
+      }
+      .register-cta { 
+        width: 100% !important; 
+        height: 56px !important;
+        font-size: 1.05rem !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
+
+      /* Footer */
+      .footer-details { 
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 1.5rem !important;
+        text-align: center !important;
+      }
+      .footer-detail-item {
+        width: 100% !important;
+        text-align: center !important;
+      }
+      .footer-links {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 0.8rem !important;
+      }
+      .footer-links .sep {
+        display: none !important;
+      }
+      .footer-links a {
+        min-height: 44px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        font-size: 0.9rem !important;
+      }
+      .footer-bottom {
+        text-align: center !important;
+        font-size: 0.8rem !important;
+        margin-top: 1.5rem !important;
+      }
+    }
+
+    /* ===== SMALL MOBILE ===== */
+    @media (max-width: 360px) {
+      section, #welcome, #about, #stats, #board, #organizing, #tracks, #agenda, #got-talent, #register, #footer { 
+        padding: 2.5rem 1rem !important; 
+      }
+      h1, .hero-title { font-size: 2rem !important; }
+    }
   </style>
 </head>
 <body>
