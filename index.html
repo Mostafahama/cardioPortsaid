@@ -52,7 +52,7 @@
        RESET & BASE
     ======================== */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; overflow-x: hidden; }
+    html { overflow-x: hidden; }
     body {
       background: var(--bg-void);
       color: var(--text-primary);
@@ -489,16 +489,25 @@
     .hero-meta {
       display: flex;
       align-items: center;
-      gap: 1rem;
-      font-size: 0.9rem;
-      color: var(--text-muted);
+      gap: 1.4rem;
+      font-size: 1.15rem;
+      color: #ffffff;
       margin-bottom: 2.5rem;
       flex-wrap: wrap;
       justify-content: center;
       opacity: 0;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.95);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.95), 0 0 10px rgba(139,92,246,0.3);
+      background: rgba(15, 10, 30, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 0.8rem 2rem;
+      border-radius: 50px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     }
-    .hero-meta .divider { color: var(--border-active); }
+    .hero-meta .divider { color: var(--accent); }
     .hero-ctas {
       display: flex;
       gap: 1.2rem;
@@ -616,20 +625,191 @@
       opacity: 0;
     }
     .scroll-hint span {
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
+      font-size: 0.9rem;
+      letter-spacing: 0.35em;
       text-transform: uppercase;
-      color: var(--text-muted);
+      color: #ffffff;
+      font-weight: 700;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.9), 0 0 15px rgba(168,85,247,0.5);
     }
     .scroll-line {
-      width: 1px;
-      height: 50px;
-      background: linear-gradient(to bottom, var(--primary-bright), transparent);
+      width: 2px;
+      height: 60px;
+      background: linear-gradient(to bottom, var(--primary-bright), var(--accent), transparent);
       animation: scrollPulse 2s ease-in-out infinite;
     }
     @keyframes scrollPulse {
       0%, 100% { opacity: 0.3; transform: scaleY(1); }
       50% { opacity: 1; transform: scaleY(1.2); }
+    }
+
+    /* ── REGISTRATION MODAL ── */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(8, 5, 18, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      padding: 1.5rem;
+    }
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-card {
+      background: rgba(18, 12, 34, 0.95);
+      border: 1px solid rgba(168, 85, 247, 0.25);
+      border-radius: 24px;
+      width: 100%;
+      max-width: 520px;
+      padding: 2.5rem;
+      position: relative;
+      transform: translateY(30px) scale(0.95);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 25px 80px rgba(0,0,0,0.8), 0 0 40px rgba(168,85,247,0.15);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .modal-overlay.open .modal-card {
+      transform: translateY(0) scale(1);
+    }
+    .modal-close {
+      position: absolute;
+      top: 1.2rem; right: 1.2rem;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.7);
+      width: 2.2rem; height: 2.2rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      z-index: 10;
+    }
+    .modal-close:hover {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: rgba(239, 68, 68, 0.4);
+      color: #ef4444;
+      transform: rotate(90deg);
+    }
+    .modal-header {
+      margin-bottom: 2rem;
+    }
+    .modal-header h3 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #ffffff 0%, var(--primary-bright) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .modal-header p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+    .form-group {
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 0.6rem;
+      letter-spacing: 0.02em;
+    }
+    .form-group input, .form-group select {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px;
+      padding: 0.85rem 1rem;
+      color: #ffffff;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      outline: none;
+    }
+    .form-group select option {
+      background: #120c22;
+      color: #ffffff;
+    }
+    .form-group input::placeholder {
+      color: rgba(255,255,255,0.3);
+    }
+    .form-group input:focus, .form-group select:focus {
+      border-color: var(--primary-bright);
+      background: rgba(139, 92, 246, 0.08);
+      box-shadow: 0 0 15px rgba(169, 85, 247, 0.25);
+    }
+    .modal-submit-btn {
+      width: 100%;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: 12px;
+      padding: 1rem;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(168,85,247,0.3);
+      letter-spacing: 0.04em;
+    }
+    .modal-submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(168,85,247,0.5);
+      background: linear-gradient(135deg, var(--primary-bright) 0%, var(--accent) 100%);
+    }
+    .modal-submit-btn:active {
+      transform: translateY(0);
+    }
+    .success-message {
+      text-align: center;
+      padding: 1.5rem 0;
+    }
+    .success-message h4 {
+      font-size: 1.5rem;
+      color: #10B981;
+      margin-bottom: 0.8rem;
+    }
+    .success-message p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1.8rem;
+    }
+    .modal-close-btn {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #ffffff;
+      padding: 0.75rem 2rem;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    .modal-close-btn:hover {
+      background: rgba(255,255,255,0.15);
+    }
+
+    /* RTL specific adjustments */
+    html[dir="rtl"] .modal-close {
+      right: auto; left: 1.2rem;
+    }
+    html[dir="rtl"] .form-group {
+      text-align: right;
     }
 
     /* Floating orbs */
@@ -1927,6 +2107,381 @@
       display: inline-block;
       transform-style: preserve-3d;
     }
+
+    /* ========================
+       COUNTDOWN TIMER
+    ======================== */
+    .hero-countdown {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+    }
+    .countdown-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 12px;
+      padding: 1rem 1.4rem;
+      min-width: 76px;
+      box-shadow: 0 4px 24px rgba(139,43,226,0.15), inset 0 1px 0 rgba(255,255,255,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    .countdown-unit::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(139,43,226,0.08), rgba(224,64,251,0.04));
+      pointer-events: none;
+    }
+    .countdown-num {
+      font-family: 'Cinzel', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1;
+      text-shadow: 0 0 20px rgba(168,85,247,0.6);
+      transition: transform 0.15s ease;
+    }
+    .countdown-num.flip {
+      animation: countFlip 0.3s ease;
+    }
+    @keyframes countFlip {
+      0%   { transform: translateY(-8px); opacity: 0.5; }
+      100% { transform: translateY(0);    opacity: 1; }
+    }
+    .countdown-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--primary-bright);
+      margin-top: 0.35rem;
+      font-weight: 500;
+    }
+    @media (max-width: 480px) {
+      .hero-countdown { gap: 0.6rem; }
+      .countdown-unit { min-width: 58px; padding: 0.7rem 0.8rem; }
+      .countdown-num { font-size: 1.5rem; }
+    }
+
+    /* ========================
+       BOARD PHOTO (real image)
+    ======================== */
+    .avatar-photo {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      border: 2px solid var(--primary);
+      object-fit: cover;
+      object-position: top center;
+      margin: 0 auto 1rem;
+      box-shadow: 0 0 20px var(--glow-purple);
+      transition: box-shadow 0.4s;
+      display: block;
+    }
+    .board-card:hover .avatar-photo {
+      box-shadow: 0 0 35px var(--glow-purple), 0 0 60px var(--glow-magenta);
+    }
+    /* President card uses gold border */
+    .board-card.president-card .avatar-photo {
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 25px rgba(201,168,76,0.3);
+    }
+    .board-card.president-card:hover .avatar-photo {
+      box-shadow: 0 0 45px rgba(201,168,76,0.5);
+    }
+
+    /* ========================
+       ORGANIZING COMMITTEE
+    ======================== */
+    #organizing {
+      padding: 7rem 5rem;
+      contain: layout style;
+    }
+    .organizing-grid {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .org-card {
+      position: relative;
+      background: var(--bg-card);
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 12px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      backdrop-filter: blur(20px);
+      transition: transform 0.4s, border-color 0.4s, box-shadow 0.4s;
+      overflow: hidden;
+      flex: 0 1 240px;
+    }
+    .org-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 0%, rgba(201,168,76,0.12) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    .org-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(201,168,76,0.6);
+      box-shadow: 0 20px 60px rgba(201,168,76,0.2), 0 0 0 1px rgba(201,168,76,0.1);
+    }
+    .org-card:hover::before { opacity: 1; }
+    .org-avatar {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      border: 2px solid rgba(201,168,76,0.6);
+      object-fit: cover;
+      object-position: top center;
+      margin: 0 auto 1rem;
+      display: block;
+      box-shadow: 0 0 20px rgba(201,168,76,0.2);
+    }
+    .org-card-name {
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.4;
+      margin-bottom: 0.6rem;
+    }
+    .org-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 4px 14px;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 100px;
+      font-size: 0.65rem;
+      color: var(--accent-gold);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* ========================
+       SCIENTIFIC TRACKS
+    ======================== */
+    #tracks {
+      padding: 7rem 5rem;
+      contain: layout style;
+    }
+    .tracks-container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .track-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+      margin-bottom: 3rem;
+    }
+    .track-tab {
+      padding: 10px 20px;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      background: rgba(139,43,226,0.04);
+      transition: all 0.3s;
+      white-space: nowrap;
+    }
+    .track-tab:hover:not(.active) {
+      border-color: var(--border-active);
+      color: var(--text-secondary);
+    }
+    .track-tab.active {
+      background: var(--primary);
+      border-color: var(--primary-bright);
+      color: #fff;
+      box-shadow: 0 0 20px rgba(139,43,226,0.4);
+    }
+    .track-panel { display: none; }
+    .track-panel.active { display: block; }
+    .speakers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 1.5rem;
+    }
+    .speaker-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      backdrop-filter: blur(12px);
+      transition: transform 0.35s, border-color 0.35s, box-shadow 0.35s;
+    }
+    .speaker-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--border-active);
+      box-shadow: 0 15px 40px rgba(139,43,226,0.25);
+    }
+    .speaker-photo {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      margin: 0 auto 0.8rem;
+      display: block;
+      border: 2px solid var(--primary);
+      object-fit: cover;
+      object-position: top center;
+      background: rgba(139,43,226,0.15);
+    }
+    /* SVG silhouette placeholder */
+    .speaker-photo-placeholder {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      margin: 0 auto 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid var(--primary);
+      background: linear-gradient(135deg, rgba(139,43,226,0.2), rgba(15,8,25,0.8));
+    }
+    .speaker-name {
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.4;
+      margin-bottom: 0.3rem;
+    }
+    .speaker-track-label {
+      font-size: 0.6rem;
+      color: var(--primary-bright);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.8;
+    }
+    @media (max-width: 768px) {
+      .speakers-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 1rem; }
+      .track-tabs { gap: 0.4rem; }
+      .track-tab { padding: 8px 14px; font-size: 0.72rem; }
+      #tracks { padding: 5rem 1.5rem; }
+      #organizing { padding: 5rem 1.5rem; }
+    }
+
+    /* ========================
+       STATS SECTION
+    ======================== */
+    #stats {
+      padding: 4rem 5rem;
+      position: relative;
+      z-index: 10;
+    }
+    .stats-grid {
+      display: flex;
+      gap: 0;
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      backdrop-filter: blur(20px);
+      overflow: hidden;
+    }
+    .stat-item {
+      flex: 1;
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      position: relative;
+      border-right: 1px solid var(--border-subtle);
+      transition: background 0.3s;
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-item:hover { background: rgba(139,43,226,0.06); }
+    .stat-number {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--primary-bright), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .stat-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    @media (max-width: 768px) {
+      #stats { padding: 3rem 1.5rem; }
+      .stats-grid {
+        flex-wrap: wrap;
+        border-radius: 16px;
+      }
+      .stat-item {
+        flex: 0 0 50%;
+        border-right: 1px solid var(--border-subtle);
+        border-bottom: 1px solid var(--border-subtle);
+        padding: 1.5rem 1rem;
+      }
+      .stat-item:nth-child(2n) { border-right: none; }
+      .stat-item:nth-last-child(-n+2) { border-bottom: none; }
+    }
+
+    /* ========================
+       WHATSAPP FLOAT BUTTON
+    ======================== */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 9990;
+      background: #25D366;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 14px 22px;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 6px 30px rgba(37,211,102,0.4), 0 2px 10px rgba(0,0,0,0.3);
+      transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease;
+      letter-spacing: 0.03em;
+    }
+    .whatsapp-float:hover {
+      transform: translateY(-4px) scale(1.04);
+      box-shadow: 0 12px 50px rgba(37,211,102,0.55), 0 4px 16px rgba(0,0,0,0.3);
+    }
+    .whatsapp-float svg {
+      width: 22px; height: 22px;
+      flex-shrink: 0;
+    }
+    .whatsapp-label {
+      white-space: nowrap;
+    }
+    @media (max-width: 600px) {
+      .whatsapp-float {
+        padding: 14px;
+        border-radius: 50%;
+        bottom: 1.5rem;
+        right: 1.5rem;
+      }
+      .whatsapp-label { display: none; }
+    }
   </style>
 </head>
 <body>
@@ -1934,6 +2489,20 @@
 <!-- Custom Cursor -->
 <div class="cursor-dot" id="cursorDot"></div>
 <div class="cursor-ring" id="cursorRing"></div>
+
+<!-- WhatsApp Floating Button -->
+<a href="https://wa.me/201XXXXXXXXX?text=Hello%2C%20I%20am%20interested%20in%20the%201st%20Cardio%20Portsaid%20Conference%202026."
+   class="whatsapp-float"
+   id="whatsappBtn"
+   target="_blank"
+   rel="noopener noreferrer"
+   aria-label="Chat with us on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+    <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.553 4.116 1.523 5.843L0 24l6.335-1.509A11.928 11.928 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.007-1.37l-.36-.214-3.757.895.951-3.665-.234-.376A9.818 9.818 0 112 12c0 5.406 4.394 9.818 9.818 9.818H12z"/>
+  </svg>
+  <span class="whatsapp-label">Chat with us</span>
+</a>
 
 <!-- Three.js Background Canvas -->
 <div id="bg-organic">
@@ -1967,9 +2536,9 @@
   <button class="mobile-close" id="mobileClose" aria-label="Close menu">✕</button>
   <a href="#welcome" onclick="closeMobileMenu()" data-ar="الترحيب">Welcome</a>
   <a href="#about" onclick="closeMobileMenu()" data-ar="عن المؤتمر">About</a>
-  <a href="#board" onclick="closeMobileMenu()" data-ar="اللجنة المنظمة">Board</a>
+  <a href="#board" onclick="closeMobileMenu()" data-ar="اللجنة">Board</a>
+  <a href="#tracks" onclick="closeMobileMenu()" data-ar="التخصصات">Tracks</a>
   <a href="#agenda" onclick="closeMobileMenu()" data-ar="الأجندة">Agenda</a>
-  <a href="#sponsorship" onclick="closeMobileMenu()" data-ar="الرعاة">Sponsors</a>
   <a href="#got-talent" onclick="closeMobileMenu()" data-ar="فعالية خاصة">Special Event</a>
   <a href="#register" onclick="closeMobileMenu()" style="color:var(--primary-bright)" data-ar="التسجيل">Register</a>
   <button onclick="toggleLang()" class="lang-btn" style="margin-top:1rem;">العربية</button>
@@ -1981,9 +2550,9 @@
   <ul class="nav-links">
     <li><a href="#welcome" data-ar="الترحيب">Welcome</a></li>
     <li><a href="#about" data-ar="عن المؤتمر">About</a></li>
-    <li><a href="#board" data-ar="اللجنة المنظمة">Board</a></li>
+    <li><a href="#board" data-ar="اللجنة">Board</a></li>
+    <li><a href="#tracks" data-ar="التخصصات">Tracks</a></li>
     <li><a href="#agenda" data-ar="الأجندة">Agenda</a></li>
-    <li><a href="#sponsorship" data-ar="الرعاة">Sponsors</a></li>
     <li><a href="#got-talent" data-ar="فعالية خاصة">Special Event</a></li>
     <li><button onclick="toggleLang()" class="lang-btn">العربية</button></li>
     <li><a href="#register" class="nav-cta" data-ar="سجل الآن">Register</a></li>
@@ -2008,9 +2577,29 @@
   <p class="hero-tagline" id="heroTagline" data-ar="نبض جديد لرعاية القلب">A New Pulse for Cardiac Care</p>
 
   <div class="hero-meta" id="heroMeta">
-    <span class="meta-item"><span class="meta-icon">📅</span> <span data-ar="١٥-١٦ أكتوبر ٢٠٢٦">October 15–16, 2026</span></span>
+    <span class="meta-item" data-ar="١٥–١٦ أكتوبر ٢٠٢٦">October 15–16, 2026</span>
     <span class="divider">|</span>
-    <span class="meta-item"><span class="meta-icon">📍</span> <span data-ar="فندق هلنان بورفؤاد">Helnan Portfoud Hotel</span></span>
+    <span class="meta-item" data-ar="فندق هلنان بورفؤاد، بورسعيد">Helnan Portfoud Hotel, Port Said</span>
+  </div>
+
+  <!-- Countdown to October 15, 2026 -->
+  <div class="hero-countdown" id="heroCountdown" aria-label="Countdown to conference">
+    <div class="countdown-unit">
+      <span class="countdown-num" id="cdDays">--</span>
+      <span class="countdown-label" data-ar="يوم">Days</span>
+    </div>
+    <div class="countdown-unit">
+      <span class="countdown-num" id="cdHours">--</span>
+      <span class="countdown-label" data-ar="ساعة">Hours</span>
+    </div>
+    <div class="countdown-unit">
+      <span class="countdown-num" id="cdMinutes">--</span>
+      <span class="countdown-label" data-ar="دقيقة">Minutes</span>
+    </div>
+    <div class="countdown-unit">
+      <span class="countdown-num" id="cdSeconds">--</span>
+      <span class="countdown-label" data-ar="ثانية">Seconds</span>
+    </div>
   </div>
 
   <div class="hero-ctas" id="heroCTAs">
@@ -2056,8 +2645,10 @@
 <section id="about" aria-labelledby="about-heading">
   <div class="about-grid">
     <div class="about-visual">
-      <div class="president-ring" aria-hidden="true">
-        <div class="president-icon">🫀</div>
+      <div class="president-ring" aria-hidden="false" style="overflow:hidden;background:none;">
+        <img src="Cardio portsaid speakers/Prof. Mohamed Imam.png"
+             alt="Prof. Mohamed Imam — Conference President"
+             style="width:100%;height:100%;object-fit:cover;object-position:top center;border-radius:50%;display:block;">
       </div>
       <div>
         <p class="president-name" data-ar="أ.د. محمد إمام">Prof. Mohamed Imam</p>
@@ -2098,9 +2689,40 @@
         </div>
         <div class="event-detail-item">
           <div class="event-detail-label" data-ar="المنظم">Organizer</div>
-          <div class="event-detail-value" data-ar="إم سكوير">MSquare</div>
+          <div class="event-detail-value" data-ar="كود سكوير">CodeSquare</div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- Divider -->
+<div class="section-divider" aria-hidden="true">
+  <div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div>
+</div>
+
+<!-- STATS SECTION -->
+<section id="stats" aria-label="Conference statistics">
+  <div class="stats-grid">
+    <div class="stat-item">
+      <div class="stat-number">2</div>
+      <div class="stat-label">Days</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">30+</div>
+      <div class="stat-label">Speakers</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">6</div>
+      <div class="stat-label">Scientific Tracks</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">2</div>
+      <div class="stat-label">Halls</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">1</div>
+      <div class="stat-label">Got Talent</div>
     </div>
   </div>
 </section>
@@ -2123,31 +2745,166 @@
   <div class="board-grid">
     <!-- Row 1: three members -->
     <div class="board-card">
-      <div class="avatar-ring" aria-hidden="true">👨‍⚕️</div>
+      <img class="avatar-photo" src="Cardio portsaid speakers/Prof. Mohamed Abdel Ghany.png" alt="Prof. Mohamed Abdel Ghany" loading="lazy">
       <p class="board-card-name" data-ar="أ.د. محمد<br>عبد الغني">Prof. Mohamed<br>Abdel Ghany</p>
-      <p class="board-card-role" data-ar="اللجنة العلمية">Scientific Committee</p>
     </div>
-    <div class="board-card" style="border-color:rgba(201,168,76,0.4);background:linear-gradient(135deg,rgba(201,168,76,0.07),rgba(15,8,25,0.9))">
-      <div class="avatar-ring" style="border-color:var(--accent-gold);box-shadow:0 0 25px rgba(201,168,76,0.3);" aria-hidden="true">🫀</div>
+    <div class="board-card president-card" style="border-color:rgba(201,168,76,0.4);background:linear-gradient(135deg,rgba(201,168,76,0.07),rgba(15,8,25,0.9))">
+      <img class="avatar-photo" src="Cardio portsaid speakers/Prof. Mohamed Imam.png" alt="Prof. Mohamed Imam" loading="lazy" style="border-color:var(--accent-gold);box-shadow:0 0 25px rgba(201,168,76,0.3);">
       <p class="board-card-name" data-ar="أ.د. محمد<br>إمام">Prof. Mohamed<br>Imam</p>
       <p class="board-card-role" style="color:var(--accent-gold)" data-ar="رئيس المؤتمر">Conference President</p>
     </div>
     <div class="board-card">
-      <div class="avatar-ring" aria-hidden="true">👨‍⚕️</div>
+      <img class="avatar-photo" src="Cardio portsaid speakers/Prof. Ashraf Ahmed.png" alt="Prof. Ashraf Ahmed" loading="lazy">
       <p class="board-card-name" data-ar="أ.د. أشرف<br>أحمد">Prof. Ashraf<br>Ahmed</p>
-      <p class="board-card-role" data-ar="اللجنة العلمية">Scientific Committee</p>
     </div>
     <!-- Row 2: two members — centered via flex wrapper -->
     <div class="board-last-row">
       <div class="board-card">
-        <div class="avatar-ring" aria-hidden="true">👨‍⚕️</div>
+        <img class="avatar-photo" src="Cardio portsaid speakers/Prof. Mohamed Alam Eddin.png" alt="Prof. Mohamed Alam Eddin" loading="lazy">
         <p class="board-card-name" data-ar="أ.د. محمد<br>علم الدين">Prof. Mohamed<br>Alam Eddin</p>
-        <p class="board-card-role" data-ar="اللجنة العلمية">Scientific Committee</p>
       </div>
       <div class="board-card">
-        <div class="avatar-ring" aria-hidden="true">👨‍⚕️</div>
+        <img class="avatar-photo" src="Cardio portsaid speakers/Prof. Mohamed Atta.png" alt="Prof. Mohamed Atta" loading="lazy">
         <p class="board-card-name" data-ar="أ.د. محمد<br>عطا">Prof. Mohamed<br>Atta</p>
-        <p class="board-card-role" data-ar="اللجنة العلمية">Scientific Committee</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Divider -->
+<div class="section-divider" aria-hidden="true">
+  <div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div>
+</div>
+
+<!-- ========================= -->
+<!-- ORGANIZING COMMITTEE      -->
+<!-- ========================= -->
+<section id="organizing" aria-labelledby="organizing-heading">
+  <div class="section-header">
+    <span class="section-label" data-ar="— اللجنة المنظمة —">— Organizing Committee —</span>
+    <h2 class="section-title" id="organizing-heading" data-ar="فريق خلف الكواليس">The Team Behind the Scenes</h2>
+    <p class="section-subtitle" data-ar="الفريق المنظم الذي جعل هذا المؤتمر حقيقة">The dedicated team that made this conference a reality.</p>
+  </div>
+
+  <div class="organizing-grid">
+    <div class="org-card">
+      <img class="org-avatar" src="Cardio portsaid speakers/Prof. Mahmoud El-katatny.png" alt="Prof. Mahmoud El-Katatny" loading="lazy">
+      <p class="org-card-name" data-ar="أ.د. محمود<br>القطاطني">Prof. Mahmoud<br>El-Katatny</p>
+      <span class="org-badge">✦ Organizing Committee</span>
+    </div>
+  </div>
+</section>
+
+<!-- Divider -->
+<div class="section-divider" aria-hidden="true">
+  <div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div>
+</div>
+
+<!-- ========================= -->
+<!-- SCIENTIFIC TRACKS         -->
+<!-- ========================= -->
+<section id="tracks" aria-labelledby="tracks-heading">
+  <div class="section-header">
+    <span class="section-label" data-ar="— المسارات العلمية —">— Scientific Tracks &amp; Faculty —</span>
+    <h2 class="section-title" id="tracks-heading" data-ar="المسارات العلمية والأساتذة">Scientific Tracks &amp; Faculty</h2>
+    <p class="section-subtitle" data-ar="٦ مسارات علمية متخصصة بأبرز أسماء طب القلب في مصر">6 specialized scientific tracks featuring Egypt's leading cardiac faculty.</p>
+  </div>
+
+  <div class="tracks-container">
+    <!-- Track Tabs -->
+    <div class="track-tabs" role="tablist" aria-label="Scientific tracks">
+      <button class="track-tab active" data-track="intervention" role="tab" aria-selected="true" data-ar="العلاج التداخلي">Intervention</button>
+      <button class="track-tab" data-track="structural" role="tab" aria-selected="false" data-ar="أمراض القلب البنيوية">Structural Heart</button>
+      <button class="track-tab" data-track="imaging" role="tab" aria-selected="false" data-ar="تصوير القلب">Imaging</button>
+      <button class="track-tab" data-track="ep" role="tab" aria-selected="false" data-ar="كهرباء القلب">Electrophysiology</button>
+      <button class="track-tab" data-track="preventive" role="tab" aria-selected="false" data-ar="الوقائي">Preventive</button>
+      <button class="track-tab" data-track="hf" role="tab" aria-selected="false" data-ar="فشل القلب">Heart Failure</button>
+    </div>
+
+    <!-- SVG Placeholder template (inline) -->
+    <template id="speakerPhotoTpl">
+      <div class="speaker-photo-placeholder" aria-hidden="true">
+        <svg viewBox="0 0 50 50" width="38" height="38" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="25" cy="18" r="10" fill="rgba(168,85,247,0.4)"/>
+          <path d="M5 45c0-11 8.95-20 20-20s20 8.95 20 20" fill="rgba(168,85,247,0.3)"/>
+        </svg>
+      </div>
+    </template>
+
+    <!-- Track 1: Intervention -->
+    <div class="track-panel active" id="track-intervention" role="tabpanel">
+      <div class="speakers-grid">
+        <div class="speaker-card"><div class="speaker-photo-placeholder" aria-hidden="true"><svg viewBox="0 0 50 50" width="38" height="38" fill="none"><circle cx="25" cy="18" r="10" fill="rgba(168,85,247,0.4)"/><path d="M5 45c0-11 8.95-20 20-20s20 8.95 20 20" fill="rgba(168,85,247,0.3)"/></svg></div><p class="speaker-name" data-ar="أ.د. حازم خميس">Prof. Hazem Khamis</p><p class="speaker-track-label" data-ar="العلاج التداخلي">Intervention</p></div>
+        <div class="speaker-card"><div class="speaker-photo-placeholder" aria-hidden="true"><svg viewBox="0 0 50 50" width="38" height="38" fill="none"><circle cx="25" cy="18" r="10" fill="rgba(168,85,247,0.4)"/><path d="M5 45c0-11 8.95-20 20-20s20 8.95 20 20" fill="rgba(168,85,247,0.3)"/></svg></div><p class="speaker-name" data-ar="أ.د. أحمد مجدي">Prof. Ahmed Magdy</p><p class="speaker-track-label" data-ar="العلاج التداخلي">Intervention</p></div>
+        <div class="speaker-card"><div class="speaker-photo-placeholder" aria-hidden="true"><svg viewBox="0 0 50 50" width="38" height="38" fill="none"><circle cx="25" cy="18" r="10" fill="rgba(168,85,247,0.4)"/><path d="M5 45c0-11 8.95-20 20-20s20 8.95 20 20" fill="rgba(168,85,247,0.3)"/></svg></div><p class="speaker-name" data-ar="أ.د. نبيل فرج">Prof. Nabil Farag</p><p class="speaker-track-label" data-ar="العلاج التداخلي">Intervention</p></div>
+        <div class="speaker-card"><div class="speaker-photo-placeholder" aria-hidden="true"><svg viewBox="0 0 50 50" width="38" height="38" fill="none"><circle cx="25" cy="18" r="10" fill="rgba(168,85,247,0.4)"/><path d="M5 45c0-11 8.95-20 20-20s20 8.95 20 20" fill="rgba(168,85,247,0.3)"/></svg></div><p class="speaker-name" data-ar="أ.د. محمد سليم">Prof. Mohamed Selim</p><p class="speaker-track-label" data-ar="العلاج التداخلي">Intervention</p></div>
+        <div class="speaker-card"><div class="speaker-photo-placeholder" aria-hidden="true"><svg viewBox="0 0 50 50" width="38" height="38" fill="none"><circle cx="25" cy="18" r="10" fill="rgba(168,85,247,0.4)"/><path d="M5 45c0-11 8.95-20 20-20s20 8.95 20 20" fill="rgba(168,85,247,0.3)"/></svg></div><p class="speaker-name" data-ar="أ.د. ياسر صادق">Prof. Yasser Sadek</p><p class="speaker-track-label" data-ar="العلاج التداخلي">Intervention</p></div>
+        <div class="speaker-card"><div class="speaker-photo-placeholder" aria-hidden="true"><svg viewBox="0 0 50 50" width="38" height="38" fill="none"><circle cx="25" cy="18" r="10" fill="rgba(168,85,247,0.4)"/><path d="M5 45c0-11 8.95-20 20-20s20 8.95 20 20" fill="rgba(168,85,247,0.3)"/></svg></div><p class="speaker-name" data-ar="أ.د. خالد تمام">Prof. Khaled Tamam</p><p class="speaker-track-label" data-ar="العلاج التداخلي">Intervention</p></div>
+        <div class="speaker-card"><div class="speaker-photo-placeholder" aria-hidden="true"><svg viewBox="0 0 50 50" width="38" height="38" fill="none"><circle cx="25" cy="18" r="10" fill="rgba(168,85,247,0.4)"/><path d="M5 45c0-11 8.95-20 20-20s20 8.95 20 20" fill="rgba(168,85,247,0.3)"/></svg></div><p class="speaker-name" data-ar="أ.د. محمد صبري">Prof. Mohamed Sabry</p><p class="speaker-track-label" data-ar="العلاج التداخلي">Intervention</p></div>
+        <div class="speaker-card"><div class="speaker-photo-placeholder" aria-hidden="true"><svg viewBox="0 0 50 50" width="38" height="38" fill="none"><circle cx="25" cy="18" r="10" fill="rgba(168,85,247,0.4)"/><path d="M5 45c0-11 8.95-20 20-20s20 8.95 20 20" fill="rgba(168,85,247,0.3)"/></svg></div><p class="speaker-name" data-ar="أ.د. أحمد السواح">Prof. Ahmed El-Sawah</p><p class="speaker-track-label" data-ar="العلاج التداخلي">Intervention</p></div>
+        <div class="speaker-card"><div class="speaker-photo-placeholder" aria-hidden="true"><svg viewBox="0 0 50 50" width="38" height="38" fill="none"><circle cx="25" cy="18" r="10" fill="rgba(168,85,247,0.4)"/><path d="M5 45c0-11 8.95-20 20-20s20 8.95 20 20" fill="rgba(168,85,247,0.3)"/></svg></div><p class="speaker-name" data-ar="أ.د. خالد علي">Prof. Khaled Ali</p><p class="speaker-track-label" data-ar="العلاج التداخلي">Intervention</p></div>
+        <div class="speaker-card"><div class="speaker-photo-placeholder" aria-hidden="true"><svg viewBox="0 0 50 50" width="38" height="38" fill="none"><circle cx="25" cy="18" r="10" fill="rgba(168,85,247,0.4)"/><path d="M5 45c0-11 8.95-20 20-20s20 8.95 20 20" fill="rgba(168,85,247,0.3)"/></svg></div><p class="speaker-name" data-ar="أ.د. إبراهيم ياسين">Prof. Ibrahim Yassin</p><p class="speaker-track-label" data-ar="العلاج التداخلي">Intervention</p></div>
+        <div class="speaker-card"><div class="speaker-photo-placeholder" aria-hidden="true"><svg viewBox="0 0 50 50" width="38" height="38" fill="none"><circle cx="25" cy="18" r="10" fill="rgba(168,85,247,0.4)"/><path d="M5 45c0-11 8.95-20 20-20s20 8.95 20 20" fill="rgba(168,85,247,0.3)"/></svg></div><p class="speaker-name" data-ar="أ.د. شهاب الأتربي">Prof. Shehab El-Etreby</p><p class="speaker-track-label" data-ar="العلاج التداخلي">Intervention</p></div>
+        <div class="speaker-card"><div class="speaker-photo-placeholder" aria-hidden="true"><svg viewBox="0 0 50 50" width="38" height="38" fill="none"><circle cx="25" cy="18" r="10" fill="rgba(168,85,247,0.4)"/><path d="M5 45c0-11 8.95-20 20-20s20 8.95 20 20" fill="rgba(168,85,247,0.3)"/></svg></div><p class="speaker-name" data-ar="أ.د. علي يوسف">Prof. Ali Youssef</p><p class="speaker-track-label" data-ar="العلاج التداخلي">Intervention</p></div>
+      </div>
+    </div>
+
+    <!-- Track 2: Structural Heart -->
+    <div class="track-panel" id="track-structural" role="tabpanel">
+      <div class="speakers-grid">
+        <div class="speaker-card"><div class="speaker-photo-placeholder" aria-hidden="true"><svg viewBox="0 0 50 50" width="38" height="38" fill="none"><circle cx="25" cy="18" r="10" fill="rgba(168,85,247,0.4)"/><path d="M5 45c0-11 8.95-20 20-20s20 8.95 20 20" fill="rgba(168,85,247,0.3)"/></svg></div><p class="speaker-name" data-ar="أ.د. حازم خميس">Prof. Hazem Khamis</p><p class="speaker-track-label" data-ar="أمراض القلب البنيوية">Structural Heart</p></div>
+        <div class="speaker-card"><div class="speaker-photo-placeholder" aria-hidden="true"><svg viewBox="0 0 50 50" width="38" height="38" fill="none"><circle cx="25" cy="18" r="10" fill="rgba(168,85,247,0.4)"/><path d="M5 45c0-11 8.95-20 20-20s20 8.95 20 20" fill="rgba(168,85,247,0.3)"/></svg></div><p class="speaker-name" data-ar="أ.د. ياسر صادق">Prof. Yasser Sadek</p><p class="speaker-track-label" data-ar="أمراض القلب البنيوية">Structural Heart</p></div>
+        <div class="speaker-card"><div class="speaker-photo-placeholder" aria-hidden="true"><svg viewBox="0 0 50 50" width="38" height="38" fill="none"><circle cx="25" cy="18" r="10" fill="rgba(168,85,247,0.4)"/><path d="M5 45c0-11 8.95-20 20-20s20 8.95 20 20" fill="rgba(168,85,247,0.3)"/></svg></div><p class="speaker-name" data-ar="أ.د. شادي منسي">Prof. Shady Mansy</p><p class="speaker-track-label" data-ar="أمراض القلب البنيوية">Structural Heart</p></div>
+        <div class="speaker-card"><div class="speaker-photo-placeholder" aria-hidden="true"><svg viewBox="0 0 50 50" width="38" height="38" fill="none"><circle cx="25" cy="18" r="10" fill="rgba(168,85,247,0.4)"/><path d="M5 45c0-11 8.95-20 20-20s20 8.95 20 20" fill="rgba(168,85,247,0.3)"/></svg></div><p class="speaker-name" data-ar="أ.د. محمد صبري">Prof. Mohamed Sabry</p><p class="speaker-track-label" data-ar="أمراض القلب البنيوية">Structural Heart</p></div>
+        <div class="speaker-card"><div class="speaker-photo-placeholder" aria-hidden="true"><svg viewBox="0 0 50 50" width="38" height="38" fill="none"><circle cx="25" cy="18" r="10" fill="rgba(168,85,247,0.4)"/><path d="M5 45c0-11 8.95-20 20-20s20 8.95 20 20" fill="rgba(168,85,247,0.3)"/></svg></div><p class="speaker-name" data-ar="أ.د. أحمد السواح">Prof. Ahmed El-Sawah</p><p class="speaker-track-label" data-ar="أمراض القلب البنيوية">Structural Heart</p></div>
+        <div class="speaker-card"><div class="speaker-photo-placeholder" aria-hidden="true"><svg viewBox="0 0 50 50" width="38" height="38" fill="none"><circle cx="25" cy="18" r="10" fill="rgba(168,85,247,0.4)"/><path d="M5 45c0-11 8.95-20 20-20s20 8.95 20 20" fill="rgba(168,85,247,0.3)"/></svg></div><p class="speaker-name" data-ar="أ.د. عبد الرحمن عفيفي">Prof. Abdel-Rahman Afify</p><p class="speaker-track-label" data-ar="أمراض القلب البنيوية">Structural Heart</p></div>
+      </div>
+    </div>
+
+    <!-- Track 3: Imaging -->
+    <div class="track-panel" id="track-imaging" role="tabpanel">
+      <div class="speakers-grid">
+        <div class="speaker-card"><div class="speaker-photo-placeholder" aria-hidden="true"><svg viewBox="0 0 50 50" width="38" height="38" fill="none"><circle cx="25" cy="18" r="10" fill="rgba(168,85,247,0.4)"/><path d="M5 45c0-11 8.95-20 20-20s20 8.95 20 20" fill="rgba(168,85,247,0.3)"/></svg></div><p class="speaker-name" data-ar="أ.د. هاني محمود">Prof. Hany Mahmoud</p><p class="speaker-track-label" data-ar="تصوير القلب">Imaging</p></div>
+        <div class="speaker-card"><div class="speaker-photo-placeholder" aria-hidden="true"><svg viewBox="0 0 50 50" width="38" height="38" fill="none"><circle cx="25" cy="18" r="10" fill="rgba(168,85,247,0.4)"/><path d="M5 45c0-11 8.95-20 20-20s20 8.95 20 20" fill="rgba(168,85,247,0.3)"/></svg></div><p class="speaker-name" data-ar="أ.د. فواز العنزي">Prof. Fawaz El-Anzy</p><p class="speaker-track-label" data-ar="تصوير القلب">Imaging</p></div>
+        <div class="speaker-card"><div class="speaker-photo-placeholder" aria-hidden="true"><svg viewBox="0 0 50 50" width="38" height="38" fill="none"><circle cx="25" cy="18" r="10" fill="rgba(168,85,247,0.4)"/><path d="M5 45c0-11 8.95-20 20-20s20 8.95 20 20" fill="rgba(168,85,247,0.3)"/></svg></div><p class="speaker-name" data-ar="أ.د. محمد الصدفي">Prof. Mohamed El-Sedafy</p><p class="speaker-track-label" data-ar="تصوير القلب">Imaging</p></div>
+        <div class="speaker-card"><div class="speaker-photo-placeholder" aria-hidden="true"><svg viewBox="0 0 50 50" width="38" height="38" fill="none"><circle cx="25" cy="18" r="10" fill="rgba(168,85,247,0.4)"/><path d="M5 45c0-11 8.95-20 20-20s20 8.95 20 20" fill="rgba(168,85,247,0.3)"/></svg></div><p class="speaker-name" data-ar="أ.د. أحمد فريد">Prof. Ahmed Fared</p><p class="speaker-track-label" data-ar="تصوير القلب">Imaging</p></div>
+        <div class="speaker-card"><div class="speaker-photo-placeholder" aria-hidden="true"><svg viewBox="0 0 50 50" width="38" height="38" fill="none"><circle cx="25" cy="18" r="10" fill="rgba(168,85,247,0.4)"/><path d="M5 45c0-11 8.95-20 20-20s20 8.95 20 20" fill="rgba(168,85,247,0.3)"/></svg></div><p class="speaker-name" data-ar="أ.د. سارة الجمال">Prof. Sara El-Gammal</p><p class="speaker-track-label" data-ar="تصوير القلب">Imaging</p></div>
+        <div class="speaker-card"><div class="speaker-photo-placeholder" aria-hidden="true"><svg viewBox="0 0 50 50" width="38" height="38" fill="none"><circle cx="25" cy="18" r="10" fill="rgba(168,85,247,0.4)"/><path d="M5 45c0-11 8.95-20 20-20s20 8.95 20 20" fill="rgba(168,85,247,0.3)"/></svg></div><p class="speaker-name" data-ar="أ.د. إيفان عماد">Prof. Evan Emad</p><p class="speaker-track-label" data-ar="تصوير القلب">Imaging</p></div>
+      </div>
+    </div>
+
+    <!-- Track 4: Electrophysiology -->
+    <div class="track-panel" id="track-ep" role="tabpanel">
+      <div class="speakers-grid">
+        <div class="speaker-card"><img class="speaker-photo" src="Cardio portsaid speakers/Prof. Mohamed Atta.png" alt="Prof. Mohamed Atta" loading="lazy"><p class="speaker-name" data-ar="أ.د. ميرفت أبو المعاطي">Prof. Mervat Abo El-Maaty</p><p class="speaker-track-label" data-ar="كهرباء القلب">Electrophysiology</p></div>
+        <div class="speaker-card"><div class="speaker-photo-placeholder" aria-hidden="true"><svg viewBox="0 0 50 50" width="38" height="38" fill="none"><circle cx="25" cy="18" r="10" fill="rgba(168,85,247,0.4)"/><path d="M5 45c0-11 8.95-20 20-20s20 8.95 20 20" fill="rgba(168,85,247,0.3)"/></svg></div><p class="speaker-name" data-ar="أ.د. عزة قطة">Prof. Azza Katta</p><p class="speaker-track-label" data-ar="كهرباء القلب">Electrophysiology</p></div>
+        <div class="speaker-card"><div class="speaker-photo-placeholder" aria-hidden="true"><svg viewBox="0 0 50 50" width="38" height="38" fill="none"><circle cx="25" cy="18" r="10" fill="rgba(168,85,247,0.4)"/><path d="M5 45c0-11 8.95-20 20-20s20 8.95 20 20" fill="rgba(168,85,247,0.3)"/></svg></div><p class="speaker-name" data-ar="أ.د. أحمد طاهر">Prof. Ahmed Taher</p><p class="speaker-track-label" data-ar="كهرباء القلب">Electrophysiology</p></div>
+        <div class="speaker-card"><div class="speaker-photo-placeholder" aria-hidden="true"><svg viewBox="0 0 50 50" width="38" height="38" fill="none"><circle cx="25" cy="18" r="10" fill="rgba(168,85,247,0.4)"/><path d="M5 45c0-11 8.95-20 20-20s20 8.95 20 20" fill="rgba(168,85,247,0.3)"/></svg></div><p class="speaker-name" data-ar="أ.د. أحمد مصطفى">Prof. Ahmed Mostafa</p><p class="speaker-track-label" data-ar="كهرباء القلب">Electrophysiology</p></div>
+        <div class="speaker-card"><div class="speaker-photo-placeholder" aria-hidden="true"><svg viewBox="0 0 50 50" width="38" height="38" fill="none"><circle cx="25" cy="18" r="10" fill="rgba(168,85,247,0.4)"/><path d="M5 45c0-11 8.95-20 20-20s20 8.95 20 20" fill="rgba(168,85,247,0.3)"/></svg></div><p class="speaker-name" data-ar="أ.د. أحمد البهنساوي">Prof. Ahmed Bahnasawy</p><p class="speaker-track-label" data-ar="كهرباء القلب">Electrophysiology</p></div>
+        <div class="speaker-card"><div class="speaker-photo-placeholder" aria-hidden="true"><svg viewBox="0 0 50 50" width="38" height="38" fill="none"><circle cx="25" cy="18" r="10" fill="rgba(168,85,247,0.4)"/><path d="M5 45c0-11 8.95-20 20-20s20 8.95 20 20" fill="rgba(168,85,247,0.3)"/></svg></div><p class="speaker-name" data-ar="أ.د. محمد أبو هديمة">Prof. Mohamed Abo-Hadema</p><p class="speaker-track-label" data-ar="كهرباء القلب">Electrophysiology</p></div>
+        <div class="speaker-card"><div class="speaker-photo-placeholder" aria-hidden="true"><svg viewBox="0 0 50 50" width="38" height="38" fill="none"><circle cx="25" cy="18" r="10" fill="rgba(168,85,247,0.4)"/><path d="M5 45c0-11 8.95-20 20-20s20 8.95 20 20" fill="rgba(168,85,247,0.3)"/></svg></div><p class="speaker-name" data-ar="أ.د. محمد عادل المغاوري">Prof. Mohamed Adel El-Maghawry</p><p class="speaker-track-label" data-ar="كهرباء القلب">Electrophysiology</p></div>
+        <div class="speaker-card"><img class="speaker-photo" src="Cardio portsaid speakers/Prof. Mohamed Atta.png" alt="Prof. Mohamed Atta" loading="lazy"><p class="speaker-name" data-ar="أ.د. محمد عطا">Prof. Mohamed Atta</p><p class="speaker-track-label" data-ar="كهرباء القلب">Electrophysiology</p></div>
+      </div>
+    </div>
+
+    <!-- Track 5: Preventive Medicine -->
+    <div class="track-panel" id="track-preventive" role="tabpanel">
+      <div class="speakers-grid">
+        <div class="speaker-card"><div class="speaker-photo-placeholder" aria-hidden="true"><svg viewBox="0 0 50 50" width="38" height="38" fill="none"><circle cx="25" cy="18" r="10" fill="rgba(168,85,247,0.4)"/><path d="M5 45c0-11 8.95-20 20-20s20 8.95 20 20" fill="rgba(168,85,247,0.3)"/></svg></div><p class="speaker-name" data-ar="أ.د. محمد صبح">Prof. Mohamed Sobh</p><p class="speaker-track-label" data-ar="الوقائي">Preventive Medicine</p></div>
+        <div class="speaker-card"><div class="speaker-photo-placeholder" aria-hidden="true"><svg viewBox="0 0 50 50" width="38" height="38" fill="none"><circle cx="25" cy="18" r="10" fill="rgba(168,85,247,0.4)"/><path d="M5 45c0-11 8.95-20 20-20s20 8.95 20 20" fill="rgba(168,85,247,0.3)"/></svg></div><p class="speaker-name" data-ar="أ.د. أشرف رضا">Prof. Ashraf Reda</p><p class="speaker-track-label" data-ar="الوقائي">Preventive Medicine</p></div>
+        <div class="speaker-card"><div class="speaker-photo-placeholder" aria-hidden="true"><svg viewBox="0 0 50 50" width="38" height="38" fill="none"><circle cx="25" cy="18" r="10" fill="rgba(168,85,247,0.4)"/><path d="M5 45c0-11 8.95-20 20-20s20 8.95 20 20" fill="rgba(168,85,247,0.3)"/></svg></div><p class="speaker-name" data-ar="أ.د. هشام صلاح">Prof. Hesham Salah</p><p class="speaker-track-label" data-ar="الوقائي">Preventive Medicine</p></div>
+        <div class="speaker-card"><div class="speaker-photo-placeholder" aria-hidden="true"><svg viewBox="0 0 50 50" width="38" height="38" fill="none"><circle cx="25" cy="18" r="10" fill="rgba(168,85,247,0.4)"/><path d="M5 45c0-11 8.95-20 20-20s20 8.95 20 20" fill="rgba(168,85,247,0.3)"/></svg></div><p class="speaker-name" data-ar="أ.د. جميلة نصر">Prof. Gamela Nasr</p><p class="speaker-track-label" data-ar="الوقائي">Preventive Medicine</p></div>
+        <div class="speaker-card"><div class="speaker-photo-placeholder" aria-hidden="true"><svg viewBox="0 0 50 50" width="38" height="38" fill="none"><circle cx="25" cy="18" r="10" fill="rgba(168,85,247,0.4)"/><path d="M5 45c0-11 8.95-20 20-20s20 8.95 20 20" fill="rgba(168,85,247,0.3)"/></svg></div><p class="speaker-name" data-ar="أ.د. هاني الشهيدي">Prof. Hany El-Shahedy</p><p class="speaker-track-label" data-ar="الوقائي">Preventive Medicine</p></div>
+      </div>
+    </div>
+
+    <!-- Track 6: Heart Failure -->
+    <div class="track-panel" id="track-hf" role="tabpanel">
+      <div class="speakers-grid">
+        <div class="speaker-card"><div class="speaker-photo-placeholder" aria-hidden="true"><svg viewBox="0 0 50 50" width="38" height="38" fill="none"><circle cx="25" cy="18" r="10" fill="rgba(168,85,247,0.4)"/><path d="M5 45c0-11 8.95-20 20-20s20 8.95 20 20" fill="rgba(168,85,247,0.3)"/></svg></div><p class="speaker-name" data-ar="أ.د. مجدي عبد الحميد">Prof. Magdy Abdel-Hameed</p><p class="speaker-track-label" data-ar="فشل القلب">Heart Failure</p></div>
+        <div class="speaker-card"><div class="speaker-photo-placeholder" aria-hidden="true"><svg viewBox="0 0 50 50" width="38" height="38" fill="none"><circle cx="25" cy="18" r="10" fill="rgba(168,85,247,0.4)"/><path d="M5 45c0-11 8.95-20 20-20s20 8.95 20 20" fill="rgba(168,85,247,0.3)"/></svg></div><p class="speaker-name" data-ar="أ.د. أحمد عبد العزيز">Prof. Ahmed Abdel-Aziz</p><p class="speaker-track-label" data-ar="فشل القلب">Heart Failure</p></div>
+        <div class="speaker-card"><div class="speaker-photo-placeholder" aria-hidden="true"><svg viewBox="0 0 50 50" width="38" height="38" fill="none"><circle cx="25" cy="18" r="10" fill="rgba(168,85,247,0.4)"/><path d="M5 45c0-11 8.95-20 20-20s20 8.95 20 20" fill="rgba(168,85,247,0.3)"/></svg></div><p class="speaker-name" data-ar="أ.د. أسامة لويس">Prof. Osama Louise</p><p class="speaker-track-label" data-ar="فشل القلب">Heart Failure</p></div>
+        <div class="speaker-card"><div class="speaker-photo-placeholder" aria-hidden="true"><svg viewBox="0 0 50 50" width="38" height="38" fill="none"><circle cx="25" cy="18" r="10" fill="rgba(168,85,247,0.4)"/><path d="M5 45c0-11 8.95-20 20-20s20 8.95 20 20" fill="rgba(168,85,247,0.3)"/></svg></div><p class="speaker-name" data-ar="أ.د. جميلة نصر">Prof. Gamela Nasr</p><p class="speaker-track-label" data-ar="فشل القلب">Heart Failure</p></div>
       </div>
     </div>
   </div>
@@ -2171,11 +2928,11 @@
   <div class="agenda-container">
     <!-- Day Tabs -->
     <div class="agenda-day-tabs" role="tablist" aria-label="Conference days">
-      <button class="agenda-day-tab active" data-day="day1" role="tab" aria-selected="true" aria-controls="day1-panel" id="day1-tab" data-ar="📅 اليوم الأول — ١٥ أكتوبر">
-        📅 Day 1 — October 15
+      <button class="agenda-day-tab active" data-day="day1" role="tab" aria-selected="true" aria-controls="day1-panel" id="day1-tab" data-ar="اليوم الأول — ١٥ أكتوبر">
+        Day 1 — October 15
       </button>
-      <button class="agenda-day-tab" data-day="day2" role="tab" aria-selected="false" aria-controls="day2-panel" id="day2-tab" data-ar="📅 اليوم الثاني — ١٦ أكتوبر">
-        📅 Day 2 — October 16
+      <button class="agenda-day-tab" data-day="day2" role="tab" aria-selected="false" aria-controls="day2-panel" id="day2-tab" data-ar="اليوم الثاني — ١٦ أكتوبر">
+        Day 2 — October 16
       </button>
     </div>
 
@@ -2191,7 +2948,7 @@
       <div class="agenda-hall-panel active" id="day1-royal">
         <div class="session-block break-block">
           <div class="time-badge">09:00 – 10:00</div>
-          <p class="talk-title" style="color:var(--accent-gold)" data-ar="🚪 الوصول والتسجيل">🚪 Arrival &amp; Registration</p>
+          <p class="talk-title" style="color:var(--accent-gold)" data-ar="الوصول والتسجيل">Arrival &amp; Registration</p>
         </div>
         <div class="session-block">
           <div class="time-badge">10:00 – 10:15</div>
@@ -2255,7 +3012,7 @@
 
         <div class="session-block break-block">
           <div class="time-badge" style="background:rgba(201,168,76,0.15);color:var(--accent-gold);">14:45 – 15:45</div>
-          <p class="talk-title" style="color:var(--accent-gold);" data-ar="☕ استراحة قهوة">☕ Coffee Break</p>
+          <p class="talk-title" style="color:var(--accent-gold);" data-ar="استراحة قهوة">Coffee Break</p>
         </div>
       </div>
 
@@ -2303,7 +3060,7 @@
 
         <div class="session-block break-block">
           <div class="time-badge" style="background:rgba(201,168,76,0.15);color:var(--accent-gold);">14:45 – 15:45</div>
-          <p class="talk-title" style="color:var(--accent-gold);" data-ar="☕ استراحة قهوة">☕ Coffee Break</p>
+          <p class="talk-title" style="color:var(--accent-gold);" data-ar="استراحة قهوة">Coffee Break</p>
         </div>
 
         <div class="session-block">
@@ -2395,7 +3152,7 @@
 
         <div class="session-block break-block">
           <div class="time-badge" style="background:rgba(201,168,76,0.15);color:var(--accent-gold);">15:45 – 16:45</div>
-          <p class="talk-title" style="color:var(--accent-gold);" data-ar="☕ استراحة قهوة">☕ Coffee Break</p>
+          <p class="talk-title" style="color:var(--accent-gold);" data-ar="استراحة قهوة">Coffee Break</p>
         </div>
 
         <div class="session-block">
@@ -2484,109 +3241,11 @@
 
         <div class="session-block break-block">
           <div class="time-badge" style="background:rgba(201,168,76,0.15);color:var(--accent-gold);">15:45 – 16:45</div>
-          <p class="talk-title" style="color:var(--accent-gold);" data-ar="☕ استراحة قهوة">☕ Coffee Break</p>
+          <p class="talk-title" style="color:var(--accent-gold);" data-ar="استراحة قهوة">Coffee Break</p>
         </div>
       </div>
     </div><!-- /day2-panel -->
   </div><!-- /agenda-container -->
-</section>
-
-<!-- Divider -->
-<div class="section-divider" aria-hidden="true">
-  <div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div>
-</div>
-
-<!-- ========================= -->
-<!-- SECTION 5: SPONSORSHIP    -->
-<!-- ========================= -->
-<section id="sponsorship" aria-labelledby="sponsorship-heading">
-  <div class="section-header">
-    <span class="section-label" data-ar="— فرص الشراكة —">— Partnership Opportunities —</span>
-    <h2 class="section-title" id="sponsorship-heading" data-ar="باقات الرعاية">Sponsorship Packages</h2>
-    <p class="section-subtitle" data-ar="عزز حضور علامتك التجارية في المؤتمر الطبي الأبرز في مصر لطب القلب. تواصل مع نخبة من أطباء القلب والمتخصصين.">Elevate your brand at Egypt's premier cardiac conference. Connect with top cardiologists and medical professionals.</p>
-  </div>
-
-  <div class="packages-grid">
-    <div class="packages-row">
-      <!-- Diamond -->
-      <div class="package-card diamond">
-        <div class="package-header diamond-bg">
-          <span class="package-tier-icon">💎</span>
-          <div class="package-tier" data-ar="الماسية">Diamond</div>
-          <div class="package-price" data-ar="١٥٠,٠٠٠ ج.م">150K EGP</div>
-          <span class="package-price-sub" data-ar="راعي مميز">Premium Sponsor</span>
-        </div>
-        <ul class="feature-list">
-          <li data-ar="جلسة عرض تقديمية لمدة ٢٠ دقيقة">20 Mins Presentation Session</li>
-          <li data-ar="إضافة الشعار بحجم 8X">8X Logo Size Placement</li>
-          <li data-ar="ترويج عبر منصات التواصل">Social Media Promotion</li>
-          <li data-ar="٥ تسجيلات مجانية">5 Free Registrations</li>
-          <li data-ar="مساحة عرض ٦×٢">6×2 Exhibition Area</li>
-          <li data-ar="٣ لافتات إعلانية (رول أب)">3 Roll Ups</li>
-        </ul>
-        <div class="slots-badge" data-ar="٣ رعاة">3 Sponsors</div>
-      </div>
-
-      <!-- Platinum -->
-      <div class="package-card platinum">
-        <div class="package-header platinum-bg">
-          <span class="package-tier-icon">🏅</span>
-          <div class="package-tier" data-ar="البلاتينية">Platinum</div>
-          <div class="package-price" data-ar="١٠٠,٠٠٠ ج.م">100K EGP</div>
-          <span class="package-price-sub" data-ar="راعي النخبة">Elite Sponsor</span>
-        </div>
-        <ul class="feature-list">
-          <li data-ar="جلسة عرض تقديمية لمدة ١٠ دقائق">10 Mins Presentation Session</li>
-          <li data-ar="إضافة الشعار بحجم 4X">4X Logo Size Placement</li>
-          <li data-ar="ترويج عبر منصات التواصل">Social Media Promotion</li>
-          <li data-ar="٤ تسجيلات مجانية">4 Free Registrations</li>
-          <li data-ar="مساحة عرض ٤×٢">4×2 Exhibition Area</li>
-          <li data-ar="٢ لافتة إعلانية (رول أب)">2 Roll Ups</li>
-        </ul>
-        <div class="slots-badge" data-ar="٥ رعاة">5 Sponsors</div>
-      </div>
-    </div>
-
-    <div class="packages-row">
-      <!-- Golden -->
-      <div class="package-card golden">
-        <div class="package-header golden-bg">
-          <span class="package-tier-icon">⭐</span>
-          <div class="package-tier" data-ar="الذهبية">Golden</div>
-          <div class="package-price" data-ar="٨٠,٠٠٠ ج.م">80K EGP</div>
-          <span class="package-price-sub" data-ar="الراعي الذهبي">Gold Sponsor</span>
-        </div>
-        <ul class="feature-list">
-          <li class="empty-line">—</li>
-          <li data-ar="إضافة الشعار بحجم 3X">3X Logo Size Placement</li>
-          <li data-ar="ترويج عبر منصات التواصل">Social Media Promotion</li>
-          <li data-ar="تسجيلين مجانيين">2 Free Registrations</li>
-          <li data-ar="مساحة عرض ٣×٢">3×2 Exhibition Area</li>
-          <li data-ar="لافتة إعلانية واحدة (رول أب)">1 Roll Up</li>
-        </ul>
-        <div class="slots-badge" data-ar="٦ رعاة">6 Sponsors</div>
-      </div>
-
-      <!-- Silver -->
-      <div class="package-card silver">
-        <div class="package-header silver-bg">
-          <span class="package-tier-icon">🔮</span>
-          <div class="package-tier" data-ar="الفضية">Silver</div>
-          <div class="package-price" data-ar="٥٠,٠٠٠ ج.م">50K EGP</div>
-          <span class="package-price-sub" data-ar="الراعي الفضي">Silver Sponsor</span>
-        </div>
-        <ul class="feature-list">
-          <li class="empty-line">—</li>
-          <li data-ar="إضافة الشعار بحجم 1X">1X Logo Size Placement</li>
-          <li data-ar="ترويج عبر منصات التواصل">Social Media Promotion</li>
-          <li data-ar="تسجيل واحد مجاني">1 Free Registration</li>
-          <li data-ar="مساحة عرض ٢×٢">2×2 Exhibition Area</li>
-          <li class="empty-line">—</li>
-        </ul>
-        <div class="slots-badge" data-ar="١٠ رعاة">10 Sponsors</div>
-      </div>
-    </div>
-  </div>
 </section>
 
 <!-- Divider -->
@@ -2623,16 +3282,16 @@
       <div class="include-item" data-ar="شهادة حضور معتمدة">Certificate of attendance</div>
     </div>
 
-    <a href="mailto:info@msquare.eg?subject=Registration%20Inquiry%20%E2%80%94%201st%20Cardio%20Portsaid%202026&body=Hello%2C%0A%0AI%20am%20interested%20in%20registering%20for%20the%201st%20Cardio%20Portsaid%20Conference%20(October%2015%E2%80%9316%2C%202026).%0A%0AName%3A%20%0ASpecialty%3A%20%0ANationality%3A%20%0A%0AThank%20you."
-       class="register-cta" id="registerBtn"
-       style="display:block;text-align:center;text-decoration:none;"
-       aria-label="Register for Cardio Portsaid Conference via email"
+    <button class="register-cta" id="registerBtn"
+       onclick="document.getElementById('registerModal').classList.add('open')"
+       style="display:block;width:100%;text-align:center;border:none;cursor:pointer;"
+       aria-label="Register for Cardio Portsaid Conference"
        data-ar="احجز مقعدك الآن — أكتوبر ٢٠٢٦">
       Reserve Your Seat — October 2026
-    </a>
+    </button>
 
-    <p style="text-align:center;margin-top:1.2rem;font-size:0.78rem;color:var(--text-muted);" data-ar="تنظيم <span style='color:var(--primary-bright);'>إم سكوير</span> · بورسعيد، مصر">
-      Organized by <span style="color:var(--primary-bright);">MSquare</span> · Port Said, Egypt
+    <p style="text-align:center;margin-top:1.2rem;font-size:0.78rem;color:var(--text-muted);" data-ar="تنظيم <span style='color:var(--primary-bright);'>كود سكوير</span> · بورسعيد، مصر">
+      Organized by <span style="color:var(--primary-bright);">CodeSquare</span> · Port Said, Egypt
     </p>
   </div>
 </section>
@@ -2665,7 +3324,7 @@
       </p>
       <p style="font-size:0.82rem;color:var(--text-muted);" data-ar="إخراج <strong style='color:rgba(240,232,255,0.7)'>أ.د. محمد عبد الغني</strong><br>إنتاج: كارديونوفا بورسعيد ٢٠٢٦">
         Directed by <strong style="color:rgba(240,232,255,0.7)">Prof. Dr. Mohamed Abdelghany</strong><br>
-        Production: Cardionova Portsaid 2026
+        Production: Cardio Portsaid 2026
       </p>
     </div>
 
@@ -2677,11 +3336,11 @@
       <p class="film-subtitle" data-ar="فيلم مبني على قصة حقيقية">A Film Based on a True Story</p>
       <div class="film-award" data-ar="🏆 أفضل قصة لعام ٢٠٢٦">🏆 Best Story of the Year</div>
       <div class="film-divider"></div>
-      <div class="film-credits" data-ar="إخراج<br><span>أ.د. محمد عبد الغني</span><br><br>الإنتاج<br><span>كارديونوفا بورسعيد ٢٠٢٦</span>">
+      <div class="film-credits" data-ar="إخراج<br><span>أ.د. محمد عبد الغني</span><br><br>الإنتاج<br><span>كارديو بورسعيد ٢٠٢٦</span>">
         Directed by<br>
         <span>Prof. Dr. Mohamed Abdelghany</span><br><br>
         Production<br>
-        <span>Cardionova Portsaid 2026</span>
+        <span>Cardio Portsaid 2026</span>
       </div>
     </div>
   </div>
@@ -2718,7 +3377,7 @@
     </div>
     <div class="footer-detail-item">
       <p class="footer-detail-label" data-ar="المنظم">Organized By</p>
-      <p class="footer-detail-value" data-ar="إم سكوير">MSquare</p>
+      <p class="footer-detail-value" data-ar="كود سكوير">CodeSquare</p>
     </div>
   </div>
 
@@ -2732,11 +3391,82 @@
     <a href="#hero" data-ar="العودة لأعلى الصفحة ↑">Back to Top ↑</a>
   </div>
 
-  <p class="footer-bottom" data-ar="© ٢٠٢٦ مؤتمر كارديو بورسعيد الأول · تنظيم <span>إم سكوير</span> · بورسعيد، مصر">
-    © 2026 1st Cardio Portsaid Conference · Organized by <span>MSquare</span> · Port Said, Egypt
+  <p class="footer-bottom" data-ar="© ٢٠٢٦ مؤتمر كارديو بورسعيد الأول · تنظيم <span>كود سكوير</span> · بورسعيد، مصر">
+    © 2026 1st Cardio Portsaid Conference · Organized by <span>CodeSquare</span> · Port Said, Egypt
   </p>
 </footer>
 
+<!-- Registration Modal -->
+<div class="modal-overlay" id="registerModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-card">
+    <button class="modal-close" onclick="document.getElementById('registerModal').classList.remove('open')" aria-label="Close registration form">✕</button>
+    <div class="modal-header">
+      <h3 id="modalTitle" data-ar="استمارة التسجيل للمؤتمر">Conference Registration</h3>
+      <p data-ar="يرجى ملء البيانات التالية لتأكيد حجز مقعدك.">Please fill in your details to secure your seat.</p>
+    </div>
+    <form id="registrationForm" onsubmit="handleRegistrationFormSubmit(event)">
+      <div class="form-group">
+        <label for="regName" data-ar="الاسم">Name</label>
+        <input type="text" id="regName" required placeholder="Full Name" data-ar-placeholder="الاسم الكامل" />
+      </div>
+      <div class="form-group">
+        <label for="regEmail" data-ar="البريد الإلكتروني">Email</label>
+        <input type="email" id="regEmail" required placeholder="Email Address" data-ar-placeholder="البريد الإلكتروني" />
+      </div>
+      <div class="form-group">
+        <label for="regPhone" data-ar="رقم الهاتف">Phone number</label>
+        <input type="tel" id="regPhone" pattern="[0-9]*" inputmode="numeric" required placeholder="Phone number (numbers)" data-ar-placeholder="رقم الهاتف (أرقام فقط)" />
+      </div>
+      <div class="form-group">
+        <label for="regSpecialty" data-ar="التخصص">Specialty</label>
+        <input type="text" id="regSpecialty" required placeholder="Specialty" data-ar-placeholder="التخصص الطبي" />
+      </div>
+      <div class="form-group">
+        <label for="regLocation" data-ar="المحافظة">Location</label>
+        <select id="regLocation" required>
+          <option value="" disabled selected data-ar="اختر المحافظة">Select Governorate</option>
+          <option value="Cairo" data-ar="القاهرة">Cairo</option>
+          <option value="Alexandria" data-ar="الإسكندرية">Alexandria</option>
+          <option value="Port Said" data-ar="بورسعيد">Port Said</option>
+          <option value="Ismailia" data-ar="الإسماعيلية">Ismailia</option>
+          <option value="Suez" data-ar="السويس">Suez</option>
+          <option value="Giza" data-ar="الجيزة">Giza</option>
+          <option value="Qalyubia" data-ar="القليوبية">Qalyubia</option>
+          <option value="Dakahlia" data-ar="الدقهلية">Dakahlia</option>
+          <option value="Sharqia" data-ar="الشرقية">Sharqia</option>
+          <option value="Gharbia" data-ar="الغربية">Gharbia</option>
+          <option value="Monufia" data-ar="المنوفية">Monufia</option>
+          <option value="Beheira" data-ar="البحيرة">Beheira</option>
+          <option value="Kafr El Sheikh" data-ar="كفر الشيخ">Kafr El Sheikh</option>
+          <option value="Damietta" data-ar="دمياط">Damietta</option>
+          <option value="Matrouh" data-ar="مطروح">Matrouh</option>
+          <option value="North Sinai" data-ar="شمال سيناء">North Sinai</option>
+          <option value="South Sinai" data-ar="جنوب سيناء">South Sinai</option>
+          <option value="Faiyum" data-ar="الفيوم">Faiyum</option>
+          <option value="Beni Suef" data-ar="بني سويف">Beni Suef</option>
+          <option value="Minya" data-ar="المنيا">Minya</option>
+          <option value="Asyut" data-ar="أسيوط">Asyut</option>
+          <option value="Sohag" data-ar="سوهاج">Sohag</option>
+          <option value="Qena" data-ar="قنا">Qena</option>
+          <option value="Luxor" data-ar="الأقصر">Luxor</option>
+          <option value="Aswan" data-ar="أسوان">Aswan</option>
+          <option value="Red Sea" data-ar="البحر الأحمر">Red Sea</option>
+          <option value="New Valley" data-ar="الوادي الجديد">New Valley</option>
+          <option value="Outside Egypt" data-ar="خارج مصر">Outside Egypt (International)</option>
+        </select>
+      </div>
+      <button type="submit" class="modal-submit-btn" data-ar="تأكيد الحجز والتسجيل">Confirm Registration</button>
+    </form>
+    <div id="regSuccessMsg" class="success-message" style="display:none;">
+      <div style="font-size:3rem;margin-bottom:1rem;">🎉</div>
+      <h4 data-ar="تم التسجيل بنجاح!">Registration Successful!</h4>
+      <p data-ar="شكراً لتسجيلك في مؤتمر كارديو بورسعيد الأول ٢٠٢٦. سنقوم بالتواصل معك قريباً عبر البريد الإلكتروني أو الهاتف لتأكيد التفاصيل.">
+        Thank you for registering for the 1st Cardio Portsaid Conference 2026. We will contact you soon via email or phone to confirm details.
+      </p>
+      <button class="modal-close-btn" onclick="closeRegSuccess()" data-ar="إغلاق">Close</button>
+    </div>
+  </div>
+</div>
 
 <!-- ======================== -->
 <!-- JAVASCRIPT               -->
@@ -2919,6 +3649,91 @@
     });
   }
   initAgenda();
+
+  /* ========================
+     SCIENTIFIC TRACKS TABS
+  ======================== */
+  function initTracks() {
+    const trackTabs = document.querySelectorAll('.track-tab');
+    const trackPanels = document.querySelectorAll('.track-panel');
+
+    trackTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const targetId = 'track-' + tab.dataset.track;
+        const targetPanel = document.getElementById(targetId);
+        if (!targetPanel || tab.classList.contains('active')) return;
+
+        trackTabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+        trackPanels.forEach(p => p.classList.remove('active'));
+
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+
+        if (typeof gsap !== 'undefined') {
+          gsap.fromTo(targetPanel,
+            { opacity: 0, y: 12 },
+            { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out',
+              onStart: () => targetPanel.classList.add('active')
+            }
+          );
+        } else {
+          targetPanel.classList.add('active');
+        }
+      });
+    });
+  }
+  initTracks();
+
+  /* ========================
+     COUNTDOWN TIMER
+  ======================== */
+  function initCountdown() {
+    const target = new Date('2026-10-15T09:00:00').getTime();
+    const daysEl    = document.getElementById('cdDays');
+    const hoursEl   = document.getElementById('cdHours');
+    const minutesEl = document.getElementById('cdMinutes');
+    const secsEl    = document.getElementById('cdSeconds');
+
+    function pad(n) { return n < 10 ? '0' + n : String(n); }
+
+    function flipUpdate(el, val) {
+      const str = pad(val);
+      if (el && el.textContent !== str) {
+        el.textContent = str;
+        el.classList.remove('flip');
+        void el.offsetWidth; // reflow
+        el.classList.add('flip');
+      }
+    }
+
+    function tick() {
+      const diff = target - Date.now();
+      if (diff <= 0) {
+        if (daysEl) daysEl.textContent = '00';
+        if (hoursEl) hoursEl.textContent = '00';
+        if (minutesEl) minutesEl.textContent = '00';
+        if (secsEl) secsEl.textContent = '00';
+        return;
+      }
+      flipUpdate(daysEl,    Math.floor(diff / 86400000));
+      flipUpdate(hoursEl,   Math.floor((diff % 86400000) / 3600000));
+      flipUpdate(minutesEl, Math.floor((diff % 3600000)  / 60000));
+      flipUpdate(secsEl,    Math.floor((diff % 60000)    / 1000));
+    }
+
+    tick();
+    setInterval(tick, 1000);
+
+    // Fade in countdown after page loads
+    const cdEl = document.getElementById('heroCountdown');
+    if (cdEl) {
+      setTimeout(() => {
+        cdEl.style.transition = 'opacity 0.8s ease';
+        cdEl.style.opacity = '1';
+      }, 1200);
+    }
+  }
+  initCountdown();
 
   /* ========================
      GSAP ANIMATIONS
@@ -3245,18 +4060,65 @@
       if (targetId === '#') return;
       const target = document.querySelector(targetId);
       if (!target) return;
+      
       e.preventDefault();
-      if (typeof gsap !== 'undefined' && typeof ScrollToPlugin !== 'undefined') {
+      
+      // Close mobile menu if open
+      if (typeof closeMobileMenu === 'function') {
+        closeMobileMenu();
+      }
+      
+      if (typeof gsap !== 'undefined') {
         gsap.to(window, {
-          duration: 1.2,
-          scrollTo: { y: target, offsetY: 80 },
-          ease: 'power3.inOut'
+          duration: 1.0,
+          scrollTo: { y: target, offsetY: 85 },
+          ease: 'power2.out',
+          onComplete: () => {
+            // If they clicked register, open the modal once scroll completes
+            if (targetId === '#register') {
+              const modal = document.getElementById('registerModal');
+              if (modal) modal.classList.add('open');
+            }
+          }
         });
       } else {
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (targetId === '#register') {
+          setTimeout(() => {
+            const modal = document.getElementById('registerModal');
+            if (modal) modal.classList.add('open');
+          }, 800);
+        }
       }
     });
   });
+
+  /* ========================
+     REGISTRATION FORM HANDLER
+  ======================== */
+  window.handleRegistrationFormSubmit = function(e) {
+    e.preventDefault();
+    document.getElementById('registrationForm').style.display = 'none';
+    document.getElementById('regSuccessMsg').style.display = 'block';
+    
+    const data = {
+      name: document.getElementById('regName').value,
+      email: document.getElementById('regEmail').value,
+      phone: document.getElementById('regPhone').value,
+      specialty: document.getElementById('regSpecialty').value,
+      location: document.getElementById('regLocation').value
+    };
+    console.log("Registration complete:", data);
+  };
+  
+  window.closeRegSuccess = function() {
+    document.getElementById('registerModal').classList.remove('open');
+    setTimeout(() => {
+      document.getElementById('registrationForm').style.display = 'block';
+      document.getElementById('regSuccessMsg').style.display = 'none';
+      document.getElementById('registrationForm').reset();
+    }, 400);
+  };
 
   /* ========================
      LANGUAGE TOGGLE
@@ -3275,6 +4137,12 @@
           el.setAttribute('data-en', el.innerHTML);
         }
         el.innerHTML = el.getAttribute('data-ar');
+      });
+      document.querySelectorAll('[data-ar-placeholder]').forEach(el => {
+        if (!el.hasAttribute('data-en-placeholder')) {
+          el.setAttribute('data-en-placeholder', el.getAttribute('placeholder'));
+        }
+        el.setAttribute('placeholder', el.getAttribute('data-ar-placeholder'));
       });
       document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.textContent = 'English';
