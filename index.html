@@ -25,7 +25,7 @@
   <script src="https://cdn.jsdelivr.net/npm/split-type@0.3.4/umd/index.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Outfit:wght@300;400;500;600&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Outfit:wght@300;400;500;600&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet" />
 
   <style>
     /* ========================
@@ -2482,6 +2482,944 @@
       }
       .whatsapp-label { display: none; }
     }
+
+    /* ==========================================================================
+       TYPOGRAPHY UPGRADES (PLAYFAIR DISPLAY & FLUID SIZING)
+       ========================================================================== */
+    h1, h2, h3,
+    .hero-name,
+    .section-title,
+    .board-card-name,
+    .speaker-name,
+    .org-card-name,
+    .session-title {
+      font-family: 'Playfair Display', serif !important;
+    }
+
+    /* ==========================================================================
+       HERO ECG WAVE ANIMATION
+       ========================================================================== */
+    .hero-ecg-container {
+      position: absolute;
+      left: 0;
+      bottom: 8%;
+      width: 100%;
+      height: 120px;
+      z-index: 1;
+      pointer-events: none;
+      overflow: hidden;
+      opacity: 0.35;
+      transition: opacity 0.3s;
+    }
+    .hero-ecg-svg {
+      width: 100%;
+      height: 100%;
+    }
+    .ecg-path {
+      stroke: #C0392B;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+      stroke-dasharray: 2000;
+      stroke-dashoffset: 2000;
+      animation: ecgDraw 3s linear infinite;
+    }
+    @keyframes ecgDraw {
+      0% { stroke-dashoffset: 2000; }
+      100% { stroke-dashoffset: 0; }
+    }
+
+    /* ==========================================================================
+       COUNTDOWN GOLD THEME
+       ========================================================================== */
+    .countdown-num {
+      color: #D4AF37 !important;
+      text-shadow: 0 0 15px rgba(212,175,55,0.4) !important;
+    }
+    .countdown-unit {
+      border: 1px solid rgba(212,175,55,0.2) !important;
+      box-shadow: 0 4px 24px rgba(212,175,55,0.08), inset 0 1px 0 rgba(255,255,255,0.05) !important;
+      background: rgba(10,14,26,0.65) !important;
+    }
+
+    /* ==========================================================================
+       SPEAKER / BOARD CARDS INITIALS & CHOOSE ROLE BADGES
+       ========================================================================== */
+    .avatar-wrapper {
+      position: relative;
+      margin: 0 auto 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+    .initials-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #150828, #C0392B);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #fff;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+      position: relative;
+      box-shadow: 0 4px 15px rgba(192, 57, 43, 0.25);
+      border: 1px solid rgba(255,255,255,0.08);
+      overflow: hidden;
+    }
+    .avatar-photo {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      transition: transform 0.3s ease;
+    }
+    .board-card:hover .avatar-photo {
+      transform: scale(1.05);
+    }
+    
+    /* Role Badges */
+    .role-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      font-size: 0.6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      border-radius: 100px;
+      margin-top: 0.6rem;
+      letter-spacing: 0.08em;
+    }
+    .role-badge.president {
+      background: rgba(212,175,55,0.12);
+      border: 1px solid #D4AF37;
+      color: #D4AF37;
+    }
+    .role-badge.committee {
+      background: rgba(192,57,43,0.12);
+      border: 1px solid #C0392B;
+      color: #C0392B;
+    }
+    .role-badge.organizing {
+      background: rgba(139,43,226,0.12);
+      border: 1px solid #8B2BE2;
+      color: #8B2BE2;
+    }
+
+    /* Luxury Speaker Showcase Carousel (Desktop) */
+    .board-carousel-outer {
+      position: relative;
+      width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 45px;
+    }
+    .board-carousel-container {
+      width: 100%;
+      overflow: hidden;
+    }
+    .board-carousel-track {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      padding: 2rem 0;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      scrollbar-width: none; /* Firefox */
+      -webkit-overflow-scrolling: touch;
+    }
+    .board-carousel-track::-webkit-scrollbar {
+      display: none; /* Safari/Chrome */
+    }
+    .board-luxury-card {
+      flex: 0 0 320px;
+      width: 320px;
+      height: 420px;
+      background: #080c18;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 2.2rem 1.5rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    .board-luxury-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(212,175,55,0.3);
+      box-shadow: 0 15px 35px rgba(212,175,55,0.12);
+    }
+    .board-luxury-card .initials-avatar {
+      width: 120px;
+      height: 120px;
+      font-size: 2rem;
+      margin-bottom: 1.2rem;
+    }
+    .board-luxury-card.president-card {
+      border-color: rgba(212,175,55,0.25);
+      background: linear-gradient(135deg, #090e1f 0%, #050811 100%);
+    }
+    .board-luxury-card.president-card .initials-avatar {
+      width: 130px;
+      height: 130px;
+      border: 3px solid #D4AF37;
+      box-shadow: 0 0 30px rgba(212,175,55,0.35);
+    }
+    .board-card-sep-line {
+      width: 35px;
+      height: 2px;
+      background: #C0392B;
+      margin: 0.8rem 0;
+    }
+    .board-luxury-card .board-card-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.2rem;
+    }
+    .board-luxury-card .board-card-role-title {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--primary-bright);
+      font-weight: 500;
+    }
+    .board-carousel-sep {
+      flex: 0 0 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #D4AF37;
+      opacity: 0.55;
+    }
+    .board-nav-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      background: rgba(8,12,24,0.9);
+      border: 1px solid rgba(212,175,55,0.35);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #D4AF37;
+      cursor: pointer;
+      z-index: 10;
+      transition: all 0.3s;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+    .board-nav-arrow:hover {
+      background: #D4AF37;
+      color: #080c18;
+      box-shadow: 0 0 15px rgba(212,175,55,0.5);
+    }
+    .board-nav-arrow.prev { left: -5px; }
+    .board-nav-arrow.next { right: -5px; }
+
+    /* ==========================================================================
+       COLOR-CODED AGENDA
+       ========================================================================== */
+    .session-coronary {
+      border-left: 4px solid #C0392B !important;
+    }
+    .session-ep {
+      border-left: 4px solid #1565C0 !important;
+    }
+    .session-medical {
+      border-left: 4px solid #2E7D32 !important;
+    }
+    .session-structural {
+      border-left: 4px solid #E65100 !important;
+    }
+    
+    .session-block.break-coffee {
+      background: #1A1A2E !important;
+      border-left: none !important;
+      text-align: center;
+      padding: 1.2rem;
+      border-radius: 12px;
+    }
+    .session-block.break-coffee .talk-title {
+      font-style: italic !important;
+      color: var(--text-secondary) !important;
+      font-weight: 500;
+    }
+    .session-block.break-prayer {
+      background: #0D2137 !important;
+      border-left: 4px solid #D4AF37 !important;
+      text-align: center;
+      padding: 1.2rem;
+      border-radius: 12px;
+    }
+    .session-block.break-prayer .talk-title {
+      color: #D4AF37 !important;
+      font-weight: 700;
+    }
+    
+    .agenda-legend {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin: 1rem auto 2.5rem;
+      max-width: 900px;
+      background: rgba(15, 8, 25, 0.65);
+      border: 1px solid var(--border-subtle);
+      border-radius: 30px;
+      padding: 0.7rem 1.5rem;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 10;
+      position: relative;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+    }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      display: inline-block;
+    }
+
+    /* ==========================================================================
+       ATTENDEE MARQUEE & REAL-TIME SEARCH
+       ========================================================================== */
+    #attendees-section {
+      padding: 6rem 0;
+      position: relative;
+    }
+    .attendees-search-container {
+      max-width: 600px;
+      margin: 0 auto 2.5rem;
+      text-align: center;
+      padding: 0 1.5rem;
+    }
+    .search-box-wrapper {
+      position: relative;
+      margin-bottom: 0.8rem;
+    }
+    #attendeeSearch {
+      width: 100%;
+      height: 48px;
+      padding: 0 3rem 0 1.5rem;
+      background: rgba(15, 8, 25, 0.85);
+      border: 1px solid var(--border-subtle);
+      border-radius: 30px;
+      color: #fff;
+      font-size: 0.95rem;
+      transition: all 0.3s;
+      outline: none;
+    }
+    #attendeeSearch:focus {
+      border-color: #D4AF37;
+      box-shadow: 0 0 15px rgba(212,175,55,0.2);
+    }
+    html[dir="rtl"] #attendeeSearch {
+      padding: 0 1.5rem 0 3rem;
+    }
+    .search-icon {
+      position: absolute;
+      right: 1.2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0.6;
+      pointer-events: none;
+    }
+    html[dir="rtl"] .search-icon {
+      right: auto;
+      left: 1.2rem;
+    }
+    .results-count {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .marquee-wrapper {
+      position: relative;
+      width: 100vw;
+      margin-left: calc(-50vw + 50%);
+      overflow: hidden;
+      background: #040208;
+      display: flex;
+      flex-direction: column;
+      padding: 1rem 0;
+      gap: 0.5rem;
+      -webkit-mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent);
+      mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent);
+    }
+    .marquee-row {
+      display: flex;
+      overflow: hidden;
+      width: 100%;
+      padding: 0.8rem 0;
+      transition: background 0.3s;
+    }
+    .marquee-row.row-1 { background: #0A0E1A; }
+    .marquee-row.row-2 { background: #0D1121; }
+    .marquee-row.row-3 { background: #0A0E1A; }
+    
+    .marquee-track {
+      display: flex;
+      gap: 3.5rem;
+      width: max-content;
+      will-change: transform;
+    }
+    
+    .row-1 .marquee-track {
+      animation: marqueeLeft var(--marquee-duration-row1, 35s) linear infinite;
+    }
+    .row-2 .marquee-track {
+      animation: marqueeRight var(--marquee-duration-row2, 45s) linear infinite;
+    }
+    .row-3 .marquee-track {
+      animation: marqueeLeft var(--marquee-duration-row3, 40s) linear infinite;
+    }
+    
+    .marquee-row:hover .marquee-track {
+      animation-play-state: paused !important;
+    }
+    
+    @keyframes marqueeLeft {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    @keyframes marqueeRight {
+      0% { transform: translateX(-50%); }
+      100% { transform: translateX(0); }
+    }
+    
+    .marquee-item {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .marquee-bullet {
+      color: #D4AF37;
+      font-size: 0.8rem;
+    }
+    .marquee-name {
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: all 0.3s;
+      position: relative;
+    }
+    .marquee-name::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 0;
+      height: 1px;
+      background: #D4AF37;
+      transition: width 0.3s;
+    }
+    .marquee-item:hover .marquee-name {
+      color: #D4AF37;
+    }
+    .marquee-item:hover .marquee-name::after {
+      width: 100%;
+    }
+    .marquee-spec {
+      color: var(--text-secondary);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .attendees-grid-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      padding: 0 2rem;
+    }
+    .attendee-card {
+      background: rgba(15, 8, 25, 0.7);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 1.2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      transition: all 0.3s;
+    }
+    .attendee-card:hover {
+      border-color: #D4AF37;
+      transform: translateY(-3px);
+      box-shadow: 0 4px 15px rgba(212,175,55,0.08);
+    }
+    .attendee-card-name {
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+    .attendee-card-spec {
+      color: var(--text-secondary);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Bottom mobile nav wrapper desktop styling (hidden) */
+    .mobile-bottom-nav {
+      display: none !important;
+    }
+    .register-sticky-btn-wrapper {
+      display: none !important;
+    }
+
+    /* ==========================================================================
+       MOBILE DESIGN OVERRIDES (MAX-WIDTH: 768PX)
+       ========================================================================== */
+    @media (max-width: 768px) {
+      /* Typography clamp and line heights */
+      h1, .hero-name {
+        font-size: clamp(24px, 7vw, 36px) !important;
+      }
+      h2, .section-title {
+        font-size: clamp(20px, 5.5vw, 28px) !important;
+      }
+      .section-label {
+        font-size: clamp(11px, 3vw, 13px) !important;
+      }
+      body {
+        line-height: 1.6 !important;
+      }
+      h1, h2, h3, .hero-name, .section-title {
+        line-height: 1.3 !important;
+      }
+      
+      /* Tap target size */
+      a, button, .nav-hamburger, .board-nav-arrow, .agenda-day-tab, .agenda-hall-tab, .track-tab {
+        min-height: 44px;
+        min-width: 44px;
+      }
+      
+      /* Navigation swap */
+      .nav-desktop-container, .nav-hamburger, #menuToggle {
+        display: none !important;
+      }
+      .mobile-bottom-nav {
+        display: flex !important;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 60px;
+        background: #0A0E1A;
+        border-top: 1px solid rgba(255,255,255,0.08);
+        z-index: 9999;
+        justify-content: space-around;
+        align-items: center;
+        padding-bottom: env(safe-area-inset-bottom);
+      }
+      .mobile-nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-secondary);
+        font-size: 0.62rem;
+        text-decoration: none;
+        gap: 0.15rem;
+        flex: 1;
+        height: 100%;
+        transition: all 0.2s;
+      }
+      .mobile-nav-item.active {
+        color: #C0392B;
+      }
+      .mobile-nav-item svg {
+        width: 20px;
+        height: 20px;
+        fill: currentColor;
+      }
+
+      /* Hero mobile layout */
+      #hero {
+        height: 85vh !important;
+        min-height: 580px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding-top: 3.5rem;
+        position: relative;
+      }
+      .hero-tagline {
+        font-size: 0.95rem !important;
+        text-align: center;
+        margin-bottom: 1.2rem !important;
+      }
+      .hero-meta {
+        flex-direction: column;
+        gap: 0.4rem;
+        background: rgba(15,8,25,0.6);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 30px;
+        padding: 0.5rem 1.2rem;
+        font-size: 0.75rem !important;
+      }
+      .hero-meta .divider { display: none; }
+      
+      .hero-ctas {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        gap: 4%;
+        padding: 0 1rem;
+      }
+      .hero-ctas .btn-magnetic {
+        flex: 0 0 48%;
+        width: 48%;
+      }
+      .hero-ctas .btn-primary, .hero-ctas .btn-ghost {
+        width: 100%;
+        text-align: center;
+        padding: 0.75rem 0.5rem;
+        font-size: 0.8rem;
+      }
+      
+      /* Countdown timer boxes on mobile */
+      .hero-countdown {
+        gap: 0.8rem !important;
+      }
+      .countdown-unit {
+        min-width: 85px !important;
+        padding: 0.8rem 1.1rem !important;
+      }
+      .countdown-unit:nth-child(3),
+      .countdown-unit:nth-child(4) {
+        display: none !important; /* Hide Minutes and Seconds */
+      }
+      .countdown-num {
+        font-size: 2.5rem !important; /* Larger numbers */
+      }
+
+      /* Speaker & Board Cards Mobile layout */
+      .board-carousel-outer {
+        padding: 0 1rem;
+      }
+      .board-carousel-track {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.8rem !important;
+        padding: 1rem 0 !important;
+        overflow-x: visible !important;
+        width: 100% !important;
+      }
+      .board-carousel-sep, .board-nav-arrow {
+        display: none !important;
+      }
+      .board-luxury-card {
+        width: auto !important;
+        height: auto !important;
+        min-width: 140px !important;
+        flex: none !important;
+        padding: 1.2rem 0.8rem !important;
+        border-radius: 12px !important;
+      }
+      .board-luxury-card .initials-avatar {
+        width: 60px !important;
+        height: 60px !important;
+        margin-bottom: 0.8rem !important;
+        font-size: 1.1rem !important;
+      }
+      .board-luxury-card .board-card-name {
+        font-size: 0.78rem !important;
+        line-height: 1.3 !important;
+      }
+      .board-luxury-card .board-card-role-title {
+        font-size: 0.55rem !important;
+      }
+      .board-card-sep-line {
+        width: 25px !important;
+        margin: 0.5rem 0 !important;
+      }
+      .role-badge {
+        padding: 2px 8px !important;
+        font-size: 0.55rem !important;
+        margin-top: 0.5rem !important;
+      }
+
+      /* Full width layout for Conference President card on mobile */
+      .board-luxury-card.president-card {
+        grid-column: 1 / -1 !important;
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        text-align: left !important;
+        padding: 1.2rem 1.5rem !important;
+        gap: 1.2rem !important;
+      }
+      html[dir="rtl"] .board-luxury-card.president-card {
+        text-align: right !important;
+      }
+      .board-luxury-card.president-card .initials-avatar {
+        width: 80px !important;
+        height: 80px !important;
+        margin-bottom: 0 !important;
+        flex-shrink: 0;
+      }
+      .board-luxury-card.president-card .president-info-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      html[dir="rtl"] .board-luxury-card.president-card .president-info-wrapper {
+        align-items: flex-start;
+      }
+
+      /* Mobile Agenda tab bar and sticky timeline accordion */
+      .agenda-hall-tabs {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: #040208;
+        padding: 0.8rem 0;
+        display: flex;
+        gap: 0.5rem;
+        justify-content: center;
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+      }
+      .agenda-hall-tab {
+        flex: 1;
+        text-align: center;
+        font-size: 0.78rem !important;
+        padding: 0.5rem !important;
+      }
+      
+      .agenda-hall-panel {
+        position: relative;
+        padding-left: 1.8rem !important;
+        margin-top: 1.5rem;
+      }
+      html[dir="rtl"] .agenda-hall-panel {
+        padding-left: 0 !important;
+        padding-right: 1.8rem !important;
+      }
+      .agenda-hall-panel::before {
+        content: '';
+        position: absolute;
+        left: 0.6rem;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: rgba(255,255,255,0.1);
+      }
+      html[dir="rtl"] .agenda-hall-panel::before {
+        left: auto;
+        right: 0.6rem;
+      }
+      
+      .session-block {
+        position: relative;
+        margin-bottom: 1.2rem !important;
+        border-radius: 8px !important;
+        padding: 1rem !important;
+      }
+      .session-block::after {
+        content: '';
+        position: absolute;
+        left: -1.45rem;
+        top: 1.3rem;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #D4AF37;
+        border: 2px solid #040208;
+        box-shadow: 0 0 5px rgba(212,175,55,0.6);
+        z-index: 2;
+      }
+      html[dir="rtl"] .session-block::after {
+        left: auto;
+        right: -1.45rem;
+      }
+      
+      /* Accordion collapsed details by default */
+      .session-block .talk-list {
+        display: none;
+        margin-top: 0.8rem;
+        border-top: 1px solid rgba(255,255,255,0.06);
+        padding-top: 0.5rem;
+      }
+      .session-block.expanded .talk-list {
+        display: block !important;
+      }
+      .session-block.break-block::after,
+      .session-block.break-coffee::after,
+      .session-block.break-prayer::after {
+        display: none !important; /* hide timeline dot for breaks */
+      }
+
+      /* Mobile names list grid */
+      .attendees-grid-container {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.6rem !important;
+        padding: 0 0.8rem !important;
+      }
+      .attendee-card {
+        min-width: 130px !important;
+        padding: 0.8rem !important;
+        border-radius: 8px !important;
+      }
+      .attendee-card-name {
+        font-size: 0.78rem !important;
+      }
+      .attendee-card-spec {
+        font-size: 0.62rem !important;
+      }
+      
+      /* Alphabet jump strip mobile */
+      .alphabet-quick-jump {
+        display: flex !important;
+        flex-direction: column;
+        position: fixed;
+        right: 4px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1000;
+        background: rgba(10,14,26,0.85);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 12px;
+        padding: 6px 3px;
+        gap: 2px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      }
+      .alphabet-letter {
+        font-size: 0.52rem;
+        color: var(--text-secondary);
+        font-weight: 700;
+        text-align: center;
+        width: 12px;
+        height: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+      .alphabet-letter:active, .alphabet-letter.active {
+        color: #C0392B;
+      }
+
+      /* Registration price swipe */
+      .pricing-container {
+        display: flex !important;
+        flex-direction: row !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important;
+        gap: 1rem !important;
+        padding: 1rem !important;
+        scrollbar-width: none;
+        touch-action: pan-y;
+      }
+      .pricing-container::-webkit-scrollbar {
+        display: none;
+      }
+      .price-card {
+        flex: 0 0 85% !important;
+        scroll-snap-align: center !important;
+        margin: 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        padding: 1.5rem !important;
+      }
+      .price-header {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        text-align: left !important;
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+        padding-bottom: 0.8rem;
+        margin-bottom: 0.8rem;
+      }
+      .price-value-wrapper {
+        text-align: right !important;
+      }
+      .price-features {
+        text-align: left !important;
+        flex-grow: 1;
+      }
+      .price-features li {
+        justify-content: flex-start !important;
+      }
+      
+      /* Sticky Registration CTA button above nav bar */
+      .register-sticky-btn-wrapper {
+        display: block !important;
+        position: fixed;
+        bottom: 60px; /* above bottom navigation */
+        left: 0;
+        width: 100vw;
+        background: linear-gradient(to top, #0A0E1A 70%, transparent);
+        padding: 0.6rem 1.2rem 1rem;
+        z-index: 9998;
+      }
+      .register-sticky-btn {
+        width: 100%;
+        height: 56px;
+        background: #C0392B;
+        color: #fff;
+        border: none;
+        border-radius: 28px;
+        font-size: 0.95rem;
+        font-weight: 750;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 8px 24px rgba(192, 57, 43, 0.4);
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+      .register-sticky-btn:active {
+        transform: scale(0.97);
+        background: #962c20;
+      }
+
+      /* Extra margins and paddings for safety scroll */
+      section {
+        padding-bottom: 5rem !important;
+      }
+      #hero {
+        padding-bottom: 1.5rem !important;
+      }
+      #footer {
+        padding-bottom: 6.5rem !important;
+      }
+      
+      /* Disable mouse helper custom cursor on mobile */
+      .mouse-helper {
+        display: none !important;
+      }
+      body {
+        cursor: default !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -2566,6 +3504,13 @@
 <section id="hero" aria-labelledby="hero-heading">
   <div class="hero-orb hero-orb-1" aria-hidden="true"></div>
   <div class="hero-orb hero-orb-2" aria-hidden="true"></div>
+
+  <!-- Animated ECG Line Background -->
+  <div class="hero-ecg-container" aria-hidden="true">
+    <svg class="hero-ecg-svg" viewBox="0 0 1200 150" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path class="ecg-path" d="M 0,75 L 200,75 C 210,75 215,65 220,75 C 225,85 230,75 240,75 L 280,75 L 290,95 L 300,10 L 310,130 L 320,75 L 340,75 C 350,75 355,60 365,75 C 375,90 380,75 390,75 L 600,75 C 610,75 615,65 620,75 C 625,85 630,75 640,75 L 680,75 L 690,95 L 700,10 L 710,130 L 720,75 L 740,75 C 750,75 755,60 765,75 C 775,90 780,75 790,75 L 1000,75 C 1010,75 1015,65 1020,75 C 1025,85 1030,75 1040,75 L 1080,75 L 1090,95 L 1100,10 L 1110,130 L 1120,75 L 1140,75 C 1150,75 1155,60 1165,75 C 1175,90 1180,75 1190,75 L 1200,75" />
+    </svg>
+  </div>
 
   <div class="hero-badge" id="heroBadge" data-ar="النسخة الأولى · أكتوبر ٢٠٢٦">1<sup>st</sup> Edition · October 2026</div>
 
@@ -2742,30 +3687,84 @@
     <p class="section-subtitle" data-ar="أبرز أخصائيي القلب في مصر يجتمعون لتشكيل مستقبل رعاية القلب.">Egypt's foremost cardiac specialists convening to shape the future of cardiac care.</p>
   </div>
 
-  <div class="board-grid">
-    <!-- Row 1: three members -->
-    <div class="board-card">
-      <img class="avatar-photo" src="speakers/Prof. Mohamed Abdel Ghany.webp" alt="Prof. Mohamed Abdel Ghany" loading="lazy">
-      <p class="board-card-name" data-ar="أ.د. محمد<br>عبد الغني">Prof. Mohamed<br>Abdel Ghany</p>
-    </div>
-    <div class="board-card president-card" style="border-color:rgba(201,168,76,0.4);background:linear-gradient(135deg,rgba(201,168,76,0.07),rgba(15,8,25,0.9))">
-      <img class="avatar-photo" src="speakers/Prof. Mohamed Imam.webp" alt="Prof. Mohamed Imam" loading="lazy" style="border-color:var(--accent-gold);box-shadow:0 0 25px rgba(201,168,76,0.3);">
-      <p class="board-card-name" data-ar="أ.د. محمد<br>إمام">Prof. Mohamed<br>Imam</p>
-      <p class="board-card-role" style="color:var(--accent-gold)" data-ar="رئيس المؤتمر">Conference President</p>
-    </div>
-    <div class="board-card">
-      <img class="avatar-photo" src="speakers/Prof. Ashraf Ahmed.webp" alt="Prof. Ashraf Ahmed" loading="lazy">
-      <p class="board-card-name" data-ar="أ.د. أشرف<br>أحمد">Prof. Ashraf<br>Ahmed</p>
-    </div>
-    <!-- Row 2: two members — centered via flex wrapper -->
-    <div class="board-last-row">
-      <div class="board-card">
-        <img class="avatar-photo" src="speakers/Prof. Mohamed Alam Eddin.webp" alt="Prof. Mohamed Alam Eddin" loading="lazy">
-        <p class="board-card-name" data-ar="أ.د. محمد<br>علم الدين">Prof. Mohamed<br>Alam Eddin</p>
-      </div>
-      <div class="board-card">
-        <img class="avatar-photo" src="speakers/Prof. Mohamed Atta.webp" alt="Prof. Mohamed Atta" loading="lazy">
-        <p class="board-card-name" data-ar="أ.د. محمد<br>عطا">Prof. Mohamed<br>Atta</p>
+  <div class="board-carousel-outer">
+    <button class="board-nav-arrow prev" id="boardPrevBtn" aria-label="Previous board members">‹</button>
+    <button class="board-nav-arrow next" id="boardNextBtn" aria-label="Next board members">›</button>
+    
+    <div class="board-carousel-container">
+      <div class="board-carousel-track" id="boardCarouselTrack">
+        <!-- Member 1 -->
+        <div class="board-luxury-card">
+          <div class="initials-avatar">
+            MA
+            <img class="avatar-photo" src="speakers/Prof. Mohamed Abdel Ghany.webp" alt="Prof. Mohamed Abdel Ghany" loading="lazy">
+          </div>
+          <p class="board-card-name" data-ar="أ.د. محمد عبد الغني">Prof. Mohamed Abdel Ghany</p>
+          <div class="board-card-sep-line"></div>
+          <span class="role-badge committee" data-ar="اللجنة العلمية">Scientific Committee</span>
+        </div>
+
+        <div class="board-carousel-sep" aria-hidden="true">
+          <svg viewBox="0 0 100 30" width="40" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M0,15 L35,15 L40,5 L45,25 L50,10 L53,20 L55,15 L100,15" /></svg>
+        </div>
+
+        <!-- Member 2: President -->
+        <div class="board-luxury-card president-card">
+          <div class="initials-avatar">
+            MI
+            <img class="avatar-photo" src="speakers/Prof. Mohamed Imam.webp" alt="Prof. Mohamed Imam" loading="lazy">
+          </div>
+          <div class="president-info-wrapper">
+            <p class="board-card-name" data-ar="أ.د. محمد إمام">Prof. Mohamed Imam</p>
+            <div class="board-card-sep-line"></div>
+            <span class="role-badge president" data-ar="رئيس المؤتمر">Conference President</span>
+          </div>
+        </div>
+
+        <div class="board-carousel-sep" aria-hidden="true">
+          <svg viewBox="0 0 100 30" width="40" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M0,15 L35,15 L40,5 L45,25 L50,10 L53,20 L55,15 L100,15" /></svg>
+        </div>
+
+        <!-- Member 3 -->
+        <div class="board-luxury-card">
+          <div class="initials-avatar">
+            AA
+            <img class="avatar-photo" src="speakers/Prof. Ashraf Ahmed.webp" alt="Prof. Ashraf Ahmed" loading="lazy">
+          </div>
+          <p class="board-card-name" data-ar="أ.د. أشرف أحمد">Prof. Ashraf Ahmed</p>
+          <div class="board-card-sep-line"></div>
+          <span class="role-badge committee" data-ar="اللجنة العلمية">Scientific Committee</span>
+        </div>
+
+        <div class="board-carousel-sep" aria-hidden="true">
+          <svg viewBox="0 0 100 30" width="40" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M0,15 L35,15 L40,5 L45,25 L50,10 L53,20 L55,15 L100,15" /></svg>
+        </div>
+
+        <!-- Member 4 -->
+        <div class="board-luxury-card">
+          <div class="initials-avatar">
+            MA
+            <img class="avatar-photo" src="speakers/Prof. Mohamed Alam Eddin.webp" alt="Prof. Mohamed Alam Eddin" loading="lazy">
+          </div>
+          <p class="board-card-name" data-ar="أ.د. محمد علم الدين">Prof. Mohamed Alam Eddin</p>
+          <div class="board-card-sep-line"></div>
+          <span class="role-badge committee" data-ar="اللجنة العلمية">Scientific Committee</span>
+        </div>
+
+        <div class="board-carousel-sep" aria-hidden="true">
+          <svg viewBox="0 0 100 30" width="40" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M0,15 L35,15 L40,5 L45,25 L50,10 L53,20 L55,15 L100,15" /></svg>
+        </div>
+
+        <!-- Member 5 -->
+        <div class="board-luxury-card">
+          <div class="initials-avatar">
+            MA
+            <img class="avatar-photo" src="speakers/Prof. Mohamed Atta.webp" alt="Prof. Mohamed Atta" loading="lazy">
+          </div>
+          <p class="board-card-name" data-ar="أ.د. محمد عطا">Prof. Mohamed Atta</p>
+          <div class="board-card-sep-line"></div>
+          <span class="role-badge committee" data-ar="اللجنة العلمية">Scientific Committee</span>
+        </div>
       </div>
     </div>
   </div>
@@ -2786,11 +3785,19 @@
     <p class="section-subtitle" data-ar="الفريق المنظم الذي جعل هذا المؤتمر حقيقة">The dedicated team that made this conference a reality.</p>
   </div>
 
-  <div class="organizing-grid">
-    <div class="org-card">
-      <img class="org-avatar" src="speakers/Prof. Mahmoud El-katatny.webp" alt="Prof. Mahmoud El-Katatny" loading="lazy">
-      <p class="org-card-name" data-ar="أ.د. محمود<br>القطاطني">Prof. Mahmoud<br>El-Katatny</p>
-      <span class="org-badge">✦ Organizing Committee</span>
+  <div class="board-carousel-outer" style="max-width: 400px; padding: 0;">
+    <div class="board-carousel-container">
+      <div class="board-carousel-track" style="justify-content: center; padding: 1.5rem 0;">
+        <div class="board-luxury-card" style="border-color:rgba(139,43,226,0.25);">
+          <div class="initials-avatar">
+            ME
+            <img class="avatar-photo" src="speakers/Prof. Mahmoud El-katatny.webp" alt="Prof. Mahmoud El-Katatny" loading="lazy">
+          </div>
+          <p class="board-card-name" data-ar="أ.د. محمود القطاطني">Prof. Mahmoud El-Katatny</p>
+          <div class="board-card-sep-line" style="background:#8B2BE2;"></div>
+          <span class="role-badge organizing" data-ar="اللجنة المنظمة">Organizing Committee</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -2915,6 +3922,49 @@
   <div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div>
 </div>
 
+<!-- ==========================================================================
+     NEW SECTION: ATTENDEES (INFINITE MARQUEE & REAL-TIME SEARCH)
+     ========================================================================== -->
+<section id="attendees" aria-labelledby="attendees-heading">
+  <div class="section-header">
+    <span class="section-label" data-ar="— الحضور البارزون —">— Distinguished Delegates —</span>
+    <h2 class="section-title" id="attendees-heading" data-ar="قائمة الأطباء والمسجلين">Registered Attendees</h2>
+    <p class="section-subtitle" data-ar="نخبة من أطباء وجراحي القلب المسجلين لحضور المؤتمر">Distinguished cardiologists and delegates joining our community.</p>
+  </div>
+
+  <div class="attendees-search-container">
+    <div class="search-box-wrapper">
+      <input type="text" id="attendeeSearch" placeholder="Search attendees by name or specialty..." data-ar-placeholder="ابحث عن الأطباء بالاسم أو التخصص..." aria-label="Search attendees">
+      <span class="search-icon">🔍</span>
+    </div>
+    <div class="results-count" id="resultsCount" data-ar="Showing 0 of 0 names">Showing 0 of 0 names</div>
+  </div>
+
+  <!-- Infinite Marquee Container (shown when search is empty) -->
+  <div class="marquee-wrapper" id="marqueeContainer">
+    <div class="marquee-row row-1">
+      <div class="marquee-track" id="trackRow1"></div>
+    </div>
+    <div class="marquee-row row-2">
+      <div class="marquee-track" id="trackRow2"></div>
+    </div>
+    <div class="marquee-row row-3">
+      <div class="marquee-track" id="trackRow3"></div>
+    </div>
+  </div>
+
+  <!-- Search Results Grid (shown when search is active) -->
+  <div class="attendees-grid-container" id="searchGrid" style="display:none;"></div>
+  
+  <!-- Alphabet Quick Jump (only on mobile) -->
+  <div class="alphabet-quick-jump" id="alphabetStrip" style="display:none;"></div>
+</section>
+
+<!-- Divider -->
+<div class="section-divider" aria-hidden="true">
+  <div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div>
+</div>
+
 <!-- ===================== -->
 <!-- SECTION 4: AGENDA     -->
 <!-- ===================== -->
@@ -2923,6 +3973,26 @@
     <span class="section-label" data-ar="— البرنامج العلمي —">— Scientific Program —</span>
     <h2 class="section-title" id="agenda-heading" data-ar="أجندة المؤتمر">Conference Agenda</h2>
     <p class="section-subtitle" data-ar="يومان مكثفان من الجلسات العلمية المتطورة موزعة على قاعتين — قاعة رويال وقاعة ريجينا.">Two intensive days of cutting-edge sessions across two halls — Royal Hall & Regina Hall.</p>
+  </div>
+
+  <!-- Agenda Color Legend -->
+  <div class="agenda-legend" aria-label="Agenda Session Types Legend">
+    <div class="legend-item">
+      <span class="legend-dot" style="background:#C0392B"></span>
+      <span data-ar="الشرايين التاجية / التداخلية">Coronary/Intervention</span>
+    </div>
+    <div class="legend-item">
+      <span class="legend-dot" style="background:#1565C0"></span>
+      <span data-ar="كهرباء القلب">Electrophysiology</span>
+    </div>
+    <div class="legend-item">
+      <span class="legend-dot" style="background:#2E7D32"></span>
+      <span data-ar="أمراض القلب الباطنية">Medical Cardiology</span>
+    </div>
+    <div class="legend-item">
+      <span class="legend-dot" style="background:#E65100"></span>
+      <span data-ar="أمراض القلب البنيوية">Structural/Valve</span>
+    </div>
   </div>
 
   <div class="agenda-container">
@@ -3395,6 +4465,34 @@
     © 2026 1st Cardio Portsaid Conference · Organized by <span>CodeSquare</span> · Port Said, Egypt
   </p>
 </footer>
+
+<!-- Mobile Navigation and Register floating bar (Fixed at bottom on mobile) -->
+<div class="register-sticky-btn-wrapper" aria-hidden="true">
+  <button class="register-sticky-btn" onclick="document.getElementById('registerModal').classList.add('open')" data-ar="سجل الآن">Register Now</button>
+</div>
+
+<nav class="mobile-bottom-nav" aria-label="Mobile navigation bar" aria-hidden="true">
+  <a href="#hero" class="mobile-nav-item active" id="mobNavHome">
+    <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+    <span data-ar="الرئيسية">Home</span>
+  </a>
+  <a href="#board" class="mobile-nav-item" id="mobNavBoard">
+    <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+    <span data-ar="اللجنة">Board</span>
+  </a>
+  <a href="#agenda" class="mobile-nav-item" id="mobNavAgenda">
+    <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
+    <span data-ar="الأجندة">Agenda</span>
+  </a>
+  <a href="javascript:void(0)" class="mobile-nav-item" onclick="document.getElementById('registerModal').classList.add('open')">
+    <svg viewBox="0 0 24 24"><path d="M18 17H6v-2h12v2zm0-4H6v-2h12v2zm0-4H6V7h12v2zM3 5v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2z"/></svg>
+    <span data-ar="التسجيل">Register</span>
+  </a>
+  <a href="#footer" class="mobile-nav-item" id="mobNavMore">
+    <svg viewBox="0 0 24 24"><path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+    <span data-ar="المزيد">More</span>
+  </a>
+</nav>
 
 <!-- Registration Modal -->
 <div class="modal-overlay" id="registerModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
@@ -4128,6 +5226,402 @@
     localStorage.setItem('lang', isRtl ? 'en' : 'ar');
     window.location.reload();
   };
+
+  /* ==========================================================================
+     CARDIO PORTSAID NEW HIGH-FIDELITY JS IMPLEMENTATION
+     ========================================================================== */
+  
+  // 1. Delegate Attendees Data
+  const delegates = [
+    { name: "Prof. Adel Imam", specialty: "Interventional Cardiology", nameAr: "أ.د. عادل إمام", specialtyAr: "قسطرة القلب التداخلية" },
+    { name: "Prof. Mahmoud Hegazi", specialty: "Electrophysiology", nameAr: "أ.د. محمود حجازي", specialtyAr: "كهرباء القلب" },
+    { name: "Prof. Yehia El-Far", specialty: "Medical Cardiology", nameAr: "أ.د. يحيى الفار", specialtyAr: "أمراض القلب الباطنية" },
+    { name: "Prof. Yasmine Samy", specialty: "Structural Heart", nameAr: "أ.د. ياسمين سامي", specialtyAr: "أمراض القلب البنيوية" },
+    { name: "Dr. Hany Shaker", specialty: "Imaging", nameAr: "د. هاني شاكر", specialtyAr: "تصوير القلب" },
+    { name: "Prof. Hosny Mubarak", specialty: "Preventive Cardiology", nameAr: "أ.د. حسني مبارك", specialtyAr: "طب القلب الوقائي" },
+    { name: "Dr. Amr Diab", specialty: "Heart Failure", nameAr: "د. عمرو دياب", specialtyAr: "فشل القلب" },
+    { name: "Prof. Ahmed Zewail", specialty: "Interventional Cardiology", nameAr: "أ.د. أحمد زويل", specialtyAr: "قسطرة القلب التداخلية" },
+    { name: "Dr. Magdi Yacoub", specialty: "Cardiothoracic Surgery", nameAr: "د. مجدي يعقوب", specialtyAr: "جراحة القلب والصدر" },
+    { name: "Dr. Farouk El-Baz", specialty: "Imaging", nameAr: "د. فاروق الباز", specialtyAr: "تصوير القلب" },
+    { name: "Prof. Naguib Mahfouz", specialty: "Medical Cardiology", nameAr: "أ.د. نجيب محفوظ", specialtyAr: "أمراض القلب الباطنية" },
+    { name: "Dr. Taha Hussein", specialty: "Preventive Cardiology", nameAr: "د. طه حسين", specialtyAr: "طب القلب الوقائي" },
+    { name: "Prof. Ahmed Shawky", specialty: "Electrophysiology", nameAr: "أ.د. أحمد شوقي", specialtyAr: "كهرباء القلب" },
+    { name: "Dr. Abbas El-Akkad", specialty: "Heart Failure", nameAr: "د. عباس العقاد", specialtyAr: "فشل القلب" },
+    { name: "Dr. Gamil Ratib", specialty: "Structural Heart", nameAr: "د. جميل راتب", specialtyAr: "أمراض القلب البنيوية" },
+    { name: "Prof. Faten Hamama", specialty: "Medical Cardiology", nameAr: "أ.د. فاتن حمامة", specialtyAr: "أمراض القلب الباطنية" },
+    { name: "Dr. Omar Sharif", specialty: "Interventional Cardiology", nameAr: "د. عمر الشريف", specialtyAr: "قسطرة القلب التداخلية" },
+    { name: "Prof. Shadia Abdel Hameed", specialty: "Electrophysiology", nameAr: "أ.د. شادية عبد الحميد", specialtyAr: "كهرباء القلب" },
+    { name: "Dr. Abdel Halim Hafez", specialty: "Imaging", nameAr: "د. عبد الحليم حافظ", specialtyAr: "تصوير القلب" },
+    { name: "Prof. Umm Kulthum", specialty: "Preventive Cardiology", nameAr: "أ.د. أم كلثوم", specialtyAr: "طب القلب الوقائي" },
+    { name: "Dr. Fairuz Nihad", specialty: "Heart Failure", nameAr: "د. فيروز نهاد", specialtyAr: "فشل القلب" },
+    { name: "Prof. Sabah Fakhri", specialty: "Structural Heart", nameAr: "أ.د. صباح فخري", specialtyAr: "أمراض القلب البنيوية" },
+    { name: "Dr. Warda El-Djazairia", specialty: "Medical Cardiology", nameAr: "د. وردة الجزائرية", specialtyAr: "أمراض القلب الباطنية" },
+    { name: "Prof. Sayed Darwish", specialty: "Interventional Cardiology", nameAr: "أ.د. سيد درويش", specialtyAr: "قسطرة القلب التداخلية" },
+    { name: "Dr. Baligh Hamdi", specialty: "Electrophysiology", nameAr: "د. بليغ حمدي", specialtyAr: "كهرباء القلب" },
+    { name: "Prof. Mohamed Abdel Wahab", specialty: "Imaging", nameAr: "أ.د. محمد عبد الوهاب", specialtyAr: "تصوير القلب" },
+    { name: "Dr. Asmahan Al-Atrash", specialty: "Heart Failure", nameAr: "د. أسمهان الأطرش", specialtyAr: "فشل القلب" },
+    { name: "Prof. Layla Mourad", specialty: "Preventive Cardiology", nameAr: "أ.د. ليلى مراد", specialtyAr: "طب القلب الوقائي" },
+    { name: "Dr. Farid Al-Atrash", specialty: "Structural Heart", nameAr: "د. فريد الأطرش", specialtyAr: "أمراض القلب البنيوية" },
+    { name: "Prof. Mohamed Mounir", specialty: "Interventional Cardiology", nameAr: "أ.د. محمد منير", specialtyAr: "قسطرة القلب التداخلية" }
+  ];
+
+  // Initials Extractor Helper
+  function getInitials(name) {
+    let cleanName = name.replace(/^(Prof\.|Dr\.)\s+/i, '').trim();
+    let parts = cleanName.split(/\s+/);
+    let initials = '';
+    if (parts.length > 0 && parts[0]) initials += parts[0][0];
+    if (parts.length > 1 && parts[1]) initials += parts[1][0];
+    return initials.toUpperCase();
+  }
+
+  // 2. Dynamic Agenda Color Coding & Break Styles
+  function colorCodeAgenda() {
+    const blocks = document.querySelectorAll('.session-block');
+    blocks.forEach(block => {
+      const breakTitleEl = block.querySelector('.talk-title');
+      const titleEl = block.querySelector('.session-title');
+      
+      if (block.classList.contains('break-block') && breakTitleEl) {
+        const text = breakTitleEl.textContent.toLowerCase();
+        if (text.includes('coffee') || text.includes('قهوة') || text.includes('☕')) {
+          block.className = 'session-block break-coffee';
+          breakTitleEl.innerHTML = breakTitleEl.innerHTML.replace(/☕/g, '').trim();
+        } else if (text.includes('prayer') || text.includes('صلاة') || text.includes('🕌')) {
+          block.className = 'session-block break-prayer';
+          breakTitleEl.innerHTML = breakTitleEl.innerHTML.replace(/🕌/g, '').trim();
+        } else {
+          // Registration & Arrival
+          block.className = 'session-block break-coffee';
+          breakTitleEl.innerHTML = breakTitleEl.innerHTML.replace(/🚪/g, '').trim();
+        }
+      } else if (titleEl) {
+        const text = titleEl.textContent.toLowerCase();
+        
+        // Structural
+        if (text.includes('mitral') || text.includes('aortic') || text.includes('tavi') || text.includes('valve') || text.includes('cardiothoracic') || text.includes('صمام') || text.includes('أبهري') || text.includes('ميترالي')) {
+          block.classList.add('session-structural');
+        }
+        // Coronary
+        else if (text.includes('coronary') || text.includes('intervention') || text.includes('cto') || text.includes('pci') || text.includes('قسطرة') || text.includes('تداخل')) {
+          block.classList.add('session-coronary');
+        }
+        // EP
+        else if (text.includes('electrophysiology') || text.includes('arrhythmia') || text.includes('ep') || text.includes('كهرباء') || text.includes('نبض')) {
+          block.classList.add('session-ep');
+        }
+        // Medical
+        else {
+          block.classList.add('session-medical');
+        }
+      }
+    });
+  }
+
+  // 3. Viewport Scroll Progress Bar
+  function initScrollProgress() {
+    const progressBar = document.createElement('div');
+    progressBar.id = 'scrollProgress';
+    progressBar.style.position = 'fixed';
+    progressBar.style.top = '0';
+    progressBar.style.left = '0';
+    progressBar.style.width = '0%';
+    progressBar.style.height = '3px';
+    progressBar.style.background = 'linear-gradient(to right, #C0392B, #D4AF37)';
+    progressBar.style.zIndex = '99999';
+    progressBar.style.pointerEvents = 'none';
+    progressBar.style.transition = 'width 0.1s ease';
+    document.body.appendChild(progressBar);
+    
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const percentage = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+      progressBar.style.width = percentage + '%';
+    });
+  }
+
+  // 4. Desktop Luxury Speaker Showcase Carousel
+  function initSpeakerCarousel() {
+    const track = document.getElementById('boardCarouselTrack');
+    const prevBtn = document.getElementById('boardPrevBtn');
+    const nextBtn = document.getElementById('boardNextBtn');
+    if (!track) return;
+
+    const scrollAmount = 344; // Card width 320 + Gap 24
+    
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+      });
+    }
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      });
+    }
+
+    // Auto-scroll track every 4 seconds smoothly
+    let autoScrollInterval = setInterval(() => {
+      if (window.innerWidth < 768) return; // Disable auto scroll on mobile
+      
+      const maxScroll = track.scrollWidth - track.clientWidth;
+      if (track.scrollLeft >= maxScroll - 10) {
+        track.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      }
+    }, 4000);
+
+    // Pause on hover
+    track.addEventListener('mouseenter', () => clearInterval(autoScrollInterval));
+    track.addEventListener('mouseleave', () => {
+      autoScrollInterval = setInterval(() => {
+        if (window.innerWidth < 768) return;
+        const maxScroll = track.scrollWidth - track.clientWidth;
+        if (track.scrollLeft >= maxScroll - 10) {
+          track.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
+      }, 4000);
+    });
+  }
+
+  // 5. Attendees Infinite Marquee & Search
+  function initAttendeesSection() {
+    const isAr = document.documentElement.getAttribute('dir') === 'rtl';
+    const row1 = document.getElementById('trackRow1');
+    const row2 = document.getElementById('trackRow2');
+    const row3 = document.getElementById('trackRow3');
+    const searchInput = document.getElementById('attendeeSearch');
+    const resultsCount = document.getElementById('resultsCount');
+    const searchGrid = document.getElementById('searchGrid');
+    const marqueeContainer = document.getElementById('marqueeContainer');
+    const alphabetStrip = document.getElementById('alphabetStrip');
+    
+    if (!row1 || !row2 || !row3) return;
+
+    // Distribute delegates to three rows
+    const row1Delegates = delegates.slice(0, 10);
+    const row2Delegates = delegates.slice(10, 20);
+    const row3Delegates = delegates.slice(20, 30);
+
+    function createMarqueeItem(del) {
+      const nameText = isAr ? del.nameAr : del.name;
+      const specText = isAr ? del.specialtyAr : del.specialty;
+      return `
+        <div class="marquee-item">
+          <span class="marquee-bullet">✦</span>
+          <span class="marquee-name">${nameText}</span>
+          <span class="marquee-spec">${specText}</span>
+        </div>
+      `;
+    }
+
+    // Populate rows and duplicate list for seamless scroll loop
+    const r1Content = row1Delegates.map(createMarqueeItem).join('');
+    row1.innerHTML = r1Content + r1Content;
+
+    const r2Content = row2Delegates.map(createMarqueeItem).join('');
+    row2.innerHTML = r2Content + r2Content;
+
+    const r3Content = row3Delegates.map(createMarqueeItem).join('');
+    row3.innerHTML = r3Content + r3Content;
+
+    // Set precise speed-based custom durations
+    setTimeout(() => {
+      const r1Width = row1.scrollWidth / 2;
+      const r2Width = row2.scrollWidth / 2;
+      const r3Width = row3.scrollWidth / 2;
+
+      row1.style.setProperty('--marquee-duration-row1', `${r1Width / 30}s`); // 30px/s
+      row2.style.setProperty('--marquee-duration-row2', `${r2Width / 20}s`); // 20px/s
+      row3.style.setProperty('--marquee-duration-row3', `${r3Width / 25}s`); // 25px/s
+    }, 100);
+
+    // Initial results count setup
+    resultsCount.textContent = isAr 
+      ? `عرض ٣٠ من ٣٠ اسم` 
+      : `Showing 30 of 30 names`;
+
+    // Real-time Search Handler
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase().trim();
+        
+        if (query.length === 0) {
+          searchGrid.style.display = 'none';
+          alphabetStrip.style.display = 'none';
+          marqueeContainer.style.display = 'flex';
+          resultsCount.textContent = isAr 
+            ? `عرض ٣٠ من ٣٠ اسم` 
+            : `Showing 30 of 30 names`;
+          return;
+        }
+
+        // Filter search
+        const filtered = delegates.filter(del => {
+          return del.name.toLowerCase().includes(query) || 
+                 del.nameAr.includes(query) || 
+                 del.specialty.toLowerCase().includes(query) || 
+                 del.specialtyAr.includes(query);
+        });
+
+        // Hide marquee, show search grid
+        marqueeContainer.style.display = 'none';
+        searchGrid.style.display = 'grid';
+        if (window.innerWidth < 768) {
+          alphabetStrip.style.display = 'flex';
+        }
+
+        // Render matching cards
+        searchGrid.innerHTML = filtered.map(del => {
+          const nameText = isAr ? del.nameAr : del.name;
+          const specText = isAr ? del.specialtyAr : del.specialty;
+          const letter = del.name.replace(/^(Prof\.|Dr\.)\s+/i, '').trim()[0].toUpperCase();
+          return `
+            <div class="attendee-card" data-letter="${letter}">
+              <div class="attendee-card-name">${nameText}</div>
+              <div class="attendee-card-spec">${specText}</div>
+            </div>
+          `;
+        }).join('');
+
+        if (filtered.length === 0) {
+          searchGrid.innerHTML = `
+            <div style="grid-column:1/-1;text-align:center;color:var(--text-secondary);padding:3rem 0;">
+              ${isAr ? 'لم يتم العثور على نتائج تطابق بحثك' : 'No attendees found matching your search'}
+            </div>
+          `;
+        }
+
+        // Update count
+        resultsCount.textContent = isAr 
+          ? `عرض ${filtered.length} من ٣٠ اسم` 
+          : `Showing ${filtered.length} of 30 names`;
+      });
+    }
+
+    // Alphabet Quick Jump Strip for mobile
+    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+    alphabetStrip.innerHTML = alphabet.map(letter => {
+      return `<span class="alphabet-letter" data-letter="${letter}">${letter}</span>`;
+    }).join('');
+
+    alphabetStrip.addEventListener('click', (e) => {
+      const letterBtn = e.target.closest('.alphabet-letter');
+      if (!letterBtn) return;
+      
+      const letter = letterBtn.getAttribute('data-letter');
+      
+      // Find first attendee card starting with this letter
+      const match = searchGrid.querySelector(`.attendee-card[data-letter="${letter}"]`);
+      if (match) {
+        match.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
+        // Visual indicator active letter
+        alphabetStrip.querySelectorAll('.alphabet-letter').forEach(btn => btn.classList.remove('active'));
+        letterBtn.classList.add('active');
+        
+        // Highlight card
+        match.style.borderColor = '#C0392B';
+        match.style.boxShadow = '0 0 15px rgba(192, 57, 43, 0.4)';
+        setTimeout(() => {
+          match.style.borderColor = '';
+          match.style.boxShadow = '';
+        }, 1200);
+      }
+    });
+  }
+
+  // 6. Mobile Tabbed Hall timeline & Accordion Action
+  function initMobileAccordion() {
+    const agendaContainer = document.querySelector('.agenda-container');
+    if (!agendaContainer) return;
+    
+    agendaContainer.addEventListener('click', (e) => {
+      if (window.innerWidth >= 768) return; // Only mobile
+      
+      const block = e.target.closest('.session-block');
+      if (!block) return;
+      
+      if (block.classList.contains('break-coffee') || block.classList.contains('break-prayer')) {
+        return;
+      }
+      
+      block.classList.toggle('expanded');
+      
+      // Tap feedback scale effect
+      block.style.transform = 'scale(0.98)';
+      setTimeout(() => {
+        block.style.transform = '';
+      }, 120);
+    });
+  }
+
+  // 7. Active State Bottom Mobile Navigation scroll tracker
+  function initMobileBottomNavActiveState() {
+    const navItems = document.querySelectorAll('.mobile-bottom-nav .mobile-nav-item');
+    const sections = [
+      { id: 'hero', navId: 'mobNavHome' },
+      { id: 'board', navId: 'mobNavBoard' },
+      { id: 'agenda', navId: 'mobNavAgenda' },
+      { id: 'footer', navId: 'mobNavMore' }
+    ];
+
+    window.addEventListener('scroll', () => {
+      if (window.innerWidth >= 768) return;
+      
+      let currentSectionId = 'hero';
+      const scrollPos = window.scrollY + 150;
+      
+      sections.forEach(sec => {
+        const el = document.getElementById(sec.id);
+        if (el) {
+          const top = el.offsetTop;
+          const height = el.offsetHeight;
+          if (scrollPos >= top && scrollPos < top + height) {
+            currentSectionId = sec.id;
+          }
+        }
+      });
+
+      // Highlight active nav item
+      navItems.forEach(item => {
+        item.classList.remove('active');
+        const href = item.getAttribute('href');
+        if (href === `#${currentSectionId}`) {
+          item.classList.add('active');
+        }
+      });
+    });
+  }
+
+  // 8. Performance and Mobile Animation Throttles
+  function throttleMobilePerformance() {
+    if (window.innerWidth < 768) {
+      // Slow down ECG background SVG speed and reduce complexity
+      const path = document.querySelector('.ecg-path');
+      if (path) {
+        path.style.animationDuration = '5s';
+      }
+      // Hide full particles helper
+      const orbs = document.querySelectorAll('.hero-orb');
+      orbs.forEach(orb => orb.style.display = 'none');
+    }
+  }
+
+  // Execute All Upgrades on Page Load
+  window.addEventListener('DOMContentLoaded', () => {
+    colorCodeAgenda();
+    initScrollProgress();
+    initSpeakerCarousel();
+    initAttendeesSection();
+    initMobileAccordion();
+    initMobileBottomNavActiveState();
+    throttleMobilePerformance();
+  });
 
   /* Apply Translations Before GSAP */
   function applyTranslations() {
