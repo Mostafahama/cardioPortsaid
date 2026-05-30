@@ -2815,7 +2815,7 @@
       position: relative;
       margin-bottom: 0.8rem;
     }
-    #attendeeSearch {
+    #facultySearch {
       width: 100%;
       height: 48px;
       padding: 0 3rem 0 1.5rem;
@@ -2827,11 +2827,11 @@
       transition: all 0.3s;
       outline: none;
     }
-    #attendeeSearch:focus {
+    #facultySearch:focus {
       border-color: #D4AF37;
       box-shadow: 0 0 15px rgba(212,175,55,0.2);
     }
-    html[dir="rtl"] #attendeeSearch {
+    html[dir="rtl"] #facultySearch {
       padding: 0 1.5rem 0 3rem;
     }
     .search-icon {
@@ -2871,6 +2871,7 @@
       width: 100%;
       padding: 0.8rem 0;
       transition: background 0.3s;
+      gap: 0;
     }
     .marquee-row.row-1 { background: #0A0E1A; }
     .marquee-row.row-2 { background: #0D1121; }
@@ -2881,6 +2882,8 @@
       gap: 3.5rem;
       width: max-content;
       will-change: transform;
+      flex-shrink: 0;
+      padding-right: 3.5rem;
     }
     
     .row-1 .marquee-track {
@@ -2899,10 +2902,10 @@
     
     @keyframes marqueeLeft {
       0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+      100% { transform: translateX(-100%); }
     }
     @keyframes marqueeRight {
-      0% { transform: translateX(-50%); }
+      0% { transform: translateX(-100%); }
       100% { transform: translateX(0); }
     }
     
@@ -3817,7 +3820,34 @@
     <p class="section-subtitle" data-ar="٦ مسارات علمية متخصصة بأبرز أسماء طب القلب في مصر">6 specialized scientific tracks featuring Egypt's leading cardiac faculty.</p>
   </div>
 
-  <div class="tracks-container">
+  <div class="attendees-search-container" style="max-width: 600px; margin: 0 auto 2.5rem; text-align: center; padding: 0 1.5rem; z-index: 10; position: relative;">
+    <div class="search-box-wrapper">
+      <input type="text" id="facultySearch" placeholder="Search faculty by name or track..." data-ar-placeholder="ابحث عن الأساتذة بالاسم أو التخصص..." aria-label="Search faculty">
+      <span class="search-icon">🔍</span>
+    </div>
+    <div class="results-count" id="facultyResultsCount" data-ar="Showing 36 of 36 names">Showing 36 of 36 names</div>
+  </div>
+
+  <!-- Infinite Marquee Container (shown when search is empty) -->
+  <div class="marquee-wrapper" id="facultyMarqueeContainer" dir="ltr" style="margin-bottom: 3rem;">
+    <div class="marquee-row row-1">
+      <div class="marquee-track" id="facultyTrackRow1"></div>
+    </div>
+    <div class="marquee-row row-2">
+      <div class="marquee-track" id="facultyTrackRow2"></div>
+    </div>
+    <div class="marquee-row row-3">
+      <div class="marquee-track" id="facultyTrackRow3"></div>
+    </div>
+  </div>
+
+  <!-- Search Results Grid (shown when search is active) -->
+  <div class="attendees-grid-container" id="facultySearchGrid" style="display:none; margin-bottom: 3rem;"></div>
+  
+  <!-- Alphabet Quick Jump (only on mobile) -->
+  <div class="alphabet-quick-jump" id="facultyAlphabetStrip" style="display:none;"></div>
+
+  <div class="tracks-container" id="tracksContainerMain">
     <!-- Track Tabs -->
     <div class="track-tabs" role="tablist" aria-label="Scientific tracks">
       <button class="track-tab active" data-track="intervention" role="tab" aria-selected="true" data-ar="العلاج التداخلي">Intervention</button>
@@ -3915,49 +3945,6 @@
       </div>
     </div>
   </div>
-</section>
-
-<!-- Divider -->
-<div class="section-divider" aria-hidden="true">
-  <div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div>
-</div>
-
-<!-- ==========================================================================
-     NEW SECTION: ATTENDEES (INFINITE MARQUEE & REAL-TIME SEARCH)
-     ========================================================================== -->
-<section id="attendees" aria-labelledby="attendees-heading">
-  <div class="section-header">
-    <span class="section-label" data-ar="— الحضور البارزون —">— Distinguished Delegates —</span>
-    <h2 class="section-title" id="attendees-heading" data-ar="قائمة الأطباء والمسجلين">Registered Attendees</h2>
-    <p class="section-subtitle" data-ar="نخبة من أطباء وجراحي القلب المسجلين لحضور المؤتمر">Distinguished cardiologists and delegates joining our community.</p>
-  </div>
-
-  <div class="attendees-search-container">
-    <div class="search-box-wrapper">
-      <input type="text" id="attendeeSearch" placeholder="Search attendees by name or specialty..." data-ar-placeholder="ابحث عن الأطباء بالاسم أو التخصص..." aria-label="Search attendees">
-      <span class="search-icon">🔍</span>
-    </div>
-    <div class="results-count" id="resultsCount" data-ar="Showing 0 of 0 names">Showing 0 of 0 names</div>
-  </div>
-
-  <!-- Infinite Marquee Container (shown when search is empty) -->
-  <div class="marquee-wrapper" id="marqueeContainer">
-    <div class="marquee-row row-1">
-      <div class="marquee-track" id="trackRow1"></div>
-    </div>
-    <div class="marquee-row row-2">
-      <div class="marquee-track" id="trackRow2"></div>
-    </div>
-    <div class="marquee-row row-3">
-      <div class="marquee-track" id="trackRow3"></div>
-    </div>
-  </div>
-
-  <!-- Search Results Grid (shown when search is active) -->
-  <div class="attendees-grid-container" id="searchGrid" style="display:none;"></div>
-  
-  <!-- Alphabet Quick Jump (only on mobile) -->
-  <div class="alphabet-quick-jump" id="alphabetStrip" style="display:none;"></div>
 </section>
 
 <!-- Divider -->
@@ -5232,37 +5219,44 @@
      ========================================================================== */
   
   // 1. Delegate Attendees Data
-  const delegates = [
-    { name: "Prof. Adel Imam", specialty: "Interventional Cardiology", nameAr: "أ.د. عادل إمام", specialtyAr: "قسطرة القلب التداخلية" },
-    { name: "Prof. Mahmoud Hegazi", specialty: "Electrophysiology", nameAr: "أ.د. محمود حجازي", specialtyAr: "كهرباء القلب" },
-    { name: "Prof. Yehia El-Far", specialty: "Medical Cardiology", nameAr: "أ.د. يحيى الفار", specialtyAr: "أمراض القلب الباطنية" },
-    { name: "Prof. Yasmine Samy", specialty: "Structural Heart", nameAr: "أ.د. ياسمين سامي", specialtyAr: "أمراض القلب البنيوية" },
-    { name: "Dr. Hany Shaker", specialty: "Imaging", nameAr: "د. هاني شاكر", specialtyAr: "تصوير القلب" },
-    { name: "Prof. Hosny Mubarak", specialty: "Preventive Cardiology", nameAr: "أ.د. حسني مبارك", specialtyAr: "طب القلب الوقائي" },
-    { name: "Dr. Amr Diab", specialty: "Heart Failure", nameAr: "د. عمرو دياب", specialtyAr: "فشل القلب" },
-    { name: "Prof. Ahmed Zewail", specialty: "Interventional Cardiology", nameAr: "أ.د. أحمد زويل", specialtyAr: "قسطرة القلب التداخلية" },
-    { name: "Dr. Magdi Yacoub", specialty: "Cardiothoracic Surgery", nameAr: "د. مجدي يعقوب", specialtyAr: "جراحة القلب والصدر" },
-    { name: "Dr. Farouk El-Baz", specialty: "Imaging", nameAr: "د. فاروق الباز", specialtyAr: "تصوير القلب" },
-    { name: "Prof. Naguib Mahfouz", specialty: "Medical Cardiology", nameAr: "أ.د. نجيب محفوظ", specialtyAr: "أمراض القلب الباطنية" },
-    { name: "Dr. Taha Hussein", specialty: "Preventive Cardiology", nameAr: "د. طه حسين", specialtyAr: "طب القلب الوقائي" },
-    { name: "Prof. Ahmed Shawky", specialty: "Electrophysiology", nameAr: "أ.د. أحمد شوقي", specialtyAr: "كهرباء القلب" },
-    { name: "Dr. Abbas El-Akkad", specialty: "Heart Failure", nameAr: "د. عباس العقاد", specialtyAr: "فشل القلب" },
-    { name: "Dr. Gamil Ratib", specialty: "Structural Heart", nameAr: "د. جميل راتب", specialtyAr: "أمراض القلب البنيوية" },
-    { name: "Prof. Faten Hamama", specialty: "Medical Cardiology", nameAr: "أ.د. فاتن حمامة", specialtyAr: "أمراض القلب الباطنية" },
-    { name: "Dr. Omar Sharif", specialty: "Interventional Cardiology", nameAr: "د. عمر الشريف", specialtyAr: "قسطرة القلب التداخلية" },
-    { name: "Prof. Shadia Abdel Hameed", specialty: "Electrophysiology", nameAr: "أ.د. شادية عبد الحميد", specialtyAr: "كهرباء القلب" },
-    { name: "Dr. Abdel Halim Hafez", specialty: "Imaging", nameAr: "د. عبد الحليم حافظ", specialtyAr: "تصوير القلب" },
-    { name: "Prof. Umm Kulthum", specialty: "Preventive Cardiology", nameAr: "أ.د. أم كلثوم", specialtyAr: "طب القلب الوقائي" },
-    { name: "Dr. Fairuz Nihad", specialty: "Heart Failure", nameAr: "د. فيروز نهاد", specialtyAr: "فشل القلب" },
-    { name: "Prof. Sabah Fakhri", specialty: "Structural Heart", nameAr: "أ.د. صباح فخري", specialtyAr: "أمراض القلب البنيوية" },
-    { name: "Dr. Warda El-Djazairia", specialty: "Medical Cardiology", nameAr: "د. وردة الجزائرية", specialtyAr: "أمراض القلب الباطنية" },
-    { name: "Prof. Sayed Darwish", specialty: "Interventional Cardiology", nameAr: "أ.د. سيد درويش", specialtyAr: "قسطرة القلب التداخلية" },
-    { name: "Dr. Baligh Hamdi", specialty: "Electrophysiology", nameAr: "د. بليغ حمدي", specialtyAr: "كهرباء القلب" },
-    { name: "Prof. Mohamed Abdel Wahab", specialty: "Imaging", nameAr: "أ.د. محمد عبد الوهاب", specialtyAr: "تصوير القلب" },
-    { name: "Dr. Asmahan Al-Atrash", specialty: "Heart Failure", nameAr: "د. أسمهان الأطرش", specialtyAr: "فشل القلب" },
-    { name: "Prof. Layla Mourad", specialty: "Preventive Cardiology", nameAr: "أ.د. ليلى مراد", specialtyAr: "طب القلب الوقائي" },
-    { name: "Dr. Farid Al-Atrash", specialty: "Structural Heart", nameAr: "د. فريد الأطرش", specialtyAr: "أمراض القلب البنيوية" },
-    { name: "Prof. Mohamed Mounir", specialty: "Interventional Cardiology", nameAr: "أ.د. محمد منير", specialtyAr: "قسطرة القلب التداخلية" }
+  // 1. Faculty Speakers Data
+  const faculty = [
+    { name: "Prof. Hazem Khamis", specialty: "Intervention", nameAr: "أ.د. حازم خميس", specialtyAr: "العلاج التداخلي" },
+    { name: "Prof. Ahmed Magdy", specialty: "Intervention", nameAr: "أ.د. أحمد مجدي", specialtyAr: "العلاج التداخلي" },
+    { name: "Prof. Nabil Farag", specialty: "Intervention", nameAr: "أ.د. نبيل فرج", specialtyAr: "العلاج التداخلي" },
+    { name: "Prof. Mohamed Selim", specialty: "Intervention", nameAr: "أ.د. محمد سليم", specialtyAr: "العلاج التداخلي" },
+    { name: "Prof. Yasser Sadek", specialty: "Intervention & Structural", nameAr: "أ.د. ياسر صادق", specialtyAr: "العلاج التداخلي والبنيوي" },
+    { name: "Prof. Khaled Tamam", specialty: "Intervention", nameAr: "أ.د. خالد تمام", specialtyAr: "العلاج التداخلي" },
+    { name: "Prof. Mohamed Sabry", specialty: "Intervention & Structural", nameAr: "أ.د. محمد صبري", specialtyAr: "العلاج التداخلي والبنيوي" },
+    { name: "Prof. Ahmed El-Sawah", specialty: "Intervention & Structural", nameAr: "أ.د. أحمد السواح", specialtyAr: "العلاج التداخلي والبنيوي" },
+    { name: "Prof. Khaled Ali", specialty: "Intervention", nameAr: "أ.د. خالد علي", specialtyAr: "العلاج التداخلي" },
+    { name: "Prof. Ibrahim Yassin", specialty: "Intervention", nameAr: "أ.د. إبراهيم ياسين", specialtyAr: "العلاج التداخلي" },
+    { name: "Prof. Shehab El-Etreby", specialty: "Intervention", nameAr: "أ.د. شهاب الأتربي", specialtyAr: "العلاج التداخلي" },
+    { name: "Prof. Ali Youssef", specialty: "Intervention", nameAr: "أ.د. علي يوسف", specialtyAr: "العلاج التداخلي" },
+    { name: "Prof. Shady Mansy", specialty: "Structural Heart", nameAr: "أ.د. شادي منسي", specialtyAr: "أمراض القلب البنيوية" },
+    { name: "Prof. Abdel-Rahman Afify", specialty: "Structural Heart", nameAr: "أ.د. عبد الرحمن عفيفي", specialtyAr: "أمراض القلب البنيوية" },
+    { name: "Prof. Hany Mahmoud", specialty: "Imaging", nameAr: "أ.د. هاني محمود", specialtyAr: "تصوير القلب" },
+    { name: "Prof. Fawaz El-Anzy", specialty: "Imaging", nameAr: "أ.د. فواز العنزي", specialtyAr: "تصوير القلب" },
+    { name: "Prof. Mohamed El-Sedafy", specialty: "Imaging", nameAr: "أ.د. محمد الصدفي", specialtyAr: "تصوير القلب" },
+    { name: "Prof. Ahmed Fared", specialty: "Imaging", nameAr: "أ.د. أحمد فريد", specialtyAr: "تصوير القلب" },
+    { name: "Prof. Sara El-Gammal", specialty: "Imaging", nameAr: "أ.د. سارة الجمال", specialtyAr: "تصوير القلب" },
+    { name: "Prof. Evan Emad", specialty: "Imaging", nameAr: "أ.د. إيفان عماد", specialtyAr: "تصوير القلب" },
+    { name: "Prof. Mervat Abo El-Maaty", specialty: "Electrophysiology", nameAr: "أ.د. ميرفت أبو المعاطي", specialtyAr: "كهرباء القلب" },
+    { name: "Prof. Azza Katta", specialty: "Electrophysiology", nameAr: "أ.د. عزة قطة", specialtyAr: "كهرباء القلب" },
+    { name: "Prof. Ahmed Taher", specialty: "Electrophysiology", nameAr: "أ.د. أحمد طاهر", specialtyAr: "كهرباء القلب" },
+    { name: "Prof. Ahmed Mostafa", specialty: "Electrophysiology", nameAr: "أ.د. أحمد مصطفى", specialtyAr: "كهرباء القلب" },
+    { name: "Prof. Ahmed Bahnasawy", specialty: "Electrophysiology", nameAr: "أ.د. أحمد البهنساوي", specialtyAr: "كهرباء القلب" },
+    { name: "Prof. Mohamed Abo-Hadema", specialty: "Electrophysiology", nameAr: "أ.د. محمد أبو هديمة", specialtyAr: "كهرباء القلب" },
+    { name: "Prof. Mohamed Adel El-Maghawry", specialty: "Electrophysiology", nameAr: "أ.د. محمد عادل المغاوري", specialtyAr: "كهرباء القلب" },
+    { name: "Prof. Mohamed Atta", specialty: "Electrophysiology", nameAr: "أ.د. محمد عطا", specialtyAr: "كهرباء القلب" },
+    { name: "Prof. Mohamed Sobh", specialty: "Preventive Medicine", nameAr: "أ.د. محمد صبح", specialtyAr: "طب القلب الوقائي" },
+    { name: "Prof. Ashraf Reda", specialty: "Preventive Medicine", nameAr: "أ.د. أشرف رضا", specialtyAr: "طب القلب الوقائي" },
+    { name: "Prof. Hesham Salah", specialty: "Preventive Medicine", nameAr: "أ.د. هشام صلاح", specialtyAr: "طب القلب الوقائي" },
+    { name: "Prof. Gamela Nasr", specialty: "Preventive & HF", nameAr: "أ.د. جميلة نصر", specialtyAr: "طب القلب الوقائي وفشل القلب" },
+    { name: "Prof. Hany El-Shahedy", specialty: "Preventive Medicine", nameAr: "أ.د. هاني الشهيدي", specialtyAr: "طب القلب الوقائي" },
+    { name: "Prof. Magdy Abdel-Hameed", specialty: "Heart Failure", nameAr: "أ.د. مجدي عبد الحميد", specialtyAr: "فشل القلب" },
+    { name: "Prof. Ahmed Abdel-Aziz", specialty: "Heart Failure", nameAr: "أ.د. أحمد عبد العزيز", specialtyAr: "فشل القلب" },
+    { name: "Prof. Osama Louise", specialty: "Heart Failure", nameAr: "أ.د. أسامة لويس", specialtyAr: "فشل القلب" }
   ];
 
   // Initials Extractor Helper
@@ -5389,27 +5383,29 @@
   }
 
   // 5. Attendees Infinite Marquee & Search
-  function initAttendeesSection() {
+  // 5. Faculty Infinite Marquee & Search
+  function initFacultySection() {
     const isAr = document.documentElement.getAttribute('dir') === 'rtl';
-    const row1 = document.getElementById('trackRow1');
-    const row2 = document.getElementById('trackRow2');
-    const row3 = document.getElementById('trackRow3');
-    const searchInput = document.getElementById('attendeeSearch');
-    const resultsCount = document.getElementById('resultsCount');
-    const searchGrid = document.getElementById('searchGrid');
-    const marqueeContainer = document.getElementById('marqueeContainer');
-    const alphabetStrip = document.getElementById('alphabetStrip');
+    const row1 = document.getElementById('facultyTrackRow1');
+    const row2 = document.getElementById('facultyTrackRow2');
+    const row3 = document.getElementById('facultyTrackRow3');
+    const searchInput = document.getElementById('facultySearch');
+    const resultsCount = document.getElementById('facultyResultsCount');
+    const searchGrid = document.getElementById('facultySearchGrid');
+    const marqueeContainer = document.getElementById('facultyMarqueeContainer');
+    const alphabetStrip = document.getElementById('facultyAlphabetStrip');
+    const tracksContainerMain = document.getElementById('tracksContainerMain');
     
     if (!row1 || !row2 || !row3) return;
 
-    // Distribute delegates to three rows
-    const row1Delegates = delegates.slice(0, 10);
-    const row2Delegates = delegates.slice(10, 20);
-    const row3Delegates = delegates.slice(20, 30);
+    // Distribute faculty to three rows (12 each)
+    const row1Faculty = faculty.slice(0, 12);
+    const row2Faculty = faculty.slice(12, 24);
+    const row3Faculty = faculty.slice(24, 36);
 
-    function createMarqueeItem(del) {
-      const nameText = isAr ? del.nameAr : del.name;
-      const specText = isAr ? del.specialtyAr : del.specialty;
+    function createMarqueeItem(fac) {
+      const nameText = isAr ? fac.nameAr : fac.name;
+      const specText = isAr ? fac.specialtyAr : fac.specialty;
       return `
         <div class="marquee-item">
           <span class="marquee-bullet">✦</span>
@@ -5419,31 +5415,56 @@
       `;
     }
 
-    // Populate rows and duplicate list for seamless scroll loop
-    const r1Content = row1Delegates.map(createMarqueeItem).join('');
-    row1.innerHTML = r1Content + r1Content;
+    // Populate rows
+    const r1Content = row1Faculty.map(createMarqueeItem).join('');
+    row1.innerHTML = r1Content;
+    const row1Dup = row1.cloneNode(true);
+    row1Dup.id = row1.id + '-dup';
+    row1.parentNode.appendChild(row1Dup);
 
-    const r2Content = row2Delegates.map(createMarqueeItem).join('');
-    row2.innerHTML = r2Content + r2Content;
+    const r2Content = row2Faculty.map(createMarqueeItem).join('');
+    row2.innerHTML = r2Content;
+    const row2Dup = row2.cloneNode(true);
+    row2Dup.id = row2.id + '-dup';
+    row2.parentNode.appendChild(row2Dup);
 
-    const r3Content = row3Delegates.map(createMarqueeItem).join('');
-    row3.innerHTML = r3Content + r3Content;
+    const r3Content = row3Faculty.map(createMarqueeItem).join('');
+    row3.innerHTML = r3Content;
+    const row3Dup = row3.cloneNode(true);
+    row3Dup.id = row3.id + '-dup';
+    row3.parentNode.appendChild(row3Dup);
 
     // Set precise speed-based custom durations
-    setTimeout(() => {
-      const r1Width = row1.scrollWidth / 2;
-      const r2Width = row2.scrollWidth / 2;
-      const r3Width = row3.scrollWidth / 2;
+    const updateDurations = () => {
+      const r1Width = row1.scrollWidth;
+      const r2Width = row2.scrollWidth;
+      const r3Width = row3.scrollWidth;
 
-      row1.style.setProperty('--marquee-duration-row1', `${r1Width / 30}s`); // 30px/s
-      row2.style.setProperty('--marquee-duration-row2', `${r2Width / 20}s`); // 20px/s
-      row3.style.setProperty('--marquee-duration-row3', `${r3Width / 25}s`); // 25px/s
-    }, 100);
+      const dur1 = r1Width > 100 ? `${r1Width / 30}s` : '35s'; // 30px/s
+      const dur2 = r2Width > 100 ? `${r2Width / 20}s` : '45s'; // 20px/s
+      const dur3 = r3Width > 100 ? `${r3Width / 25}s` : '40s'; // 25px/s
+
+      row1.style.setProperty('--marquee-duration-row1', dur1);
+      row1Dup.style.setProperty('--marquee-duration-row1', dur1);
+
+      row2.style.setProperty('--marquee-duration-row2', dur2);
+      row2Dup.style.setProperty('--marquee-duration-row2', dur2);
+
+      row3.style.setProperty('--marquee-duration-row3', dur3);
+      row3Dup.style.setProperty('--marquee-duration-row3', dur3);
+    };
+
+    // Calculate initial durations and bind resize + font load events
+    setTimeout(updateDurations, 150);
+    window.addEventListener('resize', updateDurations);
+    if (document.fonts) {
+      document.fonts.ready.then(updateDurations);
+    }
 
     // Initial results count setup
     resultsCount.textContent = isAr 
-      ? `عرض ٣٠ من ٣٠ اسم` 
-      : `Showing 30 of 30 names`;
+      ? `عرض ٣٦ من ٣٦ اسم` 
+      : `Showing 36 of 36 names`;
 
     // Real-time Search Handler
     if (searchInput) {
@@ -5454,32 +5475,38 @@
           searchGrid.style.display = 'none';
           alphabetStrip.style.display = 'none';
           marqueeContainer.style.display = 'flex';
+          if (tracksContainerMain) {
+            tracksContainerMain.style.display = 'block';
+          }
           resultsCount.textContent = isAr 
-            ? `عرض ٣٠ من ٣٠ اسم` 
-            : `Showing 30 of 30 names`;
+            ? `عرض ٣٦ من ٣٦ اسم` 
+            : `Showing 36 of 36 names`;
           return;
         }
 
         // Filter search
-        const filtered = delegates.filter(del => {
-          return del.name.toLowerCase().includes(query) || 
-                 del.nameAr.includes(query) || 
-                 del.specialty.toLowerCase().includes(query) || 
-                 del.specialtyAr.includes(query);
+        const filtered = faculty.filter(fac => {
+          return fac.name.toLowerCase().includes(query) || 
+                 fac.nameAr.includes(query) || 
+                 fac.specialty.toLowerCase().includes(query) || 
+                 fac.specialtyAr.includes(query);
         });
 
-        // Hide marquee, show search grid
+        // Hide marquee, hide original tabs panel, show search grid
         marqueeContainer.style.display = 'none';
+        if (tracksContainerMain) {
+          tracksContainerMain.style.display = 'none';
+        }
         searchGrid.style.display = 'grid';
         if (window.innerWidth < 768) {
           alphabetStrip.style.display = 'flex';
         }
 
         // Render matching cards
-        searchGrid.innerHTML = filtered.map(del => {
-          const nameText = isAr ? del.nameAr : del.name;
-          const specText = isAr ? del.specialtyAr : del.specialty;
-          const letter = del.name.replace(/^(Prof\.|Dr\.)\s+/i, '').trim()[0].toUpperCase();
+        searchGrid.innerHTML = filtered.map(fac => {
+          const nameText = isAr ? fac.nameAr : fac.name;
+          const specText = isAr ? fac.specialtyAr : fac.specialty;
+          const letter = fac.name.replace(/^(Prof\.|Dr\.)\s+/i, '').trim()[0].toUpperCase();
           return `
             <div class="attendee-card" data-letter="${letter}">
               <div class="attendee-card-name">${nameText}</div>
@@ -5491,15 +5518,15 @@
         if (filtered.length === 0) {
           searchGrid.innerHTML = `
             <div style="grid-column:1/-1;text-align:center;color:var(--text-secondary);padding:3rem 0;">
-              ${isAr ? 'لم يتم العثور على نتائج تطابق بحثك' : 'No attendees found matching your search'}
+              ${isAr ? 'لم يتم العثور على نتائج تطابق بحثك' : 'No faculty found matching your search'}
             </div>
           `;
         }
 
         // Update count
         resultsCount.textContent = isAr 
-          ? `عرض ${filtered.length} من ٣٠ اسم` 
-          : `Showing ${filtered.length} of 30 names`;
+          ? `عرض ${filtered.length} من ٣٦ اسم` 
+          : `Showing ${filtered.length} of 36 names`;
       });
     }
 
@@ -5617,7 +5644,7 @@
     colorCodeAgenda();
     initScrollProgress();
     initSpeakerCarousel();
-    initAttendeesSection();
+    initFacultySection();
     initMobileAccordion();
     initMobileBottomNavActiveState();
     throttleMobilePerformance();
