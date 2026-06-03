@@ -4,7 +4,6 @@
 # Large binary files - not needed in repo
 *.pdf
 page_*.png
-cardio_theme_bg.png
 
 # Python scripts (local tools only)
 *.py
