@@ -2824,31 +2824,40 @@
     }
 
     @media (max-width: 768px) {
+      #board .board-carousel-outer {
+        padding: 0 !important;
+        overflow: hidden;
+        max-width: 100%;
+      }
       #board .board-carousel-container {
-        height: 440px;
+        height: 390px;
+        perspective: 800px;
+        overflow: hidden;
       }
       #board .board-luxury-card {
-        width: 270px;
-        height: 370px;
+        width: 240px;
+        height: 340px;
       }
       #board .board-luxury-card.active {
         transform: translateX(0) scale(1.05) translateZ(0);
       }
       #board .board-luxury-card.prev-card {
-        transform: translateX(-160px) scale(0.8) translateZ(-80px) rotateY(10deg);
+        transform: translateX(-150px) scale(0.82) translateZ(-60px) rotateY(12deg);
         opacity: 0.35;
       }
       #board .board-luxury-card.next-card {
-        transform: translateX(160px) scale(0.8) translateZ(-80px) rotateY(-10deg);
+        transform: translateX(150px) scale(0.82) translateZ(-60px) rotateY(-12deg);
         opacity: 0.35;
       }
       #board .board-luxury-card.far-prev-card {
         transform: translateX(-260px) scale(0.65) translateZ(-120px);
         opacity: 0;
+        pointer-events: none;
       }
       #board .board-luxury-card.far-next-card {
         transform: translateX(260px) scale(0.65) translateZ(-120px);
         opacity: 0;
+        pointer-events: none;
       }
     }
 
@@ -3798,83 +3807,6 @@
         padding: 2.5rem 1rem !important; 
       }
       h1, .hero-title { font-size: 2rem !important; }
-    }
-
-    /* ========================
-       BOARD MOBILE PEEK CAROUSEL
-       Matches desktop experience on mobile:
-       - Active card ~85% width, centered
-       - Adjacent cards peek ~8% each side
-       - Navigation arrows always visible
-    ======================== */
-    @media (max-width: 768px) {
-      /* Outer wrapper: clips overflow so only 1 card visible + peek */
-      #board .board-carousel-outer {
-        overflow: hidden !important;
-        position: relative !important;
-        padding: 0 !important;
-        width: 100% !important;
-      }
-
-      /* Track: JS controls translateX, no native scrolling */
-      #board .board-carousel-track {
-        display: flex !important;
-        flex-wrap: nowrap !important;
-        overflow: visible !important;
-        width: 100% !important;
-        scroll-snap-type: none !important;
-      }
-
-      /* Each card: width set by JS (85% of container) */
-      #board .board-luxury-card {
-        flex: 0 0 auto !important;
-        width: 85% !important;
-        transition: opacity 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease !important;
-        transform-origin: center !important;
-        opacity: 0.5 !important;
-        transform: scale(0.92) !important;
-      }
-
-      /* Active card: elevated & full opacity */
-      #board .board-luxury-card.active {
-        opacity: 1 !important;
-        transform: scale(1) !important;
-        box-shadow: 0 20px 60px rgba(139,43,226,0.4) !important;
-        border-color: rgba(168,85,247,0.6) !important;
-      }
-
-      /* Separator elements hidden on mobile */
-      #board .board-carousel-sep {
-        display: none !important;
-      }
-
-      /* Navigation arrows — always shown on mobile */
-      #board .board-nav-arrow {
-        display: flex !important;
-        position: absolute !important;
-        top: 50% !important;
-        transform: translateY(-50%) !important;
-        z-index: 10 !important;
-        background: rgba(10,5,20,0.8) !important;
-        border: 1px solid rgba(168,85,247,0.4) !important;
-        color: var(--primary-bright) !important;
-        width: 36px !important;
-        height: 36px !important;
-        border-radius: 50% !important;
-        font-size: 1.3rem !important;
-        cursor: pointer !important;
-        align-items: center !important;
-        justify-content: center !important;
-        backdrop-filter: blur(8px) !important;
-        -webkit-backdrop-filter: blur(8px) !important;
-        transition: all 0.25s !important;
-      }
-      #board .board-nav-arrow.prev { left: 6px !important; }
-      #board .board-nav-arrow.next { right: 6px !important; }
-      #board .board-nav-arrow:disabled {
-        opacity: 0.2 !important;
-        pointer-events: none !important;
-      }
     }
 
 
@@ -5897,116 +5829,6 @@
     updateCoverflow();
   }
 
-  /* ================================================================
-     BOARD SECTION — MOBILE PEEK CAROUSEL
-     Overrides the desktop coverflow carousel on mobile (≤768px).
-     Shows active card at 85% width, adjacent cards peek ~7.5% each.
-  ================================================================ */
-  function initBoardMobileCarousel() {
-    if (window.innerWidth > 768) return;
-
-    const boardSection = document.getElementById('board');
-    if (!boardSection) return;
-
-    const track = boardSection.querySelector('.board-carousel-track');
-    const outer = boardSection.querySelector('.board-carousel-outer');
-    const prevBtn = document.getElementById('boardPrevBtn');
-    const nextBtn = document.getElementById('boardNextBtn');
-    if (!track || !outer) return;
-
-    // All member cards (skip sep elements)
-    const cards = Array.from(track.querySelectorAll('.board-luxury-card'));
-    if (cards.length === 0) return;
-
-    // Make outer the clipping container
-    outer.style.overflow = 'hidden';
-    outer.style.position = 'relative';
-
-    // Make track a flex row
-    track.style.display = 'flex';
-    track.style.flexWrap = 'nowrap';
-    track.style.transition = 'transform 0.42s cubic-bezier(0.25,1,0.5,1)';
-    track.style.willChange = 'transform';
-    track.style.transform = 'translateX(0)';
-
-    // Hide separator elements
-    Array.from(track.querySelectorAll('.board-carousel-sep')).forEach(sep => {
-      sep.style.display = 'none';
-    });
-
-    let current = 0;
-    const CARD_RATIO = 0.85;
-    const PEEK_RATIO = (1 - CARD_RATIO) / 2;
-
-    function calc() {
-      return outer.getBoundingClientRect().width;
-    }
-
-    function render(animate) {
-      const W = calc();
-      const cardW = W * CARD_RATIO;
-      const gap = W * 0.025;
-      const offset = W * PEEK_RATIO - current * (cardW + gap);
-
-      track.style.transition = animate ? 'transform 0.42s cubic-bezier(0.25,1,0.5,1)' : 'none';
-      track.style.transform = `translateX(${offset}px)`;
-
-      cards.forEach((card, i) => {
-        card.style.width = cardW + 'px';
-        card.style.minWidth = cardW + 'px';
-        card.style.flexShrink = '0';
-        card.style.marginRight = i < cards.length - 1 ? gap + 'px' : '0';
-
-        if (i === current) {
-          card.classList.add('active');
-          card.style.opacity = '1';
-          card.style.transform = 'scale(1)';
-          card.style.boxShadow = '0 20px 60px rgba(139,43,226,0.4)';
-          card.style.borderColor = 'rgba(168,85,247,0.6)';
-        } else {
-          card.classList.remove('active');
-          card.style.opacity = '0.5';
-          card.style.transform = 'scale(0.92)';
-          card.style.boxShadow = '';
-          card.style.borderColor = '';
-        }
-      });
-
-      if (prevBtn) prevBtn.disabled = (current === 0);
-      if (nextBtn) nextBtn.disabled = (current === cards.length - 1);
-    }
-
-    // Override existing button listeners by cloning (removing old ones)
-    function attachBtn(btn, dir) {
-      if (!btn) return;
-      const newBtn = btn.cloneNode(true);
-      btn.parentNode.replaceChild(newBtn, btn);
-      newBtn.addEventListener('click', () => {
-        if (dir === 'prev' && current > 0) { current--; render(true); }
-        if (dir === 'next' && current < cards.length - 1) { current++; render(true); }
-      });
-      return newBtn;
-    }
-    attachBtn(prevBtn, 'prev');
-    attachBtn(nextBtn, 'next');
-
-    // Touch swipe
-    let tsX = 0;
-    track.addEventListener('touchstart', e => { tsX = e.touches[0].clientX; }, { passive: true });
-    track.addEventListener('touchend', e => {
-      const dx = tsX - e.changedTouches[0].clientX;
-      if (Math.abs(dx) > 40) {
-        if (dx > 0 && current < cards.length - 1) { current++; render(true); }
-        else if (dx < 0 && current > 0) { current--; render(true); }
-      }
-    }, { passive: true });
-
-    render(false);
-    window.addEventListener('resize', () => {
-      if (window.innerWidth <= 768) render(false);
-    });
-  }
-
   // 5. Faculty Infinite Marquee & Search
   function initFacultySection() {
     const isAr = document.documentElement.getAttribute('dir') === 'rtl';
@@ -6272,7 +6094,6 @@
     initMobileAccordion();
     initMobileBottomNavActiveState();
     throttleMobilePerformance();
-    initBoardMobileCarousel();
   });
 
   /* Apply Translations Before GSAP */
