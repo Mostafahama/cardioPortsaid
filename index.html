@@ -3109,7 +3109,7 @@
       letter-spacing: 0.05em;
     }
 
-    /* Bottom mobile nav wrapper desktop styling (hidden) */
+    /* Bottom mobile nav and sticky register button — removed entirely */
     .mobile-bottom-nav {
       display: none !important;
     }
@@ -3144,56 +3144,33 @@
         min-width: 44px;
       }
       
-      /* Navigation swap */
-      .nav-desktop-container, .nav-hamburger, #menuToggle {
+      /* Navigation swap — keep top-right hamburger, hide bottom nav */
+      .nav-desktop-container {
         display: none !important;
       }
-      .mobile-bottom-nav {
+      .nav-hamburger, #menuToggle {
         display: flex !important;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100vw;
-        height: 60px;
-        background: #0A0E1A;
-        border-top: 1px solid rgba(255,255,255,0.08);
-        z-index: 9999;
-        justify-content: space-around;
-        align-items: center;
-        padding-bottom: env(safe-area-inset-bottom);
-      }
-      .mobile-nav-item {
-        display: flex;
-        flex-direction: column;
         align-items: center;
         justify-content: center;
-        color: var(--text-secondary);
-        font-size: 0.62rem;
-        text-decoration: none;
-        gap: 0.15rem;
-        flex: 1;
-        height: 100%;
-        transition: all 0.2s;
       }
-      .mobile-nav-item.active {
-        color: #C0392B;
-      }
-      .mobile-nav-item svg {
-        width: 20px;
-        height: 20px;
-        fill: currentColor;
+      .mobile-bottom-nav {
+        display: none !important;
       }
 
-      /* Hero mobile layout */
+      /* Hero mobile layout — fully responsive */
       #hero {
-        height: 85vh !important;
-        min-height: 580px;
+        min-height: 100vh !important;
+        min-height: 100svh !important;
+        height: auto !important;
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: center;
-        padding-top: 3.5rem;
+        padding-top: 5rem;
+        padding-bottom: 3rem;
         position: relative;
+        overflow: hidden;
+        box-sizing: border-box;
       }
       .hero-tagline {
         font-size: 0.95rem !important;
@@ -3484,49 +3461,17 @@
         justify-content: flex-start !important;
       }
       
-      /* Sticky Registration CTA button above nav bar */
+      /* Red sticky register button — removed entirely */
       .register-sticky-btn-wrapper {
-        display: block !important;
-        position: fixed;
-        bottom: 60px; /* above bottom navigation */
-        left: 0;
-        width: 100vw;
-        background: linear-gradient(to top, #0A0E1A 70%, transparent);
-        padding: 0.6rem 1.2rem 1rem;
-        z-index: 9998;
-      }
-      .register-sticky-btn {
-        width: 100%;
-        height: 56px;
-        background: #C0392B;
-        color: #fff;
-        border: none;
-        border-radius: 28px;
-        font-size: 0.95rem;
-        font-weight: 750;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 8px 24px rgba(192, 57, 43, 0.4);
-        cursor: pointer;
-        transition: all 0.3s;
-      }
-      .register-sticky-btn:active {
-        transform: scale(0.97);
-        background: #962c20;
+        display: none !important;
       }
 
       /* Extra margins and paddings for safety scroll */
       section {
-        padding-bottom: 5rem !important;
-      }
-      #hero {
-        padding-bottom: 1.5rem !important;
+        padding-bottom: 3rem !important;
       }
       #footer {
-        padding-bottom: 6.5rem !important;
+        padding-bottom: 2rem !important;
       }
       
       /* Disable mouse helper custom cursor on mobile */
@@ -3560,7 +3505,8 @@
       
       /* Navbar */
       nav .nav-links, nav #navbar .nav-links { display: none !important; }
-      nav .nav-hamburger, nav #menuToggle { 
+      /* Keep only the top-right hamburger menu visible */
+      .nav-hamburger, #menuToggle { 
         display: flex !important; 
         align-items: center; 
         justify-content: center;
@@ -3600,10 +3546,9 @@
         right: 1.25rem !important;
         font-size: 1.8rem !important;
       }
+      /* Bottom nav removed */
       .mobile-bottom-nav {
-        display: flex !important;
-        z-index: 99999 !important;
-        padding-bottom: env(safe-area-inset-bottom) !important;
+        display: none !important;
       }
       
       /* Hero */
@@ -3853,6 +3798,103 @@
         padding: 2.5rem 1rem !important; 
       }
       h1, .hero-title { font-size: 2rem !important; }
+    }
+
+    /* ========================
+       BOARD MOBILE PEEK CAROUSEL
+       Matches desktop experience on mobile:
+       - Active card ~85% width, centered
+       - Adjacent cards peek ~8% each side
+       - Navigation arrows always visible
+    ======================== */
+    @media (max-width: 768px) {
+      /* Outer wrapper: clips overflow so only 1 card visible + peek */
+      #board .board-carousel-outer {
+        overflow: hidden !important;
+        position: relative !important;
+        padding: 0 !important;
+        width: 100% !important;
+      }
+
+      /* Track: JS controls translateX, no native scrolling */
+      #board .board-carousel-track {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        overflow: visible !important;
+        width: 100% !important;
+        scroll-snap-type: none !important;
+      }
+
+      /* Each card: width set by JS (85% of container) */
+      #board .board-luxury-card {
+        flex: 0 0 auto !important;
+        width: 85% !important;
+        transition: opacity 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease !important;
+        transform-origin: center !important;
+        opacity: 0.5 !important;
+        transform: scale(0.92) !important;
+      }
+
+      /* Active card: elevated & full opacity */
+      #board .board-luxury-card.active {
+        opacity: 1 !important;
+        transform: scale(1) !important;
+        box-shadow: 0 20px 60px rgba(139,43,226,0.4) !important;
+        border-color: rgba(168,85,247,0.6) !important;
+      }
+
+      /* Separator elements hidden on mobile */
+      #board .board-carousel-sep {
+        display: none !important;
+      }
+
+      /* Navigation arrows — always shown on mobile */
+      #board .board-nav-arrow {
+        display: flex !important;
+        position: absolute !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        z-index: 10 !important;
+        background: rgba(10,5,20,0.8) !important;
+        border: 1px solid rgba(168,85,247,0.4) !important;
+        color: var(--primary-bright) !important;
+        width: 36px !important;
+        height: 36px !important;
+        border-radius: 50% !important;
+        font-size: 1.3rem !important;
+        cursor: pointer !important;
+        align-items: center !important;
+        justify-content: center !important;
+        backdrop-filter: blur(8px) !important;
+        -webkit-backdrop-filter: blur(8px) !important;
+        transition: all 0.25s !important;
+      }
+      #board .board-nav-arrow.prev { left: 6px !important; }
+      #board .board-nav-arrow.next { right: 6px !important; }
+      #board .board-nav-arrow:disabled {
+        opacity: 0.2 !important;
+        pointer-events: none !important;
+      }
+    }
+
+
+    /* ========================
+       ARABIC ORDINAL DISPLAY FIX
+       "الأولى" should render in the same large
+       decorative font as the English "1st"
+    ======================== */
+    html[dir="rtl"] .hero-edition {
+      font-family: 'Cinzel', 'Tajawal', serif;
+      font-size: clamp(3.5rem, 9vw, 8rem);
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      line-height: 1;
+    }
+    @media (max-width: 768px) {
+      html[dir="rtl"] .hero-edition {
+        font-size: clamp(2.8rem, 11vw, 5rem) !important;
+        line-height: 1.1 !important;
+      }
     }
   </style>
 </head>
@@ -4877,33 +4919,7 @@
   </p>
 </footer>
 
-<!-- Mobile Navigation and Register floating bar (Fixed at bottom on mobile) -->
-<div class="register-sticky-btn-wrapper" aria-hidden="true">
-  <button class="register-sticky-btn" onclick="document.getElementById('registerModal').classList.add('open')" data-ar="سجل الآن">Register Now</button>
-</div>
 
-<nav class="mobile-bottom-nav" aria-label="Mobile navigation bar" aria-hidden="true">
-  <a href="#hero" class="mobile-nav-item active" id="mobNavHome">
-    <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-    <span data-ar="الرئيسية">Home</span>
-  </a>
-  <a href="#board" class="mobile-nav-item" id="mobNavBoard">
-    <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
-    <span data-ar="اللجنة">Board</span>
-  </a>
-  <a href="#agenda" class="mobile-nav-item" id="mobNavAgenda">
-    <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
-    <span data-ar="الأجندة">Agenda</span>
-  </a>
-  <a href="javascript:void(0)" class="mobile-nav-item" onclick="document.getElementById('registerModal').classList.add('open')">
-    <svg viewBox="0 0 24 24"><path d="M18 17H6v-2h12v2zm0-4H6v-2h12v2zm0-4H6V7h12v2zM3 5v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2z"/></svg>
-    <span data-ar="التسجيل">Register</span>
-  </a>
-  <a href="#footer" class="mobile-nav-item" id="mobNavMore">
-    <svg viewBox="0 0 24 24"><path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
-    <span data-ar="المزيد">More</span>
-  </a>
-</nav>
 
 <!-- Registration Modal -->
 <div class="modal-overlay" id="registerModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
@@ -5868,7 +5884,116 @@
     updateCoverflow();
   }
 
-  // 5. Attendees Infinite Marquee & Search
+  /* ================================================================
+     BOARD SECTION — MOBILE PEEK CAROUSEL
+     Overrides the desktop coverflow carousel on mobile (≤768px).
+     Shows active card at 85% width, adjacent cards peek ~7.5% each.
+  ================================================================ */
+  function initBoardMobileCarousel() {
+    if (window.innerWidth > 768) return;
+
+    const boardSection = document.getElementById('board');
+    if (!boardSection) return;
+
+    const track = boardSection.querySelector('.board-carousel-track');
+    const outer = boardSection.querySelector('.board-carousel-outer');
+    const prevBtn = document.getElementById('boardPrevBtn');
+    const nextBtn = document.getElementById('boardNextBtn');
+    if (!track || !outer) return;
+
+    // All member cards (skip sep elements)
+    const cards = Array.from(track.querySelectorAll('.board-luxury-card'));
+    if (cards.length === 0) return;
+
+    // Make outer the clipping container
+    outer.style.overflow = 'hidden';
+    outer.style.position = 'relative';
+
+    // Make track a flex row
+    track.style.display = 'flex';
+    track.style.flexWrap = 'nowrap';
+    track.style.transition = 'transform 0.42s cubic-bezier(0.25,1,0.5,1)';
+    track.style.willChange = 'transform';
+    track.style.transform = 'translateX(0)';
+
+    // Hide separator elements
+    Array.from(track.querySelectorAll('.board-carousel-sep')).forEach(sep => {
+      sep.style.display = 'none';
+    });
+
+    let current = 0;
+    const CARD_RATIO = 0.85;
+    const PEEK_RATIO = (1 - CARD_RATIO) / 2;
+
+    function calc() {
+      return outer.getBoundingClientRect().width;
+    }
+
+    function render(animate) {
+      const W = calc();
+      const cardW = W * CARD_RATIO;
+      const gap = W * 0.025;
+      const offset = W * PEEK_RATIO - current * (cardW + gap);
+
+      track.style.transition = animate ? 'transform 0.42s cubic-bezier(0.25,1,0.5,1)' : 'none';
+      track.style.transform = `translateX(${offset}px)`;
+
+      cards.forEach((card, i) => {
+        card.style.width = cardW + 'px';
+        card.style.minWidth = cardW + 'px';
+        card.style.flexShrink = '0';
+        card.style.marginRight = i < cards.length - 1 ? gap + 'px' : '0';
+
+        if (i === current) {
+          card.classList.add('active');
+          card.style.opacity = '1';
+          card.style.transform = 'scale(1)';
+          card.style.boxShadow = '0 20px 60px rgba(139,43,226,0.4)';
+          card.style.borderColor = 'rgba(168,85,247,0.6)';
+        } else {
+          card.classList.remove('active');
+          card.style.opacity = '0.5';
+          card.style.transform = 'scale(0.92)';
+          card.style.boxShadow = '';
+          card.style.borderColor = '';
+        }
+      });
+
+      if (prevBtn) prevBtn.disabled = (current === 0);
+      if (nextBtn) nextBtn.disabled = (current === cards.length - 1);
+    }
+
+    // Override existing button listeners by cloning (removing old ones)
+    function attachBtn(btn, dir) {
+      if (!btn) return;
+      const newBtn = btn.cloneNode(true);
+      btn.parentNode.replaceChild(newBtn, btn);
+      newBtn.addEventListener('click', () => {
+        if (dir === 'prev' && current > 0) { current--; render(true); }
+        if (dir === 'next' && current < cards.length - 1) { current++; render(true); }
+      });
+      return newBtn;
+    }
+    attachBtn(prevBtn, 'prev');
+    attachBtn(nextBtn, 'next');
+
+    // Touch swipe
+    let tsX = 0;
+    track.addEventListener('touchstart', e => { tsX = e.touches[0].clientX; }, { passive: true });
+    track.addEventListener('touchend', e => {
+      const dx = tsX - e.changedTouches[0].clientX;
+      if (Math.abs(dx) > 40) {
+        if (dx > 0 && current < cards.length - 1) { current++; render(true); }
+        else if (dx < 0 && current > 0) { current--; render(true); }
+      }
+    }, { passive: true });
+
+    render(false);
+    window.addEventListener('resize', () => {
+      if (window.innerWidth <= 768) render(false);
+    });
+  }
+
   // 5. Faculty Infinite Marquee & Search
   function initFacultySection() {
     const isAr = document.documentElement.getAttribute('dir') === 'rtl';
@@ -6134,6 +6259,7 @@
     initMobileAccordion();
     initMobileBottomNavActiveState();
     throttleMobilePerformance();
+    initBoardMobileCarousel();
   });
 
   /* Apply Translations Before GSAP */
