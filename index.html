@@ -3144,14 +3144,16 @@
         min-width: 44px;
       }
       
-      /* Navigation swap — keep top-right hamburger, hide bottom nav */
+      /* Navigation swap — hide all nav items on mobile, only logo visible */
       .nav-desktop-container {
         display: none !important;
       }
+      /* Hide hamburger icon completely — mobile menu opened via logo or other means */
       .nav-hamburger, #menuToggle {
-        display: flex !important;
-        align-items: center;
-        justify-content: center;
+        display: none !important;
+      }
+      .mobile-lang-btn {
+        display: none !important;
       }
       .mobile-bottom-nav {
         display: none !important;
@@ -3505,11 +3507,9 @@
       
       /* Navbar */
       nav .nav-links, nav #navbar .nav-links { display: none !important; }
-      /* Keep only the top-right hamburger menu visible */
+      /* Keep only the top-right hamburger menu visible — HIDDEN on mobile */
       .nav-hamburger, #menuToggle { 
-        display: flex !important; 
-        align-items: center; 
-        justify-content: center;
+        display: none !important; 
       }
       .mobile-lang-btn {
         display: inline-block !important;
@@ -3879,21 +3879,34 @@
 
 
     /* ========================
-       ARABIC ORDINAL DISPLAY FIX
-       "الأولى" should render in the same large
-       decorative font as the English "1st"
+       ARABIC MODE — HERO TITLE RESIZING
+       "النسخة الأولى" is longer text so font must be
+       smaller; hero-name (كارديو بورسعيد) also reduced.
     ======================== */
     html[dir="rtl"] .hero-edition {
-      font-family: 'Cinzel', 'Tajawal', serif;
-      font-size: clamp(3.5rem, 9vw, 8rem);
+      font-family: 'Tajawal', sans-serif;
+      font-size: clamp(2rem, 6vw, 4.5rem);
       font-weight: 900;
-      letter-spacing: 0.02em;
-      line-height: 1;
+      letter-spacing: 0.01em;
+      line-height: 1.15;
+      background: linear-gradient(135deg, var(--accent-gold), #F5D98A, var(--accent-gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    html[dir="rtl"] .hero-name {
+      font-family: 'Tajawal', sans-serif;
+      font-size: clamp(2rem, 5.5vw, 5rem);
+      letter-spacing: 0.01em;
     }
     @media (max-width: 768px) {
       html[dir="rtl"] .hero-edition {
-        font-size: clamp(2.8rem, 11vw, 5rem) !important;
-        line-height: 1.1 !important;
+        font-size: clamp(1.6rem, 7vw, 2.8rem) !important;
+        line-height: 1.2 !important;
+      }
+      html[dir="rtl"] .hero-name {
+        font-size: clamp(1.8rem, 8vw, 3.2rem) !important;
+        line-height: 1.15 !important;
       }
     }
   </style>
@@ -3992,7 +4005,7 @@
   <div class="hero-badge" id="heroBadge" data-ar="النسخة الأولى · أكتوبر ٢٠٢٦">1<sup>st</sup> Edition · October 2026</div>
 
   <div class="hero-title-block" id="heroTitleBlock">
-    <span class="hero-edition" data-ar="الأولى">1<sup>st</sup></span>
+    <span class="hero-edition" data-ar="النسخة الأولى">1<sup>st</sup></span>
     <h1 class="hero-name" id="hero-heading" data-ar="كارديو<br>بورسعيد">Cardio<br>Portsaid</h1>
   </div>
 
