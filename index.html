@@ -496,8 +496,9 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      line-height: 1.05;
+      line-height: 1.2;
       text-align: center;
+      padding-bottom: 0.05em;
     }
     .hero-tagline {
       font-size: clamp(1rem, 2.5vw, 1.35rem);
@@ -3826,10 +3827,18 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
+    /* RTL hero-title-block: add bottom padding so Arabic
+       descenders (ي, د, etc.) are not clipped by the
+       background-clip:text bounding box */
+    html[dir="rtl"] .hero-title-block {
+      padding-bottom: 0.3em;
+    }
     html[dir="rtl"] .hero-name {
       font-family: 'Tajawal', sans-serif;
       font-size: clamp(2rem, 5.5vw, 5rem);
       letter-spacing: 0.01em;
+      line-height: 1.4;
+      padding-bottom: 0.15em;
     }
     @media (max-width: 768px) {
       html[dir="rtl"] .hero-edition {
@@ -3838,7 +3847,11 @@
       }
       html[dir="rtl"] .hero-name {
         font-size: clamp(1.8rem, 8vw, 3.2rem) !important;
-        line-height: 1.15 !important;
+        line-height: 1.45 !important;
+        padding-bottom: 0.2em !important;
+      }
+      html[dir="rtl"] .hero-title-block {
+        padding-bottom: 0.4em !important;
       }
     }
   </style>
