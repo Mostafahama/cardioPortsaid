@@ -48,4 +48,3 @@ window.handleRegistrationFormSubmit = function(e) {
     document.getElementById('registrationForm').style.display = 'none';
     document.getElementById('regSuccessMsg').style.display = 'block';
 };
-}
